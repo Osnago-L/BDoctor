@@ -49,4 +49,7 @@ class User extends Model
     public function titles(){
         return $this->belongsToMany('App\Title');
     }
+    public function performances(){
+        return $this->belongsToMany('App\Performance');
+    }
 }
