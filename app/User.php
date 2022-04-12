@@ -52,4 +52,7 @@ class User extends Model
     public function performances(){
         return $this->belongsToMany('App\Performance');
     }
+    public function sponsorships(){
+        return $this->belongsToMany('App\Sponsorship');
+    }
 }
