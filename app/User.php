@@ -36,10 +36,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-}
 
-class User extends Model
-{
     public function message(){
         return $this->belongsTo('App\Message');
     }
@@ -56,3 +53,4 @@ class User extends Model
         return $this->belongsToMany('App\Sponsorship');
     }
 }
+
