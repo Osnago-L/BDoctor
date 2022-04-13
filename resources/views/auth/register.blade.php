@@ -66,6 +66,25 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="">Specializzazione Primaria</label>
+                            <select name="title_id" id="title_id" class="form-control @error('title_id') is-invalid @enderror">
+                                <option selected>
+                                    Scegli..
+                                </option>
+                                    @foreach ($titles as $title)
+                                        <option value="{{ $title->id }}">
+                                                {{ $title->name }}
+                                        </option>
+                                    @endforeach
+                            </select>   
+                            @error('title_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                        
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>

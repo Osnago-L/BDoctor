@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\Title;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -23,6 +24,12 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+
+    public function showRegistrationForm()
+    {
+        $titles=Title::all();
+        return view('auth.register', compact('titles'));
+    }
 
     /**
      * Where to redirect users after registration.
@@ -55,10 +62,9 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'address' => ['required', 'string', 'max:50'],
-            // 'title_id' => ['required','exists:titles,id']
+            'title_id' => ['required']
         ]);
     }
-
     /**
      * Create a new user instance after a valid registration.
      *
@@ -66,14 +72,20 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
-        return User::create([
+    {  
+
+
+        $user = User::create([
             'name' => $data['name'],
             'surname' => $data['surname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'address' => $data['address'],
-            // 'title_id' => $data['title_id']
+            'address' => $data['address'],     
         ]);
+
+        $user->titles()->sync($data['title_id']);
+
+        return $user;
+
     }
 }
