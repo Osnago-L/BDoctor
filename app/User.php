@@ -38,10 +38,10 @@ class User extends Authenticatable
     ];
 
     public function message(){
-        return $this->belongsTo('App\Message');
+        return $this->hasMany('App\Message');
     }
     public function review(){
-        return $this->belongsTo('App\Review');
+        return $this->hasMany('App\Review');
     }
     public function titles(){
         return $this->belongsToMany('App\Title');

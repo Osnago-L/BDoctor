@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddReviewsToUsersTable extends Migration
+class AddUserToReviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddReviewsToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('review_id')->nullable()->constrained()->onDelete('set null');
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
         });
     }
 
@@ -25,9 +25,9 @@ class AddReviewsToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['review_id']);
-            $table->dropColumn('review_id');
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
         });
     }
 }
