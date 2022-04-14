@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     
-    SHOW 
+    Benvenuto {{$user->name}}
     
 </div>
 @endsection
