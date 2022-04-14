@@ -19,4 +19,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth')
+    ->namespace('Admin') //namespace Admin dice che tutte le rotte vanno prese nel controller nella cartella Admin
+    ->name('admin.') //tutte le rotte avranno all inizio admin.
+    ->prefix('admin') //relativo a tutto le rotte (prefisso della url)
+    ->group(function(){ 
+        Route::get('/home', 'HomeController@index')->name('home');
+        Route::resource('/user', 'UserController');
+        /* Route::patch("comments/{comment}","CommentController@update")->name("comments.update");
+        Route::delete("comments/{comment}", "CommentController@destroy")->name("comments.destroy"); */
+    }); 
