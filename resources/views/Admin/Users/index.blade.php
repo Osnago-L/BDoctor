@@ -27,6 +27,8 @@
                 <div>{{$user->cv}}</div>
             @endif
        </div>
+       <a class="mt-3" href="{{route("admin.user.edit",Auth::id())}}"><button class="btn btn-primary">Modifica Profilo</button></a>
+
     </div>
 </div>
 @endsection

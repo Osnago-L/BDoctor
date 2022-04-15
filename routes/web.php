@@ -25,22 +25,19 @@ Route::middleware('auth')
     ->name('admin.') //tutte le rotte avranno all inizio admin.
     ->prefix('admin') //relativo a tutto le rotte (prefisso della url)
     ->group(function(){ 
-        Route::get('/home', 'HomeController@index')->name('home');
-        /* Route::get('/user/edit', 'UserEditController@edit')->name('user.edit'); */
-        /* Route::put('/user', 'UserEditController@update')->name('user.update'); */ // no need for name here since we can use PUT method on edit-account.
+        Route::get('/', 'HomeController@index')->name('home');
         Route::resource('/user', 'UserController');/* ->except(['edit', 'update']); */
-        /* Route::patch("comments/{comment}","CommentController@update")->name("comments.update");
-        Route::delete("comments/{comment}", "CommentController@destroy")->name("comments.destroy"); */
+        Route::resource("/user/{user:id}/messages", 'MessageController');
     }); 
-Route::get('/home', 'HomeController@index')->name('home');
 
 
-/* rotte raggiungibili solo da /admin */
-Route::middleware('auth')
-->namespace('Admin') /* con questo diciamo dove devono puntare i vari Controllers */
-->name('admin.')  /* base della rotta con dot notation da anteporre ai percorsi nel group */
-->prefix('admin')
-->group(function() { /* group() applica tutte le precedenti alle rotte definite dentro la sua function */
-    Route::get("/", 'HomeController@index')->name('home'); /* indirizzo qui viene aggiunto a /admin */
-    Route::resource("/users/{user:id}/messages", 'MessageController');
-}); 
+
+// /* rotte raggiungibili solo da /admin */
+// Route::middleware('auth')
+// ->namespace('Admin') /* con questo diciamo dove devono puntare i vari Controllers */
+// ->name('admin.')  /* base della rotta con dot notation da anteporre ai percorsi nel group */
+// ->prefix('admin')
+// ->group(function() { /* group() applica tutte le precedenti alle rotte definite dentro la sua function */
+//     Route::get("/", 'HomeController@index')->name('home'); /* indirizzo qui viene aggiunto a /admin */
+//     Route::resource("/users/{user:id}/messages", 'MessageController');
+// }); 

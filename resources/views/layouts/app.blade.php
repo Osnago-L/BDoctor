@@ -82,9 +82,9 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="flex-column collapse navbar-collapse" id="navbarSupportedContent">
-                            <a href="{{route("admin.user.index")}}"><i class="bi bi-house"></i>Home</a>
-                            <a href="{{route("admin.user.edit", $user->id)}}">Modifica Profilo</a>
-                            <a href="#">Messaggi</a>
+                            <a href="{{route("admin.home")}}"><i class="bi bi-house"></i>Home</a>
+                            <a href="{{route("admin.user.index")}}">Il Mio Profilo</a>
+                            <a href="{{route("admin.messages.index",Auth::user()->id)}}">Messaggi</a>
                             <a href="#">Recensioni</a>
                             <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
