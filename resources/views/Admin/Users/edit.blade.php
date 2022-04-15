@@ -49,6 +49,7 @@
                 @error('phone_n')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
+
         </div>
 
         <div class="form-group">
@@ -58,6 +59,36 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
+        <H1>Titolo</H1>
+        @foreach ($titles as $title)
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{$title->id}}" 
+                name="titles[]" id="{{$title->id}}"
+                {{$user->titles->contains($title) ? "checked" : ""}}>
+                <label class="form-check-label" for="{{$title->id}}">
+                    {{$title->name}}
+                </label>
+                @error('title')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            </div>
+        @endforeach
+        <H1>performance</H1>
+        @foreach ($performances as $performance)
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{$performance->id}}" 
+                name="performances[]" id="{{$performance->id}}"
+                {{$user->performances->contains($performance) ? "checked" : ""}}>
+                <label class="form-check-label" for="{{$performance->id}}">
+                    {{$performance->name}}
+                </label>
+                @error('performance')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            </div>
+        @endforeach
+
+        
 
         <div class="form-group">
             <label for="email">Modifica email</label>
@@ -67,10 +98,10 @@
             @enderror
         </div>
 
-       {{--  <div class="form-group mt-3">
+        <div class="form-group mt-3">
             <label for="image">Modifica l'immagine del tuo profilo</label>
             <input type="file" name="image" class="@error('image') is-invalid @enderror form-control-file" id="image">
-        </div> --}}
+        </div>
 
         <div class="form-group">
             <input type="submit" name="Submit" value="Modifica" class="ms_button btn btn-primary form-control" />
