@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,3 +32,15 @@ Route::middleware('auth')
         /* Route::patch("comments/{comment}","CommentController@update")->name("comments.update");
         Route::delete("comments/{comment}", "CommentController@destroy")->name("comments.destroy"); */
     }); 
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+/* rotte raggiungibili solo da /admin */
+Route::middleware('auth')
+->namespace('Admin') /* con questo diciamo dove devono puntare i vari Controllers */
+->name('admin.')  /* base della rotta con dot notation da anteporre ai percorsi nel group */
+->prefix('admin')
+->group(function() { /* group() applica tutte le precedenti alle rotte definite dentro la sua function */
+    Route::get("/", 'HomeController@index')->name('home'); /* indirizzo qui viene aggiunto a /admin */
+    Route::resource("/users/{user:id}/messages", 'MessageController');
+}); 
