@@ -56,9 +56,7 @@ class UserController extends Controller
      */
     public function show()
     {
-        /* $user = User::all()->where('id', auth()->user()->id)->get(); */
-
-        /* return view('admin.show', compact('user')); */
+     
     }
 
     /**
