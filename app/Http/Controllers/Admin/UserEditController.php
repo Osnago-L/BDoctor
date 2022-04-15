@@ -34,21 +34,24 @@ class UserEditController extends Controller
      */
     public function update(Request $request, User $user)
     {   
-        /* dd($request); */
-        $request->validate( [
+        
+        /* $request->validate( [
             'name' => 'required|string|max:20',
             'surname' => 'required|string|max:20',
             'email' => 'required|string|email|max:255|unique:users',
             'address' => 'required|string|max:50',
-            /* 'title_id' => 'required|exists:titles,id', */
-            /* 'performance_id' => 'array|exists:performance,id', */
+            'title_id' => 'required|exists:titles,id', 
+            'performance_id' => 'array|exists:performance,id', 
             'image' => 'nullable|image|mimes:jpg,bmp,png,jpeg,svg',
             'cv' => 'nullable|string',
             'phone_n' => 'nullable|string'
-        ]);
+        ]);  */
 
+        $user->name = $request->name;
+
+        $user->update();
         
-        $form_data = $request->all();
+        /* $form_data = $request->all(); */
 
         /* if(isset($form_data["image"])){
             $img_path = Storage::put('uploads', $form_data['image']);
@@ -56,7 +59,7 @@ class UserEditController extends Controller
         } */
         
 
-        $user->update($form_data);
+        /* $user->update($form_data); */
 
         
         /* $user->performances()->sync(isset($form_data['performance_id']) ? $form_data['performance_id'] : []); */

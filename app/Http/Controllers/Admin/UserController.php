@@ -69,7 +69,12 @@ class UserController extends Controller
      */
     public function edit()
     {
-    
+        $user = Auth::user();
+        
+
+        $titles = Title::all();
+        $performances = Performance::all();
+        return view('admin.users.edit', compact('user', 'titles','performances'));
     }
 
     /**
@@ -79,9 +84,25 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, User $user)
     {
-        
+        /* $request->validate( [
+            'name' => 'required|string|max:20',
+            'surname' => 'required|string|max:20',
+            'email' => 'required|string|email|max:255|unique:users',
+            'address' => 'required|string|max:50',
+            'title_id' => 'required|exists:titles,id', 
+            'performance_id' => 'array|exists:performance,id', 
+            'image' => 'nullable|image|mimes:jpg,bmp,png,jpeg,svg',
+            'cv' => 'nullable|string',
+            'phone_n' => 'nullable|string'
+        ]);  */
+
+        $user->name = $request->name;
+
+        $user->update();
+
+        return redirect()->route('admin.user.index');
     }
 
     /**

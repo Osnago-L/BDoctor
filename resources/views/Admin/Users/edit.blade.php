@@ -4,10 +4,12 @@
 
 <div class="container">
     
-    <form action="{{route ("admin.user.update" , $user->id )}}" method="POST" enctype="multipart/form-data" role="form">
+    <form action="{{route ("admin.user.update" , auth()->user() )}}" method="POST" enctype="multipart/form-data" role="form">
         
         @method('PUT')
         @csrf
+
+
         
         <div class="form-group">
             <label for="name" class="form-label">Aggiungi Nome</label>

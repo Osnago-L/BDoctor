@@ -25,9 +25,9 @@ Route::middleware('auth')
     ->prefix('admin') //relativo a tutto le rotte (prefisso della url)
     ->group(function(){ 
         Route::get('/home', 'HomeController@index')->name('home');
-        Route::get('/user/edit', 'UserEditController@edit')->name('user.edit');
-        Route::match(['put', 'patch'],'/user', 'UserEditController@update')->name('user.update'); // no need for name here since we can use PUT method on edit-account.
-        Route::resource('/user', 'UserController')->except(['edit', 'update']);
+        /* Route::get('/user/edit', 'UserEditController@edit')->name('user.edit'); */
+        /* Route::put('/user', 'UserEditController@update')->name('user.update'); */ // no need for name here since we can use PUT method on edit-account.
+        Route::resource('/user', 'UserController');/* ->except(['edit', 'update']); */
         /* Route::patch("comments/{comment}","CommentController@update")->name("comments.update");
         Route::delete("comments/{comment}", "CommentController@destroy")->name("comments.destroy"); */
     }); 
