@@ -69,7 +69,7 @@
 
                         <div class="form-group">
                             <label for="">Specializzazione Primaria</label>
-                            <select name="title_id" id="title_id" class="form-control @error('title_id') is-invalid @enderror">
+                            <select name="title_id" id="title_id"   class="form-control @error('title_id') is-invalid @enderror">
                                 <option selected>
                                     Scegli..
                                 </option>

@@ -6,3 +6,20 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+@import 'partials/_index';
+
+.ms_navbar{
+    position: absolute;
+    width: 150px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 48px 0 0;
+    box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%);
+}
+
+main{
+    margin-left: 150px;
+}
