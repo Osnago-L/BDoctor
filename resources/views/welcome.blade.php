@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>iDoctor</title>
+        <title>BDoctor</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -72,7 +72,7 @@
 
                         
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}">Accedi</a>
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Registrati</a>
                         @endif
@@ -82,7 +82,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    iDoctor
+                    BDoctor
                 </div>
 
                {{--  <div class="links">
