@@ -3,15 +3,30 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="ms_box col-lg-12 col-md-6  col-sm-6 ">
-            <h1>Benvenuto {{$user->name}}</h1>
-            <p>{{$user->surname}}</p>
-            <p>{{$user->address}}</p>
-            <p>{{$user->phone_n}}</p>
-            <p>{{$user->email}}</p>
-        </div>
+       <div class="col-12">
+            @if ($user->img)
+               <img src="{{$user->img}}" alt="">
+            @else
+               <span>nessuna immagine :(</span>       
+            @endif
+            <div>{{$user->name,$user->surname}}</div>
+            <div class="">
+                @foreach($user->titles as $title)
+                    {{$title->name}}
+                @endforeach
+            </div>
+            <div>{{$user->email}}</div>
+            <div>{{$user->address}}</div>
+            @if ($user->phone_n)
+                <div>{{$user->phone_n}}</div>
+            @endif
+            @if ($user->birth_date)
+                <div>{{$user->birth_date}}</div>
+            @endif
+            @if ($user->cv)
+                <div>{{$user->cv}}</div>
+            @endif
+       </div>
     </div>
-    
-    
 </div>
 @endsection
