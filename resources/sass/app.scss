@@ -23,3 +23,22 @@
 main{
     margin-left: 150px;
 }
+
+.rounded-box {
+    border-radius: 10px;
+    border: 1px solid #cdc;
+    padding: 0.5rem;
+}
+
+.message {
+    .message-header {
+        background-color: #ccc;
+    }
+    .message-body {
+        background-color: #fff;
+        padding: 1rem 0.5rem;
+        font-size: 1.1rem;
+    }
+}
+
+
