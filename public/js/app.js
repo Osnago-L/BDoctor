@@ -49931,8 +49931,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\ficus\Desktop\Boolean Corso\Progetto finale\BDoctor\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\ficus\Desktop\Boolean Corso\Progetto finale\BDoctor\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/mario/Desktop/boolean/repository/bdoctor_c51_5/BDoctor/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/mario/Desktop/boolean/repository/bdoctor_c51_5/BDoctor/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

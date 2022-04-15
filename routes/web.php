@@ -27,7 +27,7 @@ Route::middleware('auth')
     ->group(function(){ 
         Route::get('/', 'HomeController@index')->name('home');
         Route::resource('/user', 'UserController');/* ->except(['edit', 'update']); */
-        Route::resource("/user/{user:id}/messages", 'MessageController');
+        Route::resource("/user/{user:id}/messages", 'MessageController')->except(['create', 'edit', 'store', 'update']);
     }); 
 
 

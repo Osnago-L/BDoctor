@@ -51,12 +51,17 @@ class MessageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $message = Message::find($id);
+
+        if (!$message){
+            abort(404);
+        }
+        return view('admin.messages.show', compact('message'));
     }
 
     /**
@@ -85,11 +90,13 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Message dependency injection with passed id of message
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $message = Message::find($id);
+        $message->delete();
+        return redirect()->route('admin.messages.index');
     }
 }
