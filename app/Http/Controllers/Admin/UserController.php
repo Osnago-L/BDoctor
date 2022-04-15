@@ -56,7 +56,7 @@ class UserController extends Controller
      */
     public function show()
     {
-     
+     //
     }
 
     /**
@@ -69,7 +69,6 @@ class UserController extends Controller
     {
         $user = Auth::user();
         
-
         $titles = Title::all();
         $performances = Performance::all();
         return view('admin.users.edit', compact('user', 'titles','performances'));
@@ -83,22 +82,30 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
-    {
-        /* $request->validate( [
+    {   
+        $request->validate( [
             'name' => 'required|string|max:20',
             'surname' => 'required|string|max:20',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => "required|string|email|max:255|unique:users,email,{$user->id}",
             'address' => 'required|string|max:50',
-            'title_id' => 'required|exists:titles,id', 
-            'performance_id' => 'array|exists:performance,id', 
+            'titles' => 'array|required|exists:titles,id', 
+            'performances' => 'array|exists:performances,id',  
             'image' => 'nullable|image|mimes:jpg,bmp,png,jpeg,svg',
             'cv' => 'nullable|string',
             'phone_n' => 'nullable|string'
-        ]);  */
+        ]);
 
-        $user->name = $request->name;
+        $form_data = $request->all();
 
-        $user->update();
+        if(isset($form_data["image"])){
+            $img_path = Storage::put('uploads', $form_data['image']);
+            $form_data['image'] = $img_path;
+        }
+        
+        $user->titles()->sync(isset($form_data['titles']) ? $form_data['titles'] : []);
+        $user->performances()->sync(isset($form_data['performances']) ? $form_data['performances'] : []);
+
+        $user->update($form_data);
 
         return redirect()->route('admin.user.index');
     }
