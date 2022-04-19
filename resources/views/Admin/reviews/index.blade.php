@@ -6,16 +6,16 @@
 
 @section('content')
 
-<div class="container">
+@php   
+    $sum = 0;
+    foreach($reviews as $review){
+        $sum += $review->score;
+    }
 
-    <h1>Recensioni ({{count($reviews) }})</h1>
-
-    @php   
-        $sum = 0;
-        foreach($reviews as $review){
-            $sum += $review->score;
-        }
+    if(count($reviews) > 0 ){
         $avgScore = $sum / count($reviews);
+
+
         $integers = (int) $avgScore;
         $decimals = round($avgScore - $integers);
         $avgStars = "";
@@ -29,11 +29,17 @@
         for($i = ceil($avgScore); $i < 5; $i++){
             $avgStars .= "<i class='ms_star fa-regular fa-star'></i>";
         }
+    }
 
+@endphp
 
-    @endphp
-    
-    <h5>Media recensioni: {!!$avgStars!!} <strong>{{$avgScore}} / 5</strong></h5>
+<div class="container">
+
+    <h1>Recensioni ({{count($reviews) }})</h1>
+
+   
+    @if(count($reviews) > 0 )
+        <h5>Media recensioni: {!!$avgStars!!} <strong>{{$avgScore}} / 5</strong></h5>
     <hr class='mb-5'>
 
     @foreach($reviews as $review)
@@ -80,7 +86,9 @@
         </div>
     </div>
     @endforeach
-
+    @endif
 </div>
+    
+    
 
 @endsection
