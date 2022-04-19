@@ -9,7 +9,11 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+        <!-- Scripts -->
+        <script src="{{ asset('js/guest.js') }}" defer></script>
+
         <!-- Styles -->
+        <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
         <style>
             html, body {
                 background-color: #fff;
@@ -68,7 +72,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/admin/home') }}">Home</a>
+                        <a href="{{ url('/admin/') }}">Home</a>
 
                         
                     @else
@@ -79,23 +83,8 @@
                     @endauth
                 </div>
             @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    BDoctor
-                </div>
-
-               {{--  <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div> --}}
-            </div>
+            
+            <div id="app"></div>
         </div>
     </body>
 </html>
