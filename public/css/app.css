@@ -10996,3 +10996,18 @@ main {
   font-size: 1.1rem;
 }
 
+.ms_user {
+  color: #32abdf;
+}
+
+.ms_star {
+  color: orange;
+  font-weight: bold;
+}
+
+.ms_datetime {
+  color: #888;
+  font-variant: small-caps;
+  font-family: fantasy;
+}
+

@@ -89,7 +89,7 @@
                             <a href="{{route("admin.home")}}"><i class="bi bi-house"></i>Home</a>
                             <a href="{{route("admin.user.index")}}">Il Mio Profilo</a>
                             <a href="{{route("admin.messages.index",Auth::user()->id)}}">Messaggi</a>
-                            <a href="#">Recensioni</a>
+                            <a href="{{route("admin.reviews.index",Auth::user()->id)}}">Recensioni</a>
                             <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">

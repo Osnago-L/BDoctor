@@ -7,7 +7,7 @@
 @section('content')
 
 
-<div class="container message g-2">
+<div class="container message g-2 mt-5">
 
     
     <div class="message-header row rounded-box mb-2">
@@ -22,7 +22,7 @@
                 $time = $dateTime->format("H:i");
             @endphp
 
-            <span><i class="fa-solid fa-clock"></i> {{$date}} - {{$time}}</span>
+            <span class='ms_datetime'><i class="fa-solid fa-clock"></i> {{$date}} - {{$time}}</span>
         </div>
     </div>
 
