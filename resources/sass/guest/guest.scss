@@ -10,6 +10,13 @@ RESET
 /* ------------------------
 IMPORTS
 ------------------------ */
+@import '~bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+
+/* ------------------------
+IMPORTS
+------------------------ */
+
 @import './partials/_nav';
 
 /* ------------------------
