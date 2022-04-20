@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateSponsorshipUserTable extends Migration
 {
@@ -17,8 +18,8 @@ class CreateSponsorshipUserTable extends Migration
             $table->id();
             $table->foreignId('sponsorship_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->dateTime('start_date');
-            $table->dateTime('expiration');
+            $table->dateTime('start_date');/*->default(DB::raw('CURRENT_TIMESTAMP'));*/
+            $table->dateTime('expiration');/*->nullable();*/
             $table->timestamps();
         });
     }
