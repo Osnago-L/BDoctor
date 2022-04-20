@@ -31,7 +31,9 @@ Route::middleware('auth')
         Route::resource("/user/{user:id}/reviews", 'ReviewController')->except(['create', 'show', 'edit', 'store', 'update']);
     }); 
 
-
+Route::get('/{any}', function () {
+    return view('front');
+})->where('any', '.*');
 
 // /* rotte raggiungibili solo da /admin */
 // Route::middleware('auth')

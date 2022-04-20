@@ -9,13 +9,15 @@
       <option value="opzione3">opzione3</option>
     </select>
 
-    <router-link :to="{ name:'search',query:{search: input,title: selected}}">Search</router-link>
+    <router-link :to="{query:{search: input,title: selected}}">Search</router-link>
+
+    <h1>ecco la lista dottori</h1>
   </div>
 </template>
 
 <script>
 export default {
-    name: "Home",
+    name: "Search",
     data(){
       return{
         input : '',
