@@ -58,24 +58,14 @@ class DoctorSeeder extends Seeder
 
             if (rand(0,1)){
                 $sponsorshipId = Sponsorship::inRandomOrder()->first()->id;
-                // dd($sponsorshipId);
 
                 // $sponsorship = new Sponsorship();
-                // $sponsorship->start_date = '2022-04-20 16:35';
-                // $sponsorship->expiration = '2022-04-21 16:35';
-                // dd($sponsorship);
-
                 // $sponsorship->save();
 
+                $start = new DateTime();
+                $expiration = $start->add(new DateInterval('PT1M'));  //aggiunto 1min
 
-
-                // $endDate = new DateTime();
-                // $endDate->addInterval("H".$sponsorship->expiration());
-                // $sponsorship[$sponsorshipId] = ['expiration' => ''];
-
-
-                $doctor->sponsorships()->attach($sponsorshipId, array('start_date'=>'2022-04-20 16:35'));
-                // , array('expiration' => '2022-04-21 16:35'));
+                $doctor->sponsorships()->attach($sponsorshipId, array('start_date'=>$start,'expiration'=>$expiration));
 
             }
 
