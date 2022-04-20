@@ -1,0 +1,18 @@
+ /* ------------------------
+RESET
+------------------------ */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ------------------------
+IMPORTS
+------------------------ */
+@import './partials/_nav';
+
+/* ------------------------
+TYPO
+------------------------ */
+@import url('https://fonts.googleapis.com/css?family=Nunito');
