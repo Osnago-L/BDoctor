@@ -44,8 +44,8 @@ class DoctorSeeder extends Seeder
             $doctor->name = $names[rand(0, count($names)-1)]; 
             $doctor->surname = $surnames[rand(0, count($surnames)-1)];
             $doctor->birth_date = $faker->dateTimeBetween('-75 years', '-25 years');
-            $doctor->address = "via ".$names[rand(0, count($addresses)-1)]." ".$faker->numberBetween($min = 1, $max = 250).$faker->optional()->randomElement($array = array ('a','b','c','d','e','f'));
-            $doctor->phone_n = $faker->regexify('0[1-9]{1,3}[1-9]{4-8}'); //numeri formato italiano
+            $doctor->address = "via ".$addresses[rand(0, count($addresses)-1)]." ".$faker->numberBetween($min = 1, $max = 250).$faker->optional()->randomElement($array = array ('a','b','c','d','e','f'));
+            $doctor->phone_n = $faker->regexify('0[1-9]{1,3} [1-9]{4,8}'); //numeri formato italiano
             $doctor->email = $faker->safeEmail();
             
             
@@ -66,7 +66,6 @@ class DoctorSeeder extends Seeder
                 // dd($sponsorship);
 
                 // $sponsorship->save();
-
 
 
 
