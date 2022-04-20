@@ -59,7 +59,8 @@ class DoctorSeeder extends Seeder
             if (rand(0,1)){
                 $sponsorshipId = Sponsorship::inRandomOrder()->first()->id;
 
-                $sponsorshipLength = Sponsorship::where('id', $sponsorshipId)->length;
+                $sponsorshipLength = Sponsorship::get("length")->where('id', $sponsorshipId);
+
                 // $sponsorship->save();
 
                 $start = new DateTime();
