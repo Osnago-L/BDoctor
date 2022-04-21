@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\DB;
 class DoctorController extends Controller
 {   
 
-    public $doctorsQB;
-    public $filteredDoctorsQB;
+    private $doctorsQB;
+    private $filteredDoctorsQB;
+    public static $MAX_PAGE_ITEMS = 10;
 
-    /* 
-    N.B. l'oggetto doctorsQB più che array si può lasciare semplicemente come queryBuilder (senza usare la get()) e concatenare le altre query dopo!
-    */
 
-    // PRIVATE FUNCTIONS 
-
+    // PRIVATE METHODS 
+    /**
+     * modifies $this->filteredDoctorsQB
+     */
     private function getSponsoredDoctorsQB(){
 
         $DTnow = new DateTime();
@@ -33,6 +33,9 @@ class DoctorController extends Controller
         });
     }
 
+    /**
+     * modifies $this->filteredDoctorsQB
+     */
     private function getUnsponsoredDoctorsQB(){
 
         //Get the id's of first model as array
@@ -44,44 +47,51 @@ class DoctorController extends Controller
         return $diffs;
     }
 
-    // PUBLIC FUNCTIONS 
+
+    // PUBLIC FUNCTIONS / METHODS
 
     public function index() {
 
         if (isset($_GET['title'])){
             
             $titleName = $_GET['title'];
-            $doctorsQB = User::whereHas('titles', function($query) use($titleName) {
+            $this->doctorsQB = User::whereHas('titles', function($query) use($titleName) {
                 $query->where('name', $titleName);
             });
-            $this->doctorsQB = $doctorsQB;
             $this->filteredDoctorsQB = clone $this->doctorsQB; //inizializza il contenuto filtrato
         }
-
         if (isset($_GET['stars']) || isset($_GET['reviews'])){
             
-            if (isset($_GET['stars'])){
+            if (0 < $_GET['stars'] && $_GET['stars'] <= 5){
                 $this->filterByReviewStars($_GET['stars']);
             }
-            if (isset($_GET['reviews'])){
+            if (is_int($_GET['reviews']) && ($_GET['reviews']) > 0){
                 $this->filterByReviewsCount($_GET['reviews']);
             }
-
             $this->doctorsQB = $this->filteredDoctorsQB;
         }
-        
-        $sponsoredDoctors = $this->getSponsoredDoctorsQB()->get();
-        $unsponsoredDoctors = $this->getUnsponsoredDoctorsQB()->get();
+
+        $sponsoredDoctorsQB = $this->getSponsoredDoctorsQB();
+        $unsponsoredDoctorsQB = $this->getUnsponsoredDoctorsQB();
+        $allSortedLimitedQB = $sponsoredDoctorsQB->union($unsponsoredDoctorsQB);
+        $allSortedLimited = $allSortedLimitedQB->get();
+
+
+        if (isset($_GET['page'])){
+            $allSortedLimited = $this->getPageItems($allSortedLimited, $_GET['page'], DoctorController::$MAX_PAGE_ITEMS);
+        }
 
         return response()->json(
             [
                 'success' => true,
                 'data' => [
-                    'sponsoredDoctors' => $sponsoredDoctors,
-                    'unsponsoredDoctors' => $unsponsoredDoctors,
+
+                    'sponsoredDoctors' => $sponsoredDoctorsQB->get(),
+                    'unsponsoredDoctors' => $unsponsoredDoctorsQB->get(),
+                    'doctorsSortedLimited' => $allSortedLimited,
                 ]
             ]);
-        }
+    }
     
     public function show($id) {
 
@@ -117,7 +127,6 @@ class DoctorController extends Controller
         ORDER BY (`user_id`) DESC";
         */
     }
-
     // }
 
     private function filterByPerformances(array $performances){
@@ -153,46 +162,54 @@ class DoctorController extends Controller
     //     return response()->json($doctorsQB);
     // }
 
+    
+    public static function setMaxPageItems(int $items){
+        DoctorController::$MAX_PAGE_ITEMS = $items;
+    }
 
-    // public static function getPageItems(array $arr, $page, $itemsPerPage) {
+    private static function getPageItems(array $arr, $page, $itemsPerPage) {
 
-    //     $lastIndex = count($arr) - 1;
-    //     $startIndex = ($page - 1) * $itemsPerPage;
-    //     $remainingItems = $lastIndex - $startIndex; //per verificare se gli elementi non sono esauriti
-    //     $remainingPageItems = $itemsPerPage - 1; //item restanti della pagina corrente ($page) 
-    //     $lengthOfSlice = 0;
+        $lastIndex = count($arr) - 1;
+        $startIndex = ($page - 1) * $itemsPerPage;
+        $remainingItems = $lastIndex - $startIndex; //per verificare se gli elementi non sono esauriti
+        $remainingPageItems = $itemsPerPage - 1; //item restanti della pagina corrente ($page) 
+        $lengthOfSlice = 0;
     
-    //     if ($remainingItems > $remainingPageItems) {
-    //         $lenghtOfSlice = $itemsPerPage;
-    //     } else {
-    //         $lenghtOfSlice = $remainingItems + 1;
-    //     }
-    //     $var = array_slice($arr, $startIndex, $lenghtOfSlice);
-    //     return $var;
-    // }
-    
+        if ($remainingItems > $remainingPageItems) {
+            $lenghtOfSlice = $itemsPerPage;
+        } else {
+            $lenghtOfSlice = $remainingItems + 1;
+        }
+        $var = array_slice($arr, $startIndex, $lenghtOfSlice);
+        return $var;
+    }
 
-    // public static function showPageNumbers($rowsNum, $itemsPerPage, $url) {
     
-    //     $string = "";
-    //     $numbers = ceil($rowsNum / $itemsPerPage);
+    public static function showPageNumbers($rowsNum, $itemsPerPage, $url) {
     
-    //     if ($numbers > 1) {
+        $html = "Pagine:";
+        $numbers = ceil($rowsNum / $itemsPerPage);
     
-    //         $pos = strpos($url, "page=");
-    //         $pos == 0 ? $pos = 1 : $pos;
-    //         $urlWithoutPage = substr($url, 0, strlen($url) - $pos+1);
-    //         #$url = preg_replace('/page=([0-9])*/','',$url); //più pesante     
-    //         $sep = "&";
-    //         $string = "Pagine:";
+        if ($numbers > 1) {
     
-    //         for ($i = 1; $i <= $numbers; $i++) {
+            $pos = strpos($url, "page=");
+            $pos == 0 ? $pos = 1 : $pos;
+            $urlWithoutPage = substr($url, 0, strlen($url) - $pos+1);
+            $sep = "&";
     
-    //             $url = substr($url, strlen($url));
-    //             $string .= "&nbsp&nbsp" . "<a href='$urlWithoutPage" . $sep . "page=$i'>$i</a>";
-    //         }
-    //     }
-    //     return $string;
-    // }
+            for ($i = 1; $i <= $numbers; $i++) {
+    
+                $url = substr($url, strlen($url));
+                $html .= "&nbsp&nbsp" . "<a href='$urlWithoutPage" . $sep . "page=$i'>$i</a>";
+            }
+        }
 
+        return response()->json(
+            [
+                'success' => true,
+                'data' => [
+                    'pageLinks' => $html,
+                ]
+            ]);
+    }
 }
