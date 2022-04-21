@@ -16,7 +16,7 @@
         <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
     </head>
     <body>
-        <nav>
+        <nav> 
             <div class="ms_front_nav">
                 <div>
                     <a href="{{ url('/') }}">Home</a>
