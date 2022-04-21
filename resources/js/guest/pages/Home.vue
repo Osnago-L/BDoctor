@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="d-flex align-items-center col-sm-12">
                     <label for="search">
-                        <h3 class="m-0">Search the site:</h3></label
+                        <h3 class="m-0">Ricerca nel sito:</h3></label
                     >
                 </div>
 
@@ -17,7 +17,7 @@
                         id="search"
                         name="search"
                         autocomplete="off"
-                        placeholder="Inserisci qui la tua ricerca"
+                        placeholder="Cerca una specializazione"
                         class="ms_height w-100"
                     />
                 </div>
@@ -37,8 +37,8 @@
                             query: { search: input},
                         }"
                     >
-                        <button type="button" class="btn btn-primary">
-                            Search
+                        <button type="button" class="btn btn-primary w-100">
+                            Cerca
                         </button>
                     </router-link>
                 </div>
