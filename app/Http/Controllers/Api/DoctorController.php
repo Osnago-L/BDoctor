@@ -92,9 +92,11 @@ class DoctorController extends Controller
 
     private function filterByReviewStars(int $stars){
 
-        $filteredDoctors = $this->filteredDoctorsQB->whereHas('reviews', function($query) use($stars) {
-            $query->where('score', ">=", $stars);
-        })->get();
+        $filteredDoctors = $this->filteredDoctorsQB->join('reviews', 'users.id', '=', 'reviews.user_id')
+        ->select(array('users.*', DB::raw('AVG(`score`) as avg_rate')))
+        ->groupBy('user_id')
+        ->havingRaw('AVG(score) BETWEEN ? AND ?', [$stars, $stars+0.5])
+        ->orderBy('user_id', 'desc');
     }
 
 
@@ -106,7 +108,7 @@ class DoctorController extends Controller
         ->havingRaw('COUNT(user_id) >= ?', [$reviews])
         ->orderBy('user_id', 'desc');
         
-        /* query grezza (testata su phpmyadmin, ma senza prefiltraggio)
+        /* query grezza (testata su phpmyadmin, ma senza prefiltraggio degli users)
         $queryRaw = "SELECT `users`.*, COUNT(`user_id`) as `reviews_n` 
         FROM `users`, `reviews` 
         WHERE `users`.id = `reviews`.user_id 
@@ -115,7 +117,6 @@ class DoctorController extends Controller
         ORDER BY (`user_id`) DESC";
         */
     }
-
 
     // }
 
