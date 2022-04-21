@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use DateTime;
 use DateInterval;
+use Illuminate\Support\Facades\DB;
 
 
 class DoctorController extends Controller
@@ -99,35 +100,20 @@ class DoctorController extends Controller
 
     private function filterByReviewsNumber(int $reviews){
 
-        /* $query = DB::table('category_issue')
-        ->select(array('issues.*', DB::raw('COUNT(issue_subscriptions.issue_id) as followers')))
-        ->where('category_id', '=', 1)
-        ->join('issues', 'category_issue.issue_id', '=', 'issues.id')
-        ->left_join('issue_subscriptions', 'issues.id', '=', 'issue_subscriptions.issue_id')
-        ->group_by('issues.id')
-        ->order_by('followers', 'desc')
-        ->get(); */
-
-                //->whereBetween('votes', [1, 100]);
-
-                //->addSelect('COUNT(`user_id`) as `reviews_n`')
-                //->select(array('users.*, COUNT(user_id) as reviews_n'))
-                //->join('reviews', 'users.id', '=', 'reviews.user_id')
-
-        $filteredDoctors = $this->filteredDoctorsQB->addSelect('COUNT(user_id) as reviews_n')
-        ->groupBy('COUNT(user_id)')
-        ->havingRaw('COUNT(user_id) >= ?', [$reviews]);
-        // ->order_by('COUNT(user_id)', 'desc');
-
-        dd($filteredDoctors->get());
+        $filteredDoctors = $this->filteredDoctorsQB->join('reviews', 'users.id', '=', 'reviews.user_id')
+        ->select(array('users.*', DB::raw('COUNT(`user_id`) as reviews_n')))
+        ->groupBy('user_id')
+        ->havingRaw('COUNT(user_id) >= ?', [$reviews])
+        ->orderBy('user_id', 'desc');
         
-
-        //query grezza (testata su phpmyadmin)
+        /* query grezza (testata su phpmyadmin, ma senza prefiltraggio)
         $queryRaw = "SELECT `users`.*, COUNT(`user_id`) as `reviews_n` 
         FROM `users`, `reviews` 
         WHERE `users`.id = `reviews`.user_id 
         GROUP BY(user_id) 
-        HAVING COUNT(`user_id`) >= $reviews";
+        HAVING COUNT(`user_id`) >= $reviews
+        ORDER BY (`user_id`) DESC";
+        */
     }
 
 
