@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 import Home from "./pages/Home";
 import Search from "./pages/Search";
 import PageNotFound from "./pages/PageNotFound";
+import SingleDoctor from "./pages/SingleDoctor";
 
 const router = new VueRouter({
     mode: "history",
@@ -21,10 +22,15 @@ const router = new VueRouter({
             component: Search
         },
         {
+            path: "/doctors/:id",  //per lo show
+            name: "single-doctor",
+            component: SingleDoctor
+        },
+        {
             path: "*" ,
             name: "page-404",
             component: PageNotFound
-        }
+        },
     ]
 });
 
