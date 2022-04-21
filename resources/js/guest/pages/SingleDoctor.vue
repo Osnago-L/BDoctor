@@ -29,7 +29,7 @@
                             </span>
                         </div>
                         <div v-if="doctor.performances" class="bb p-0 col-5 mt-5 text-center">
-                            <h4 class="">Performances</h4>
+                            <h4 class="">Prestazioni</h4>
                             <span class="ml-4" v-for="(performance,index) in doctor.performances" :key="index">
                                 <div>{{performance.name}}</div>
                             </span>
