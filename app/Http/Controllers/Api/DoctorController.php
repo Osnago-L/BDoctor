@@ -43,7 +43,7 @@ class DoctorController extends Controller
         //get the id's of second models as array
         $ids2 = $this->getSponsoredDoctorsQB()->pluck('id');
         //get the models
-        $diffs = User::whereIn('id',$ids1)->whereNotIn('id',$ids2);
+        $diffs = User::with(['titles', 'performances'])->whereIn('id',$ids1)->whereNotIn('id',$ids2);
         return $diffs;
     }
 
@@ -82,15 +82,15 @@ class DoctorController extends Controller
         }
 
         return response()->json(
-            [
-                'success' => true,
-                'data' => [
+        [
+            'success' => true,
+            'data' => [
 
-                    'sponsoredDoctors' => $sponsoredDoctorsQB->get(),
-                    'unsponsoredDoctors' => $unsponsoredDoctorsQB->get(),
-                    'doctorsSortedLimited' => $allSortedLimited,
-                ]
-            ]);
+                'sponsoredDoctors' => $sponsoredDoctorsQB->get(),
+                'unsponsoredDoctors' => $unsponsoredDoctorsQB->get(),
+                'doctorsSortedLimited' => $allSortedLimited,
+            ]
+        ]);
     }
     
     public function show($id) {
