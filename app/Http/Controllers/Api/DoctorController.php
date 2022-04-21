@@ -55,7 +55,7 @@ class DoctorController extends Controller
         if (isset($_GET['title'])){
             
             $titleName = $_GET['title'];
-            $this->doctorsQB = User::whereHas('titles', function($query) use($titleName) {
+            $this->doctorsQB = User::with(['titles', 'performances'])->whereHas('titles', function($query) use($titleName) {
                 $query->where('name', $titleName);
             });
             $this->filteredDoctorsQB = clone $this->doctorsQB; //inizializza il contenuto filtrato
@@ -127,7 +127,6 @@ class DoctorController extends Controller
         ORDER BY (`user_id`) DESC";
         */
     }
-    // }
 
     private function filterByPerformances(array $performances){
 
