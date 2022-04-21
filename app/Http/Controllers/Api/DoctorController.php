@@ -65,9 +65,11 @@ class DoctorController extends Controller
 
         return response()->json(
             [
-            'all' => $doctorsQB->get(),
-            'sponsoredDoctors' => $sponsoredDoctors,
-            'unsponsoredDoctors' => $unsponsoredDoctors,
+                'success' => true,
+                'data' => [
+                    'sponsoredDoctors' => $sponsoredDoctors,
+                    'unsponsoredDoctors' => $unsponsoredDoctors,
+                ]
             ]
         );
     }
