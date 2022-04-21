@@ -7,17 +7,15 @@
         <!-- /////////////////// -->
           <div class="d-flex justify-content-center search-group test_color col-sm-12 col-md-3">
                 <div class="mt-3 w-75">
-                  <input class="search_bar" v-model="input" type="text" id="search" name="search" autocomplete="off"> 
-                  
-                  <router-link @click.native="getApi()" :to="{query:{search: input}}"><button type="button" class="button_search ">Search</button></router-link>
+                  <input class="search_bar" v-model="input" type="text" id="search" name="search" autocomplete="off" placeholder="Cerca una specializzazione..."> 
+                  <router-link @click.native="getApi()" :to="{query:{search: input}}"><button type="button" class="button_search ">Cerca</button></router-link>
                 </div>
           </div>  
   <!-- /////////////////// -->
           <div class="card-group p-0 pl-md-3 col-sm-12 col-md-9">
             <div v-for="element,index in data " :key="index" class="doctor_card mb-3">
-                {{element.name}}
-                {{element.surname}}
-                {{element.phone_n}}
+                <h3>{{element.name}} {{element.surname}}</h3>          
+                <span>Numero di telefono: {{element.phone_n}}</span>
             </div>
           </div>
       </div>
@@ -82,6 +80,8 @@ export default {
     border-radius: 5px;
     border: none;
     border: 0.5px solid gray;
+    padding: 5px 10px;
+    font-size: 14px;
 }
 .button_search{
   margin-top: 10px;
@@ -96,6 +96,7 @@ export default {
 .doctor_card{
   width: 100%;
   height: 300px;
+  padding: 20px 20px;
   background-color: white ;
   border: 0.5px solid rgba(0, 0, 0, 0.11);
   box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.100);
