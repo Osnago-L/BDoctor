@@ -13,6 +13,7 @@ class DoctorController extends Controller
 {   
 
     public $doctorsQB;
+    public $filteredDoctorsQB;
 
     /* 
     N.B. l'oggetto doctorsQB più che array si può lasciare semplicemente come queryBuilder (senza usare la get()) e concatenare le altre query dopo!
@@ -20,13 +21,13 @@ class DoctorController extends Controller
 
     public function index() {
 
-        $titleName = ucfirst($_GET['title']);
+        $titleName = $_GET['title'];
         $doctorsQB = User::whereHas('titles', function($query) use($titleName) {
             $query->where('name', $titleName);
         });
 
-        // dd($doctorsQB->get());
         $this->doctorsQB = $doctorsQB;
+        $this->filteredDoctorsQB = clone $this->doctorsQB; //inizializza il contenuto filtrato
         $sponsoredDoctors = $this->getSponsoredDoctorsQB()->get();
         $unsponsoredDoctors = $this->getUnsponsoredDoctorsQB()->get();
 
@@ -48,21 +49,35 @@ class DoctorController extends Controller
 
     public function filterByReviewStars(int $stars){
 
-        $doctorsQB = $this->doctorsQB->whereHas('reviews', function($query) use($stars) {
-            $query->where('score', ">=", $stars);
-        })->get();
-        return response()->json($doctorsQB);
+        if (isset($stars)){
+
+            $filteredDoctors = $this->filteredDoctorsQB->whereHas('reviews', function($query) use($stars) {
+                $query->where('score', ">=", $stars);
+            })->get();
+            return response()->json($filteredDoctors);
+        }
+        else {
+            return response()->json($this->filteredDoctorsQB->get());
+        }
     }
 
 
     public function filterByReviewNumber(int $reviews){
-        $this->doctorsQB->reviews()
-        ->selectRaw('count(id) as n_reviews')
-        ->groupBy('user_id')
-        ->having('n_reviews', "=>", $reviews);
 
-        // ->whereBetween('votes', [1, 100]);
+        if (isset($reviews)){
+            
+            $this->doctorsQB->reviews()
+            ->selectRaw('COUNT(id) as n_reviews')
+            ->groupBy('user_id')
+            ->having('COUNT(id)', "=>", $reviews);
+            
+            // ->whereBetween('votes', [1, 100]);
+        }
+
+
     }
+
+    
 
 
     public function filterByPerformances(array $performances){
