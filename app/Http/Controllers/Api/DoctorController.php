@@ -32,13 +32,7 @@ class DoctorController extends Controller
         });
     }
 
-
     private function getUnsponsoredDoctorsQB(){
-
-        /* NOT WORKING */
-        // $first = $this->doctorsQB->get();
-        // $second = $this->getSponsoredDoctorsQB()->get();
-        // return $first->diff($second);
 
         //Get the id's of first model as array
         $ids1 = $this->doctorsQB->pluck('id');
@@ -53,13 +47,28 @@ class DoctorController extends Controller
 
     public function index() {
 
-        $titleName = $_GET['title'];
-        $doctorsQB = User::whereHas('titles', function($query) use($titleName) {
-            $query->where('name', $titleName);
-        });
+        if (isset($_GET['title'])){
+            
+            $titleName = $_GET['title'];
+            $doctorsQB = User::whereHas('titles', function($query) use($titleName) {
+                $query->where('name', $titleName);
+            });
+            $this->doctorsQB = $doctorsQB;
+            $this->filteredDoctorsQB = clone $this->doctorsQB; //inizializza il contenuto filtrato
+        }
 
-        $this->doctorsQB = $doctorsQB;
-        $this->filteredDoctorsQB = clone $this->doctorsQB; //inizializza il contenuto filtrato
+        if (isset($_GET['stars']) || isset($_GET['reviews'])){
+            
+            if (isset($_GET['stars'])){
+                $this->filterByReviewStars($_GET['stars']);
+            }
+            if (isset($_GET['reviews'])){
+                $this->filterByReviewsNumber($_GET['reviews']);
+            }
+
+            $this->doctorsQB = $this->filteredDoctorsQB;
+        }
+        
         $sponsoredDoctors = $this->getSponsoredDoctorsQB()->get();
         $unsponsoredDoctors = $this->getUnsponsoredDoctorsQB()->get();
 
@@ -70,9 +79,8 @@ class DoctorController extends Controller
                     'sponsoredDoctors' => $sponsoredDoctors,
                     'unsponsoredDoctors' => $unsponsoredDoctors,
                 ]
-            ]
-        );
-    }
+            ]);
+        }
     
     public function show($id) {
 
@@ -81,44 +89,59 @@ class DoctorController extends Controller
     }
 
 
-    // public function filterByReviewStars(int $stars){
+    private function filterByReviewStars(int $stars){
 
-    //     if (isset($stars)){
+        $filteredDoctors = $this->filteredDoctorsQB->whereHas('reviews', function($query) use($stars) {
+            $query->where('score', ">=", $stars);
+        })->get();
+    }
 
-    //         $filteredDoctors = $this->filteredDoctorsQB->whereHas('reviews', function($query) use($stars) {
-    //             $query->where('score', ">=", $stars);
-    //         })->get();
-    //         return response()->json($filteredDoctors);
-    //     }
-    //     else {
-    //         return response()->json($this->filteredDoctorsQB->get());
-    //     }
+
+    private function filterByReviewsNumber(int $reviews){
+
+        /* $query = DB::table('category_issue')
+        ->select(array('issues.*', DB::raw('COUNT(issue_subscriptions.issue_id) as followers')))
+        ->where('category_id', '=', 1)
+        ->join('issues', 'category_issue.issue_id', '=', 'issues.id')
+        ->left_join('issue_subscriptions', 'issues.id', '=', 'issue_subscriptions.issue_id')
+        ->group_by('issues.id')
+        ->order_by('followers', 'desc')
+        ->get(); */
+
+                //->whereBetween('votes', [1, 100]);
+
+                //->addSelect('COUNT(`user_id`) as `reviews_n`')
+                //->select(array('users.*, COUNT(user_id) as reviews_n'))
+                //->join('reviews', 'users.id', '=', 'reviews.user_id')
+
+        $filteredDoctors = $this->filteredDoctorsQB->addSelect('COUNT(user_id) as reviews_n')
+        ->groupBy('COUNT(user_id)')
+        ->havingRaw('COUNT(user_id) >= ?', [$reviews]);
+        // ->order_by('COUNT(user_id)', 'desc');
+
+        dd($filteredDoctors->get());
+        
+
+        //query grezza (testata su phpmyadmin)
+        $queryRaw = "SELECT `users`.*, COUNT(`user_id`) as `reviews_n` 
+        FROM `users`, `reviews` 
+        WHERE `users`.id = `reviews`.user_id 
+        GROUP BY(user_id) 
+        HAVING COUNT(`user_id`) >= $reviews";
+    }
+
+
     // }
 
+    private function filterByPerformances(array $performances){
 
-    // public function filterByReviewNumber(int $reviews){
+        $doctorsQB = $this->doctorsQB->whereHas('performances', function($query) use($performances) {
+            $query->whereIn('name', $performances);
+        })->get();
+        return response()->json($doctorsQB);
+    }
 
-    //     if (isset($reviews)){
-            
-    //         $this->doctorsQB->reviews()
-    //         ->selectRaw('COUNT(id) as n_reviews')
-    //         ->groupBy('user_id')
-    //         ->having('COUNT(id)', "=>", $reviews);
-            
-    //         // ->whereBetween('votes', [1, 100]);
-    //     }
-
-
-    // }
-
-    // public function filterByPerformances(array $performances){
-
-    //     $doctorsQB = $this->doctorsQB->whereHas('performances', function($query) use($performances) {
-    //         $query->whereIn('name', $performances);
-    //     })->get();
-    //     return response()->json($doctorsQB);
-    // }
-
+    
     // /* EXTRA */
     // public function filterByNameSurname($fullName){
 
@@ -142,11 +165,6 @@ class DoctorController extends Controller
     //     }
     //     return response()->json($doctorsQB);
     // }
-
-
-
-
-
 
 
     // public static function getPageItems(array $arr, $page, $itemsPerPage) {
