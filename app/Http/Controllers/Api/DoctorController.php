@@ -51,15 +51,15 @@ class DoctorController extends Controller
     // PUBLIC FUNCTIONS / METHODS
 
     public function index() {
-
         
         $this->doctorsQB = User::with(['titles', 'performances'])->select('users.*'); //restituisce lista di tutti i dottori
 
         if (isset($_GET['title'])){
             
             $titleName = $_GET['title'];
-            $this->doctorsQB = User::with(['titles', 'performances'])->whereHas('titles', function($query) use($titleName) {
-                $query->where('name', $titleName);
+            $titleNamePrefix = substr($titleName, 0, -2);
+            $this->doctorsQB = User::with(['titles', 'performances'])->whereHas('titles', function($query) use($titleNamePrefix) {
+                $query->whereRAW('name like ?', $titleNamePrefix.'%');
             });
             $this->filteredDoctorsQB = clone $this->doctorsQB; //inizializza il contenuto filtrato
         }
@@ -133,12 +133,11 @@ class DoctorController extends Controller
 
     private function filterByPerformances(array $performances){
 
-        $doctorsQB = $this->doctorsQB->whereHas('performances', function($query) use($performances) {
+        $filteredDoctors = $this->doctorsQB->whereHas('performances', function($query) use($performances) {
             $query->whereIn('name', $performances);
         })->get();
-        return response()->json($doctorsQB);
+        return response()->json($filteredDoctors);
     }
-
     
     // /* EXTRA */
     // public function filterByNameSurname($fullName){
