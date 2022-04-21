@@ -1,24 +1,25 @@
 <template>
     <div class="ms_background">
 
-      <div class="container ms_background_search">
+      <div class="container-fluid pt-4 d-flex justify-content-center ms_background_search">
           <div class="row">
-              <div class="col-sm-12">
-                  <label for="search"> <h3> Search the site: </h3></label>
+              <div class="d-flex align-items-center col-sm-12">
+                  <label for="search"> <h3 class="m-0">Search the site: </h3></label>
               </div>
 
-              <div class="col-sm-12">
+              <div class="d-flex align-items-center col-sm-12 col-md-6">
                   <input
                       v-model="input"
                       type="text"
                       id="search"
                       name="search"
                       autocomplete="off"
-                      class="w-100 mt-2 ms_height"
+                      placeholder="Inserisci qui la tua ricerca"
+                      class="ms_height w-100"
                   />
               </div>
 
-  <!--             <div class="col-sm-12">
+          <!--<div class="col-sm-12">
                   <select class="w-100 mt-2 ms_height" v-model="selected">
                       <option value="opzione1">opzione1</option>
                       <option value="opzione2">opzione2</option>
@@ -26,14 +27,14 @@
                   </select>
               </div> -->
 
-              <div class="col-sm-12 col-md-4 py-2 text-center">
+              <div class="d-flex align-items-center col-sm-12 col-md-6 p-3">
                   <router-link
                       :to="{
                           name: 'search',
                           query: { search: input, title: selected },
                       }"
                   >
-                      <button type="button" class="btn btn-primary mt-2 w-100">
+                      <button type="button" class="btn btn-primary">
                           Search
                       </button>
                   </router-link>
@@ -123,11 +124,9 @@ export default {
 <style lang="scss" scoped>
 @import "../../../sass/guest/_variables.scss";
 .ms_background{
-  background-color: $ms_white;
+  background-image: linear-gradient($ms_white, white);
 }
-.ms_background_search {
-    background-color: $ms_blue;
-}
+
 .ms_height {
     height: 35px;
 }
