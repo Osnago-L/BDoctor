@@ -84,6 +84,7 @@ export default {
 @import '../../../sass/guest/_variables.scss';
 .all_bac{
     background-color: $ms_white;
+    height: calc(100vh - 70px)
 }
 .date_rew{
     font-size: 10px;
