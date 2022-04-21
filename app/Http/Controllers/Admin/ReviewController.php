@@ -90,3 +90,35 @@ class ReviewController extends Controller
         //
     }
 }
+
+
+/*
+
+function generateStars($rating) {
+
+    $rating = round($rating * 2) / 2;
+    $checkedStarHtml = "<span class='fa fa-star checked'></span>";
+    $emptyStarHtml = "<span class='fa fa-star'></span>";
+    $halfStarHtml = "<span class='fa fa-star-half'></span>";
+
+    $stars = floor($rating);
+    $rest = $rating - $stars;
+    ($rest >= 1) ? $emptyStars = 5 - $stars : $emptyStars = 0;
+
+    $htmlStars = "";
+
+    for ($i = 0; $i < $stars; $i++) {
+        $htmlStars .= $checkedStarHtml;
+    }
+    if ($rest == "0.5") {
+        $htmlStars .= $halfStarHtml;
+    } else {
+        for ($i = 0; $i < $emptyStars; $i++) {
+            $htmlStars .= $emptyStarHtml;
+        }
+    }
+    return $htmlStars;
+}
+
+
+*/

@@ -13,11 +13,11 @@ class TitleSeeder extends Seeder
     public function run()
     {
         $titles = ['Podologia','Urologia','Cardiologia','Dermatologia'];
+        
         foreach($titles as $title_name){
             $new_title = new Title();
             $new_title->name = $title_name;
             $new_title->save();
-
         }
     }
 }

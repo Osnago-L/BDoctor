@@ -40,7 +40,7 @@ class User extends Authenticatable
     public function message(){
         return $this->hasMany('App\Message');
     }
-    public function review(){
+    public function reviews(){
         return $this->hasMany('App\Review');
     }
     public function titles(){
@@ -50,7 +50,7 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Performance');
     }
     public function sponsorships(){
-        return $this->belongsToMany('App\Sponsorship');
+        return $this->belongsToMany('App\Sponsorship')->withPivot('start_date', 'expiration');
     }
 }
 
