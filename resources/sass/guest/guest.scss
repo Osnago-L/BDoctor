@@ -7,6 +7,17 @@ RESET
     box-sizing: border-box;
 }
 
+.overflow{
+    overflow: hidden
+}
+
+*::-webkit-scrollbar{
+    display: none;
+}
+*{
+    scrollbar-width: none;
+}
+
 /* ------------------------
 IMPORTS BOOTSTRAP
 ------------------------ */
