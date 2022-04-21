@@ -26,7 +26,7 @@ class DoctorSeeder extends Seeder
 
         $surnames = ['Rossi', 'Bianchi', 'Verdi', 'Neri', 'Viola'];
         $names = ['Antonio', 'Bruno', 'Carlo', 'Dario', 'Edoardo', 'Fabio', 'Giovanni'];
-        $addresses = ['Ponti della Priula','Ceresio','F. Cilea','C. Imperatrice','V. Muciaccia','T. Schifaldo','Lussinpiccolo','Poasco','M.Rosso','Bastioni Bramante'];
+        $addresses = ['Ponti della Priula','Ceresio','F. Cilea','C. Imperatrice','V. Muciaccia','T. Schifaldo','Lussinpiccolo','Poasco','M. Rosso','Bastioni Bramante'];
 
         
         for ($i = 0; $i < $size; $i++){
@@ -59,16 +59,10 @@ class DoctorSeeder extends Seeder
             if (rand(0,1)){
                 $sponsorshipId = Sponsorship::inRandomOrder()->first()->id;
 
-                // $sponsorshipLength = Sponsorship::get("length")->where('id', $sponsorshipId);
-
-
-                // $start = new DateTime();
-                // $expiration = $start->add(new DateInterval('PT'.$sponsorshipLength.'H'));  //aggiunte ore della sponsorship
-                
-                $doctor->sponsorships()->attach($sponsorshipId, array('start_date'=>'2022-04-20 16:35','expiration'=>'2022-04-20 16:35'));
-
-                // $doctor->sponsorships()->attach($sponsorshipId, array('start_date'=>$start,'expiration'=>$expiration));
-
+                $sponsorshipLength = Sponsorship::where('id', $sponsorshipId)->pluck('length')->first(); // pluck restituisce il solo valore e non anche la chiave! la first va usata perché è [value]
+                $start = new DateTime();
+                $expiration = $start->add(new DateInterval('PT'.$sponsorshipLength.'H'));  //aggiunte ore della sponsorship
+                $doctor->sponsorships()->attach($sponsorshipId, array('start_date'=>$start,'expiration'=>$expiration));
             }
 
         }

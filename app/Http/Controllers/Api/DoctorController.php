@@ -20,17 +20,19 @@ class DoctorController extends Controller
 
     public function index() {
 
-        $titleName = $_GET['titlename'];
+        $titleName = ucfirst($_GET['title']);
         $doctorsQB = User::whereHas('titles', function($query) use($titleName) {
             $query->where('name', $titleName);
         });
 
+        // dd($doctorsQB->get());
         $this->doctorsQB = $doctorsQB;
         $sponsoredDoctors = $this->getSponsoredDoctorsQB()->get();
         $unsponsoredDoctors = $this->getUnsponsoredDoctorsQB()->get();
 
         return response()->json(
             [
+            'all' => $doctorsQB->get(),
             'sponsoredDoctors' => $sponsoredDoctors,
             'unsponsoredDoctors' => $unsponsoredDoctors,
             ]
@@ -98,38 +100,31 @@ class DoctorController extends Controller
 
     public function getSponsoredDoctorsQB(){
 
-        $dateToday = new DateTime();
-        $dateToday = $dateToday->add(new DateInterval('PT1M'));  //aggiunto 1min
-        $dateToday = $dateToday->format("Y-m-d H:i:s");
-        return $this->doctorsQB->whereHas('sponsorships', function($query) use($dateToday) {
-            $query->where('expiration', '>=', $dateToday);
+        $DTnow = new DateTime();
+        $DTnow = $DTnow->add(new DateInterval('PT1M'));  //aggiunto 1min
+        $DTnow = $DTnow->format("Y-m-d H:i:s");
+        $doctorsQB = clone $this->doctorsQB;  //fondamentale clonare l'oggetto!!!
+        return $doctorsQB->whereHas('sponsorships', function($query) use($DTnow) {
+            $query->where('expiration', '>=', $DTnow);
         });
     }
 
 
     public function getUnsponsoredDoctorsQB(){
 
-        $dateToday = new DateTime();
-        $dateToday = $dateToday->format("Y-m-d H:i:s");
-
         /* NOT WORKING */
-        // $first = collect($this->doctorsQB->get());
-        // $second = collect($this->getSponsoredDoctorsQB()->get());
+        // $first = $this->doctorsQB->get();
+        // $second = $this->getSponsoredDoctorsQB()->get();
         // return $first->diff($second);
-
 
         //Get the id's of first model as array
         $ids1 = $this->doctorsQB->pluck('id');
-
         //get the id's of second models as array
         $ids2 = $this->getSponsoredDoctorsQB()->pluck('id');
-
         //get the models
         $diffs = User::whereIn('id',$ids1)->whereNotIn('id',$ids2);
         return $diffs;
     }
-
-
 
 
 
