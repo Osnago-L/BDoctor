@@ -52,6 +52,9 @@ class DoctorController extends Controller
 
     public function index() {
 
+        
+        $this->doctorsQB = User::with(['titles', 'performances'])->select('users.*'); //restituisce lista di tutti i dottori
+
         if (isset($_GET['title'])){
             
             $titleName = $_GET['title'];
@@ -183,7 +186,6 @@ class DoctorController extends Controller
         return $var;
     }
 
-    
     public static function showPageNumbers($rowsNum, $itemsPerPage, $url) {
     
         $html = "Pagine:";
