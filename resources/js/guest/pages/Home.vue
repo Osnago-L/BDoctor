@@ -1,7 +1,7 @@
 <template>
     <div class="ms_background">
         <div
-            class="container pt-4 d-flex justify-content-center ms_background_search"
+            class="container pt-4 ms_background_search"
         >
             <div class="row">
                 <div class="d-flex align-items-center col-sm-12">
@@ -30,7 +30,7 @@
                   </select>
               </div> -->
 
-                <div class="d-flex align-items-center col-sm-12 col-md-6 p-3">
+                <div class="align-items-center col-sm-12 col-md-6 py-3">
                     <router-link
                         :to="{
                             name: 'search',
