@@ -50,7 +50,7 @@ class DoctorSeeder extends Seeder
             $doctor->email = strtolower(Str::of($doctor->name)).strtolower(Str::of($doctor->surname)).substr($birth_year, 2, 4)."@example.it";
             
             
-            $doctor->password = /*bcrypt(*/ Str::of($doctor->name).Str::of($doctor->surname); /*); */
+            $doctor->password = bcrypt(Str::of($doctor->name).Str::of($doctor->surname));
             $doctor->save();
 
             $titleId = Title::inRandomOrder()->first()->id; // prende uno degli id esistenti a casaccio
