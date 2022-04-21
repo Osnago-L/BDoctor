@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-12 mt-5 h_rew">
-                    <h3 class="text-center">RecenZioni</h3>
+                    <h3 class="text-center">Recensioni</h3>
                      <div class="mt-5" v-for="(review,index) in doctor.reviews" :key="index">
                         <div>
                             <h5>{{review.title}}</h5>
