@@ -64,7 +64,7 @@ class DoctorController extends Controller
                 $this->filterByReviewStars($_GET['stars']);
             }
             if (isset($_GET['reviews'])){
-                $this->filterByReviewsNumber($_GET['reviews']);
+                $this->filterByReviewsCount($_GET['reviews']);
             }
 
             $this->doctorsQB = $this->filteredDoctorsQB;
@@ -92,21 +92,21 @@ class DoctorController extends Controller
 
     private function filterByReviewStars(int $stars){
 
-        $filteredDoctors = $this->filteredDoctorsQB->join('reviews', 'users.id', '=', 'reviews.user_id')
-        ->select(array('users.*', DB::raw('AVG(`score`) as avg_rate')))
-        ->groupBy('user_id')
-        ->havingRaw('AVG(score) BETWEEN ? AND ?', [$stars, $stars+0.5])
-        ->orderBy('user_id', 'desc');
+        $filteredDoctors = $this->filteredDoctorsQB->join('reviews as R1', 'users.id', '=', 'R1.user_id')
+        ->select(array('users.*', DB::raw('AVG(R1.`score`) as avg_rate')))
+        ->groupBy('R1.user_id')
+        ->havingRaw('AVG(R1.score) BETWEEN ? AND ?', [$stars, $stars+0.5])
+        ->orderBy('R1.user_id', 'desc');
     }
 
 
-    private function filterByReviewsNumber(int $reviews){
+    private function filterByReviewsCount(int $reviews){
 
-        $filteredDoctors = $this->filteredDoctorsQB->join('reviews', 'users.id', '=', 'reviews.user_id')
-        ->select(array('users.*', DB::raw('COUNT(`user_id`) as reviews_n')))
-        ->groupBy('user_id')
-        ->havingRaw('COUNT(user_id) >= ?', [$reviews])
-        ->orderBy('user_id', 'desc');
+        $filteredDoctors = $this->filteredDoctorsQB->join('reviews as R2', 'users.id', '=', 'R2.user_id')
+        ->select(array('users.*', DB::raw('COUNT(R2.`user_id`) as reviews_n')))
+        ->groupBy('R2.user_id')
+        ->havingRaw('COUNT(R2.user_id) >= ?', [$reviews])
+        ->orderBy('R2.user_id', 'desc');
         
         /* query grezza (testata su phpmyadmin, ma senza prefiltraggio degli users)
         $queryRaw = "SELECT `users`.*, COUNT(`user_id`) as `reviews_n` 
