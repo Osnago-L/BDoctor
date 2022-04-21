@@ -59,7 +59,7 @@ class DoctorController extends Controller
             $titleName = $_GET['title'];
             $titleNamePrefix = substr($titleName, 0, -2);
             $this->doctorsQB = User::with(['titles', 'performances'])->whereHas('titles', function($query) use($titleNamePrefix) {
-                $query->whereRAW('name like ?', $titleNamePrefix.'%');
+                $query->whereRaw('name like ?', $titleNamePrefix.'%');
             });
             $this->filteredDoctorsQB = clone $this->doctorsQB; //inizializza il contenuto filtrato
         }
@@ -77,7 +77,7 @@ class DoctorController extends Controller
         $sponsoredDoctorsQB = $this->getSponsoredDoctorsQB();
         $unsponsoredDoctorsQB = $this->getUnsponsoredDoctorsQB();
         $allSortedLimitedQB = $sponsoredDoctorsQB->union($unsponsoredDoctorsQB);
-        $allSortedLimited = $allSortedLimitedQB->get();
+        $allSortedLimited = $allSortedLimitedQB->get()->toArray();
 
 
         if (isset($_GET['page'])){
