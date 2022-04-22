@@ -23,9 +23,7 @@ class ReviewController extends Controller
         $nuovoRecensione = new Review();
         $nuovoRecensione->fill($data);
 
-        if( !empty( $data["author"]) ) {
-            $nuovoRecensione->author = $data["author"];
-        }else{
+        if( empty( $data["author"]) ) {
             $nuovoRecensione->author = 'Anonimo';
         }
 
