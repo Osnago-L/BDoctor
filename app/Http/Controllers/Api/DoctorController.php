@@ -108,7 +108,8 @@ class DoctorController extends Controller
         $filteredDoctors = $this->filteredDoctorsQB->join('reviews as R1', 'users.id', '=', 'R1.user_id')
         ->select(array('users.*', DB::raw('AVG(R1.`score`) as avg_rate')))
         ->groupBy('R1.user_id')
-        ->havingRaw('AVG(R1.score) BETWEEN ? AND ?', [$stars, $stars+0.5])
+        // ->havingRaw('AVG(R1.score) BETWEEN ? AND ?', [$stars, $stars+0.5])
+        ->having('AVG(R1.score)', '>=', $stars)
         ->orderBy('R1.user_id', 'desc');
     }
 
