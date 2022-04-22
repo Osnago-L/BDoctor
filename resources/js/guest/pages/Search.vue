@@ -16,6 +16,7 @@
             <div v-for="element,index in data " :key="index" class="doctor_card mb-3">
                 <h3>{{element.name}} {{element.surname}}</h3>          
                 <span>Numero di telefono: {{element.phone_n}}</span>
+                <router-link :to="{ name:'single-doctor', params: { id: element.id }}" >Mostra Dottore</router-link>
             </div>
           </div>
       </div>
