@@ -1,0 +1,61 @@
+.container-fluid{
+    height:1000px;
+}
+.ms_card{
+    padding:15px 15px;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    border-radius:13px;
+    background-color:rgb(194, 186, 186);
+}
+.ms_button{
+    width: 100px;
+}
+
+.ms_image{
+    width: 100%;
+    border-bottom: 1px solid red;
+    position: relative;
+    img{
+        width:150px;
+        height:150px;
+        border: 1px solid black;
+    }
+    
+}
+
+p{  
+    margin: 0;
+    font-weight:900;
+}
+
+/* .ms_btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.0);
+    color: white;
+    font-size: 16px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    height:150px;
+    width: 150px;
+    i{
+        display:none
+    }
+    
+    &:hover{
+        background-color: rgba(0, 0, 0, 0.5);
+        i{
+            display: block;
+        }
+    }
+} */
+
+.image-upload>input {
+    display: none;
+  }
