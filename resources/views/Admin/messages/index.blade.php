@@ -47,7 +47,7 @@
                             </a>
 
 
-                            <form action="{{route("admin.messages.destroy", [Auth::user()->id, $message->id])}}" method="message">
+                            <form action="{{route("admin.messages.destroy", [Auth::user()->id, $message->id])}}" method="POST">
                                 @csrf
                                 @method("DELETE")
                                 <button type="submit" class="btn btn-danger text-dark">
