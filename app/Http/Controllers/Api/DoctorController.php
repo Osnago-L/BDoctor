@@ -185,7 +185,7 @@ class DoctorController extends Controller
         return $var;
     }
 
-    public static function showPageNumbers($rowsNum, $itemsPerPage, $url) {
+    public static function getPageNumbers($rowsNum, $itemsPerPage, $url) {
     
         $html = "Pagine:";
         $numbers = ceil($rowsNum / $itemsPerPage);
