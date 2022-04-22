@@ -20,7 +20,7 @@
             <nav> 
                 <div class="ms_front_nav">
                     <div>
-                        {{-- <img src="{{asset("/img/"."logo.png")}}" alt=""> --}}
+                        <img src="{{asset("/img/"."logo_inverted.png")}}" alt="">
                         <a class="text-white" href="{{ url('/') }}">Home</a>
                         <a class="text-white"href="{{ url('/search') }}">Ricerca</a>
                     </div>

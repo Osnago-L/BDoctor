@@ -14427,7 +14427,7 @@ IMPORTS
 ------------------------ */
 
 .button_ms_blue {
-  background-color: #5863f8;
+  background-color: #003062;
 }
 
 .button_ms_yellow {
@@ -14438,7 +14438,7 @@ IMPORTS
   width: 100vw;
   height: 70px;
   padding: 0 20px;
-  background-color: rgba(88, 99, 248, 0.9);
+  background-color: rgba(0, 48, 98, 0.9);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14447,7 +14447,7 @@ IMPORTS
 }
 
 .ms_front_nav a {
-  margin: 0 15px;
+  margin: 0 40px;
   color: inherit;
   text-decoration: none;
 }
@@ -14457,7 +14457,7 @@ IMPORTS
 }
 
 .button_ms_blue {
-  background-color: #5863f8;
+  background-color: #003062;
 }
 
 .button_ms_yellow {
