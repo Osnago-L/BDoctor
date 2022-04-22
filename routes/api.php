@@ -24,4 +24,6 @@ Route::namespace('Api')->name('api.')->group(function() {
     Route::get("/doctors/set/page_items", "DoctorController@setMaxPageItems")->name('doctors');
     Route::get("/doctors/get/page_links", "DoctorController@getPageNumbers")->name('doctors');
     Route::get("/doctors/{doctor:id}", "DoctorController@show")->name('doctors.show');
+    Route::post("/messages", "MessageController@store")->name('messages.store');
+    Route::post("/reviews", "ReviewController@store")->name('reviews.store');
 });
