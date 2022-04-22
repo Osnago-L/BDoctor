@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="inviaRecensione()">
+        <form @submit.prevent="checkForm()">
             <input
                 type="text"
                 id="name"
@@ -34,6 +34,17 @@
                 <option value="5">5</option>
             </select>
             <button type="submit">Invia</button>
+            <div v-show="errors.length > 0">
+                <ul>
+                    <li
+                        v-for="(element, index) in errors"
+                        :key="index"
+                        style="color: red"
+                    >
+                        {{ element }}
+                    </li>
+                </ul>
+            </div>
         </form>
         <div v-show="reviewConfirm">Inviato!</div>
     </div>
@@ -52,6 +63,7 @@ export default {
                 user_id: null,
             },
             reviewConfirm: false,
+            errors: []
         };
     },
     created() {
@@ -77,9 +89,20 @@ export default {
                 console.log(response);
             });
         },
+        checkForm: function () {
+            if (
+                this.inputUtente.score
+            ) {
+                return this.inviaRecensione();
+            }else {
+                this.errors = [];
+                if (!this.inputUtente.score) {
+                    this.errors.push("Inserisci una valutazione!");
+                }
+            }
+        }
     },
 };
 </script>
 
 <style></style>
-
