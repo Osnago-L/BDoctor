@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Search from "./pages/Search";
 import PageNotFound from "./pages/PageNotFound";
 import SingleDoctor from "./pages/SingleDoctor";
+import Message from "./pages/Message";
 
 const router = new VueRouter({
     mode: "history",
@@ -25,6 +26,11 @@ const router = new VueRouter({
             path: "/doctors/:id",  //per lo show
             name: "single-doctor",
             component: SingleDoctor
+        },
+        {
+            path: "/doctors/:id/message",  //vista per invio del messaggio
+            name: "message",
+            component: Message
         },
         {
             path: "*" ,

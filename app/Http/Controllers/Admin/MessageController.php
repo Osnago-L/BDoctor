@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Message;
-
+use Illuminate\Auth\Events\Validated;
 
 class MessageController extends Controller
 {
@@ -24,6 +24,7 @@ class MessageController extends Controller
     public function index()
     {
         $messages = Message::where('user_id', Auth::user()->id)->get();
+        
         return view('admin.messages.index', compact('messages'));
     }
 
@@ -45,7 +46,7 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
