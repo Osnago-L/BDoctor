@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use DateTime;
 use DateInterval;
+use Facade\Ignition\QueryRecorder\QueryRecorder;
 use Illuminate\Support\Facades\DB;
 
 
@@ -27,7 +28,7 @@ class DoctorController extends Controller
         $DTnow = new DateTime();
         $DTnow = $DTnow->add(new DateInterval('PT1M'));  //aggiunto 1min
         $DTnow = $DTnow->format("Y-m-d H:i:s");
-        $doctorsQB = clone $this->doctorsQB;  //fondamentale clonare l'oggetto!!!
+        $doctorsQB = clone $this->doctorsQB;  //fondamentale clonare l'oggetto per non sporcare il campo originario col filtro seguente!!!
         return $doctorsQB->whereHas('sponsorships', function($query) use($DTnow) {
             $query->where('expiration', '>=', $DTnow);
         });
@@ -51,34 +52,45 @@ class DoctorController extends Controller
     // PUBLIC FUNCTIONS / METHODS
 
     public function index() {
-        
-        $this->doctorsQB = User::with(['titles', 'performances'])->select('users.*'); //restituisce lista di tutti i dottori
 
-        if (isset($_GET['title'])){
-            
-            $titleName = $_GET['title'];
-            $titleNamePrefix = substr($titleName, 0, -2);
-            $this->doctorsQB = User::with(['titles', 'performances'])->whereHas('titles', function($query) use($titleNamePrefix) {
+        $sponsoredDoctorsQB = null;
+        $unsponsoredDoctorsQB = null;
+        $filtered = false;
+
+        
+        if (!isset($_GET['title'])){
+            $this->doctorsQB = User::with(['titles', 'performances'])->select('users.*')->orderByRaw('surname ASC, name ASC'); //restituisce lista di tutti i dottori
+            $sponsoredDoctorsQB = $this->getSponsoredDoctorsQB()->orderByRaw('surname ASC, name ASC');
+            $unsponsoredDoctorsQB = $this->getUnsponsoredDoctorsQB()->orderByRaw('surname ASC, name ASC');
+        }
+        else {
+            $this->doctorsQB = User::with(['titles', 'performances'])->whereHas('titles', function($query) {
+                $titleNamePrefix = substr($_GET['title'], 0, -2);
                 $query->whereRaw('name like ?', $titleNamePrefix.'%');
             });
-            $this->filteredDoctorsQB = clone $this->doctorsQB; //inizializza il contenuto filtrato
+            $filtered = true;
         }
+        $this->filteredDoctorsQB = clone $this->doctorsQB; //inizializza il contenuto filtrato
+        
         if (isset($_GET['stars']) || isset($_GET['reviews'])){
             
             if (0 < $_GET['stars'] && $_GET['stars'] <= 5){
                 $this->filterByReviewStars($_GET['stars']);
+                $filtered = true;
             }
             if (is_int($_GET['reviews']) && ($_GET['reviews']) > 0){
                 $this->filterByReviewsCount($_GET['reviews']);
+                $filtered = true;
             }
-            $this->doctorsQB = $this->filteredDoctorsQB;
+            $this->doctorsQB = $this->filteredDoctorsQB; //rende il filtraggio effettivo
         }
 
-        $sponsoredDoctorsQB = $this->getSponsoredDoctorsQB();
-        $unsponsoredDoctorsQB = $this->getUnsponsoredDoctorsQB();
-        $allSortedLimitedQB = $sponsoredDoctorsQB->union($unsponsoredDoctorsQB);
-        $allSortedLimited = $allSortedLimitedQB->get()->toArray();
+        if ($filtered){
+            $sponsoredDoctorsQB = $this->sortByRate($this->getSponsoredDoctorsQB());
+            $unsponsoredDoctorsQB = $this->sortByRate($this->getUnSponsoredDoctorsQB());
+        }
 
+        $allSortedLimited =  [...$sponsoredDoctorsQB->get(),...$unsponsoredDoctorsQB->get()]; //la UNION dava problemi con l'ordinamento
 
         if (isset($_GET['page'])){
             $allSortedLimited = $this->getPageItems($allSortedLimited, $_GET['page'], DoctorController::$MAX_PAGE_ITEMS);
@@ -98,7 +110,7 @@ class DoctorController extends Controller
     
     public function show($id) {
 
-        $doctor = User::where("id", $id)->with(["titles", "performances", "reviews"])->first();
+        $doctor = User::where("id", $id)->with(["titles", "performances", "reviews", "sponsorships"])->first();
         return response()->json($doctor);
     }
 
@@ -138,6 +150,15 @@ class DoctorController extends Controller
             $query->whereIn('name', $performances);
         })->get();
         return response()->json($filteredDoctors);
+    }
+
+
+    private function sortByRate($doctorsQB){
+
+        $doctorsQB->join('reviews as R3', 'users.id', '=', 'R3.user_id')
+        ->select(array('users.*', DB::raw('AVG(R3.`score`) as avg_rate')))
+        ->orderBy('AVG(R3.score) DESC');
+        return $doctorsQB;
     }
     
     // /* EXTRA */
