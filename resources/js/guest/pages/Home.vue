@@ -9,20 +9,22 @@
      
                         <div class="d-flex align-items-center col-sm-12 col-md-4 offset-md-8">
                             <div class="input-group">
-                                <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                                    <option value="" selected>Scegli una specializzazione...</option>
+                                <select id="title_select" class="custom-select" v-model="input">
+                                    <option value="" selected>{{alert}}</option>
                                     <option value="podologia">Podologia</option>
                                     <option value="urologia">Urologia</option>
                                     <option value="dermatologia">Dermatologia</option>
                                 </select>
                                 <div class="input-group-append">
                                     <router-link
+                                    @click.native="checkIfEmpty()"
+                                        :event="input ? 'click' : ''"
                                         :to="{
                                             name: 'search',
-                                            query: { search: input},
+                                            query: {search: input},
                                         }"
                                     >
-                                        <button type="button" class=" button-search btn btn-primary">
+                                        <button type="button" class="text-white button-search btn button_ms_blue">
                                             Cerca
                                         </button>
     
@@ -134,19 +136,17 @@ export default {
     name: "Home",
     data() {
         return {
-            input: ""
+            input: "",
+            alert:"Scegli una specializzazione..."
         };
     },
-    /*     created() {
-        this.getDocs();
-    },
-    methods: {
-        getDocs: function () {
-            axios.get("/api/doctors").then((response) => {
-                this.doctors = response.data;
-            });
-        },
-    } */
+    methods:{
+        checkIfEmpty(){
+            if(!this.input){
+                this.alert = "Selezionare una specializzazione per continuare..."
+            }
+        }
+    }
 };
 </script>
 

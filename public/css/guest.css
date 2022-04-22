@@ -14426,12 +14426,19 @@ input[type=color].form-control:disabled {
 IMPORTS
 ------------------------ */
 
+.button_ms_blue {
+  background-color: #5863f8;
+}
+
+.button_ms_yellow {
+  background-color: #efe9f4;
+}
+
 .ms_front_nav {
   width: 100vw;
   height: 70px;
   padding: 0 20px;
-  background-color: rgba(128, 128, 128, 0.2);
-  background-color: #5863F8;
+  background-color: rgba(88, 99, 248, 0.9);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14447,6 +14454,14 @@ IMPORTS
 
 .ms_front_nav a:hover {
   text-decoration: underline;
+}
+
+.button_ms_blue {
+  background-color: #5863f8;
+}
+
+.button_ms_yellow {
+  background-color: #efe9f4;
 }
 
 /* ------------------------

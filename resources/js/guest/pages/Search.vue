@@ -46,7 +46,6 @@ export default {
         title: this.$route.query.search
         }
       }).then((response) => {
-        console.log(this.$route);
         this.data = response.data.data.sponsoredDoctors.concat(response.data.data.unsponsoredDoctors);
       });
     }
@@ -57,7 +56,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../../sass/guest/_variables.scss';
 .background_color{
-  background-image: linear-gradient($ms-white, rgba(207, 207, 207, 0.26)) ;
+  background-image: linear-gradient(rgba($ms-white, 0.5), rgba(207, 207, 207, 0.26)) ;
   height: calc(100vh - 70px);
 }
 .search-group{

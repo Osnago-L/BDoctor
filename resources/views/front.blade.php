@@ -20,18 +20,19 @@
             <nav> 
                 <div class="ms_front_nav">
                     <div>
-                        <a href="{{ url('/') }}">Home</a>
-                        <a href="{{ url('/search') }}">Ricerca</a>
+                        {{-- <img src="{{asset("/img/"."logo.png")}}" alt=""> --}}
+                        <a class="text-white" href="{{ url('/') }}">Home</a>
+                        <a class="text-white"href="{{ url('/search') }}">Ricerca</a>
                     </div>
                     <div>
                         @if (Route::has('login'))
                             <div>
                                 @auth
-                                    <a href="{{ url('/admin/') }}">Home</a>
+                                    <button class="btn btn-secondary btn-sm"><a href="{{ url('/admin/') }}">Home</a></button>
                                 @else
-                                    <a href="{{ route('login') }}">Accedi</a>
+                                    <button class="btn button_ms_yellow btn-sm"><a href="{{ route('login') }}">Accedi</a></button>
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}">Registrati</a>
+                                        <button class="btn button_ms_yellow  btn-sm"><a href="{{ route('register') }}">Registrati</a></button>
                                     @endif
                                 @endauth
                             </div>

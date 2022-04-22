@@ -6,8 +6,8 @@
 
     padding: 0 20px;
 
-    background-color: rgba(128, 128, 128, 0.20);
-    background-color: $ms_blue;
+    // background-color: rgba(128, 128, 128, 0.20);
+    background-color: rgba($ms_blue, 0.9);
 
     display: flex;
     align-items: center;
