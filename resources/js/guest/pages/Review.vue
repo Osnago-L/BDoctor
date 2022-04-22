@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="inviaMessaggio()">
+        <form @submit.prevent="inviaRecensione()">
             <input
                 type="text"
                 id="name"
@@ -67,7 +67,7 @@ export default {
                     console.log(response.data);
                 });
         },
-        inviaMessaggio: function () {
+        inviaRecensione: function () {
             axios.post(`/api/reviews/`, this.inputUtente).then((response) => {
                 this.inputUtente.author = "";
                 this.inputUtente.title = "";

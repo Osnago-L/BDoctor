@@ -13,7 +13,7 @@
     }
 
     if(count($reviews) > 0 ){
-        $avgScore = $sum / count($reviews);
+        $avgScore = round($sum / count($reviews), 1);
 
 
         $integers = (int) $avgScore;
