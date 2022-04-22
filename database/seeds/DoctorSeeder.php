@@ -21,8 +21,7 @@ class DoctorSeeder extends Seeder
     {
         // $faker = Faker\Factory::create('en_US');
         // $faker->addProvider(new Faker\Provider\en_US\PhoneNumber($faker));
-        // $faker->seed(1234); //per avere sempre gli stessi valori
-
+        $faker->seed(1234); //per avere sempre gli stessi valori
 
         $surnames = ['Rossi', 'Bianchi', 'Verdi', 'Neri', 'Viola'];
         $names = ['Antonio', 'Bruno', 'Carlo', 'Dario', 'Edoardo', 'Fabio', 'Giovanni'];
@@ -39,17 +38,19 @@ class DoctorSeeder extends Seeder
                 $doctor->surname = $nameSurnameArr[01]; 
                 $doctor->phone = $faker->unique->e164PhoneNumber();
                 */
-            // $doctor->email = strtolower(Str::of($doctor->name)).strtolower(Str::of($doctor->surname))."@example.it";
-            
+            // $doctor->email = $faker->safeEmail();
+                
             $doctor->name = $names[rand(0, count($names)-1)]; 
             $doctor->surname = $surnames[rand(0, count($surnames)-1)];
             $doctor->birth_date = $faker->dateTimeBetween('-75 years', '-25 years');
+            $birth_year = $doctor->birth_date->format("Y");
+            
             $doctor->address = "via ".$addresses[rand(0, count($addresses)-1)]." ".$faker->numberBetween($min = 1, $max = 250).$faker->optional()->randomElement($array = array ('a','b','c','d','e','f'));
             $doctor->phone_n = $faker->regexify('0[1-9]{1,3} [1-9]{4,8}'); //numeri formato italiano
-            $doctor->email = $faker->safeEmail();
+            $doctor->email = strtolower(Str::of($doctor->name)).strtolower(Str::of($doctor->surname)).substr($birth_year, 2, 4)."@example.it";
             
             
-            $doctor->password = /*bcrypt(*/ Str::of($doctor->name).Str::of($doctor->surname); /*); */
+            $doctor->password = bcrypt(Str::of($doctor->name).Str::of($doctor->surname));
             $doctor->save();
 
             $titleId = Title::inRandomOrder()->first()->id; // prende uno degli id esistenti a casaccio

@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::namespace('Api')->name('api.')->group(function() { 
     Route::get("/doctors", "DoctorController@index")->name('doctors');
+    Route::get("/doctors/set/page_items", "DoctorController@setMaxPageItems")->name('doctors');
+    Route::get("/doctors/get/page_links", "DoctorController@getPageNumbers")->name('doctors');
     Route::get("/doctors/{doctor:id}", "DoctorController@show")->name('doctors.show');
-    
 });
