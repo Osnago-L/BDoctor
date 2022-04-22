@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css);@charset "UTF-8";
 
 /*!
  * Bootstrap v4.6.1 (https://getbootstrap.com/)
@@ -10966,18 +10966,123 @@ a.text-dark:focus {
   border: 1px solid red;
 }
 
-.ms_navbar {
-  position: absolute;
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl {
+  height: 1000px;
+}
+
+.ms_card {
+  padding: 15px 15px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 13px;
+  background-color: rgb(194, 186, 186);
+}
+
+.ms_button {
+  width: 100px;
+}
+
+.ms_image {
+  width: 100%;
+  border-bottom: 1px solid red;
+  position: relative;
+}
+
+.ms_image img {
   width: 150px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  padding: 48px 0 0;
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  height: 150px;
+  border: 1px solid black;
+}
+
+p {
+  margin: 0;
+  font-weight: 900;
+}
+
+/* .ms_btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.0);
+    color: white;
+    font-size: 16px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    height:150px;
+    width: 150px;
+    i{
+        display:none
+    }
+
+    &:hover{
+        background-color: rgba(0, 0, 0, 0.5);
+        i{
+            display: block;
+        }
+    }
+} */
+
+.image-upload > input {
+  display: none;
+}
+
+.ms_nav {
+  position: fixed;
+  background-color: rgb(27, 141, 42);
+  height: 100%;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 main {
-  margin-left: 150px;
+  margin-left: 60px;
+  background-color: #efe9f4;
+  height: 100%;
+}
+
+@media (min-width: 992px) {
+  main {
+    margin-left: 153px;
+  }
+}
+
+.ms_title {
+  border-bottom: 1px solid red;
+}
+
+.fa-brands {
+  font-size: 25px;
+  padding: 5px 15px;
+}
+
+.ms_boxnav {
+  width: 100%;
+  background-color: #3BBDDF;
+}
+
+.ms_boxnav a {
+  color: #2A7F62;
+  text-decoration: none;
+  padding: 15px 0px;
+  height: 50px;
+  border-bottom: 1px solid red;
+  display: flex;
+}
+
+.ms_boxnav a:hover {
+  background-color: #FAE875;
+}
+
+.ms_boxnav .fa-solid {
+  font-size: 25px;
+  padding: 0px 15px;
 }
 
 .rounded-box {

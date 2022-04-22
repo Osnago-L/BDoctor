@@ -6,24 +6,59 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css';
 
 @import './partials/index';
+@import './partials/home';
 
-.ms_navbar{
-    position: absolute;
-    width: 150px;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    padding: 48px 0 0;
-    box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%);
+
+
+.ms_nav{
+    position: fixed;
+    background-color: rgb(27, 141, 42);
+    height: 100%;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
+
+
 
 main{
-    margin-left: 150px;
+    margin-left: 60px;
+    background-color: $ms_white;
+    height: 100%;
+}
+@media (min-width: 992px) { 
+    main{
+        margin-left: 153px;
+    }
 }
 
+.ms_title{
+    border-bottom: 1px solid red;
+}
+.fa-brands{
+    font-size:25px;
+    padding:5px 15px;
+}
+.ms_boxnav{
+    width: 100%;
+    background-color:$ms_cyan;
+    a{  
+        color:$ms_green;
+        text-decoration: none;
+        padding: 15px 0px;
+        height:50px;
+        border-bottom: 1px solid red;
+        display: flex;
+        &:hover{
+            background-color:$ms_yellow;
+        }
+    }
+    .fa-solid{
+        font-size:25px;
+        padding: 0px 15px;
+    }
+}
 .rounded-box {
     border-radius: 10px;
     border: 1px solid #cdc;

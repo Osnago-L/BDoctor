@@ -33,7 +33,7 @@
 
 @endphp
 
-<div class="container">
+<div class="container vh-100">
 
     <h1>Recensioni ({{count($reviews) }})</h1>
 
