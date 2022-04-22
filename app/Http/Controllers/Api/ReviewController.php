@@ -21,26 +21,14 @@ class ReviewController extends Controller
         ]);
 
         $nuovoRecensione = new Review();
+        $nuovoRecensione->fill($data);
 
         if( !empty( $data["author"]) ) {
             $nuovoRecensione->author = $data["author"];
         }else{
-            $nuovoRecensione->author = "Anonimo";
+            $nuovoRecensione->author = 'Anonimo';
         }
 
-        if( !empty( $data["title"]) ) {
-            $nuovoRecensione->title = $data["tile"];
-        }else{
-            $nuovoRecensione->title = "-";
-        }
-
-        if( !empty( $data["content"]) ) {
-            $nuovoRecensione->content = $data["content"];
-        }else{
-            $nuovoRecensione->content = "-";
-        }
-
-        $nuovoRecensione->fill($data);
         $nuovoRecensione->save();
 
         return response()->json([
