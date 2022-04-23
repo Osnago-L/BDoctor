@@ -39,7 +39,7 @@ class DoctorController extends Controller
             });
             $filtered = true;
         }
-        $this->filteredDoctorsQB = clone $this->doctorsQB; //inizializza il contenuto filtrato
+        $this->filteredDoctorsQB = clone($this->doctorsQB); //inizializza il contenuto filtrato
         
             
         if (isset($_GET['stars']) && 0 < $_GET['stars'] && $_GET['stars'] <= 5){
@@ -53,7 +53,7 @@ class DoctorController extends Controller
         $this->doctorsQB = $this->filteredDoctorsQB; //rende il filtraggio effettivo
 
         if ($filtered){
-            $sponsoredDoctorsQB = $this->getUnSponsoredDoctorsQB();
+            $sponsoredDoctorsQB = $this->getSponsoredDoctorsQB();
             $unsponsoredDoctorsQB = $this->getUnSponsoredDoctorsQB();
         }
 
@@ -68,7 +68,7 @@ class DoctorController extends Controller
 
                 'sponsoredDoctors' => $sponsoredDoctorsQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
                 'unsponsoredDoctors' => $unsponsoredDoctorsQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
-                'doctorsSorted' => $allSortedQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items()
+                'allDoctorsSorted' => $allSortedQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items()
             ]
         ]);
     }
@@ -177,13 +177,12 @@ class DoctorController extends Controller
 
     private function orderByScore(Builder $doctorsQB){
 
-        $doctorsQB->join('reviews', 'users.id', '=', 'reviews.user_id')
+        $doctorsQBclone = clone ($doctorsQB);
+        $doctorsQBclone->join('reviews', 'users.id', '=', 'reviews.user_id')
         ->select(array('users.*', DB::raw('AVG(reviews.score) as `avg_rate`')))
         ->groupBy('user_id')
         ->orderByRaw('`avg_rate` DESC');
-
-        // dd($doctorsQB->toSql());
-        return $doctorsQB;
+        return $doctorsQBclone;
     }
     
     private static function getPageItems(array $arr, $page, $itemsPerPage) {
