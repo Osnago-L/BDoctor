@@ -53,8 +53,8 @@ class DoctorController extends Controller
         $this->doctorsQB = $this->filteredDoctorsQB; //rende il filtraggio effettivo
 
         if ($filtered){
-            $sponsoredDoctorsQB = $this->orderByScore($this->getUnSponsoredDoctorsQB());
-            $unsponsoredDoctorsQB = $this->orderByScore($this->getUnSponsoredDoctorsQB());
+            $sponsoredDoctorsQB = $this->getUnSponsoredDoctorsQB();
+            $unsponsoredDoctorsQB = $this->getUnSponsoredDoctorsQB();
         }
 
         $sponsorCloneQB = clone($sponsoredDoctorsQB); //ogni volta che si fa una operazione su una QB bisogna clonarla prima: metodi eseguiti cambiano stato degli oggetti QB
