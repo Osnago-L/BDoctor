@@ -57,7 +57,7 @@ class DoctorController extends Controller
             $unsponsoredDoctorsQB = $this->getUnSponsoredDoctorsQB();
         }
 
-        $sponsorCloneQB = clone($sponsoredDoctorsQB); //ogni volta che si fa una operazione su una QB bisogna clonarla prima: metodi eseguiti cambiano stato degli oggetti QB
+        $sponsorCloneQB = clone($sponsoredDoctorsQB); //ad ogni nuova operazione su un QB da salvare, bisogna prima clonarlo (metodi eseguiti cambiano stato degli oggetti QB)
         $unsponsorCloneQB = clone($unsponsoredDoctorsQB);
         $allSortedQB = $sponsorCloneQB->union($unsponsorCloneQB);
 
@@ -117,18 +117,19 @@ class DoctorController extends Controller
     private function filterByReviewStars(int $stars){
 
         $filteredDoctors = $this->filteredDoctorsQB->join('reviews as R1', 'users.id', '=', 'R1.user_id')
-        ->select(array('users.*', DB::raw('AVG(R1.`score`) as avg_rate')))
-        ->groupBy('R1.user_id')
+        // ->select(array('users.*', DB::raw('AVG(R1.`score`) as avg_rate'))) N.B. può dare problemi con la union (avendo un campo in più)
         // ->havingRaw('AVG(R1.score) BETWEEN ? AND ?', [$stars, $stars+0.5])
-        // ->orderBy('R1.user_id', 'desc');
-        ->havingRaw('`avg_rate` >= ?', [$stars])
-        ->orderByRaw('`avg_rate` desc');
+        ->select('users.*')
+        ->groupBy('R1.user_id')
+        ->havingRaw('AVG(R1.`score`) >= ?', [$stars])
+        ->orderByRaw('AVG(R1.`score`) desc');
     }
 
     private function filterByReviewsCount(int $reviews){
 
         $filteredDoctors = $this->filteredDoctorsQB->join('reviews as R2', 'users.id', '=', 'R2.user_id')
-        ->select(array('users.*', DB::raw('COUNT(R2.`user_id`) as reviews_n')))
+        // ->select(array('users.*', DB::raw('COUNT(R2.`user_id`) as reviews_n'))) N.B. può dare problemi con la union (avendo un campo in più)
+        ->select('users.*')
         ->groupBy('R2.user_id')
         ->havingRaw('COUNT(R2.user_id) >= ?', [$reviews])
         ->orderBy('R2.user_id', 'desc');
@@ -222,11 +223,8 @@ class DoctorController extends Controller
      */
     private function getUnsponsoredDoctorsQB(){
 
-        //Get the id's of first model as array
-        $ids1 = $this->doctorsQB->pluck('id');
-        //get the id's of second models as array
-        $ids2 = $this->getSponsoredDoctorsQB()->pluck('id');
-        //get the models
+        $ids1 = $this->doctorsQB->pluck('id');   //dottori potenzialmente filtrati
+        $ids2 = $this->getSponsoredDoctorsQB()->pluck('id'); 
         $diffs = User::with($this->additionalTables)->whereIn('users.id',$ids1)->whereNotIn('users.id',$ids2);
         return $diffs;
     }
