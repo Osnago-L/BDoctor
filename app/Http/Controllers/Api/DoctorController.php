@@ -15,6 +15,7 @@ class DoctorController extends Controller
 
     private $doctorsQB;
     private $filteredDoctorsQB;
+    private $additionalTables = ['titles', 'performances', 'reviews','sponsorships'];
     public static $MAX_PAGE_ITEMS = 10;
 
 
@@ -27,12 +28,12 @@ class DoctorController extends Controller
         $filtered = false;
 
         if (!isset($_GET['title'])){
-            $this->doctorsQB = User::with(['titles', 'performances', 'reviews'])->select('users.*')->orderByRaw('surname ASC, name ASC'); //restituisce lista di tutti i dottori
+            $this->doctorsQB = User::with($this->additionalTables)->select('users.*')->orderByRaw('surname ASC, name ASC'); //restituisce lista di tutti i dottori
             $sponsoredDoctorsQB = $this->getSponsoredDoctorsQB()->orderByRaw('surname ASC, name ASC');
             $unsponsoredDoctorsQB = $this->getUnsponsoredDoctorsQB()->orderByRaw('surname ASC, name ASC');
         }
         else {
-            $this->doctorsQB = User::with(['titles', 'performances', 'reviews'])->whereHas('titles', function($query) {
+            $this->doctorsQB = User::with($this->additionalTables)->whereHas('titles', function($query) {
                 $titleNamePrefix = substr($_GET['title'], 0, -2);
                 $query->whereRaw('name like ?', $titleNamePrefix.'%');
             });
@@ -74,7 +75,7 @@ class DoctorController extends Controller
     
     public function show($id) {
 
-        $doctor = User::where("id", $id)->with(["titles", "performances", "reviews", "sponsorships"])->first();
+        $doctor = User::where("id", $id)->with($this->additionalTables)->first();
         return response()->json($doctor);
     }
     
@@ -227,7 +228,7 @@ class DoctorController extends Controller
         //get the id's of second models as array
         $ids2 = $this->getSponsoredDoctorsQB()->pluck('id');
         //get the models
-        $diffs = User::with(['titles', 'performances'])->whereIn('users.id',$ids1)->whereNotIn('users.id',$ids2);
+        $diffs = User::with($this->additionalTables)->whereIn('users.id',$ids1)->whereNotIn('users.id',$ids2);
         return $diffs;
     }
 
