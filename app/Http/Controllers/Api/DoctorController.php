@@ -28,9 +28,7 @@ class DoctorController extends Controller
         $filtered = false;
 
         if (!isset($_GET['title'])){
-            $this->doctorsQB = User::with($this->additionalTables)->select('users.*')->orderByRaw('surname ASC, name ASC'); //restituisce lista di tutti i dottori
-            $sponsoredDoctorsQB = $this->getSponsoredDoctorsQB()->orderByRaw('surname ASC, name ASC');
-            $unsponsoredDoctorsQB = $this->getUnsponsoredDoctorsQB()->orderByRaw('surname ASC, name ASC');
+            $this->doctorsQB = User::with($this->additionalTables)->select('users.*'); //restituisce lista di tutti i dottori
         }
         else {
             $this->doctorsQB = User::with($this->additionalTables)->whereHas('titles', function($query) {
@@ -46,7 +44,7 @@ class DoctorController extends Controller
                 $this->filterByReviewStars($_GET['stars']);
                 $filtered = true;
         }
-        if (isset($_GET['reviews']) && is_int($_GET['reviews']) && ($_GET['reviews']) > 0){
+        if (isset($_GET['reviews']) && $_GET['reviews'] > 0){
                 $this->filterByReviewsCount($_GET['reviews']);
                 $filtered = true;
         }
@@ -55,6 +53,10 @@ class DoctorController extends Controller
         if ($filtered){
             $sponsoredDoctorsQB = $this->getSponsoredDoctorsQB();
             $unsponsoredDoctorsQB = $this->getUnSponsoredDoctorsQB();
+        }
+        else {
+            $sponsoredDoctorsQB = $this->getSponsoredDoctorsQB()->orderByRaw('surname ASC, name ASC');
+            $unsponsoredDoctorsQB = $this->getUnsponsoredDoctorsQB()->orderByRaw('surname ASC, name ASC');
         }
 
         $sponsorCloneQB = clone($sponsoredDoctorsQB); //ad ogni nuova operazione su un QB da salvare, bisogna prima clonarlo (metodi eseguiti cambiano stato degli oggetti QB)
@@ -122,17 +124,16 @@ class DoctorController extends Controller
         ->select('users.*')
         ->groupBy('R1.user_id')
         ->havingRaw('AVG(R1.`score`) >= ?', [$stars])
-        ->orderByRaw('AVG(R1.`score`) desc');
+        ->orderByRaw('AVG(R1.`score`) DESC');
     }
 
     private function filterByReviewsCount(int $reviews){
-
         $filteredDoctors = $this->filteredDoctorsQB->join('reviews as R2', 'users.id', '=', 'R2.user_id')
         // ->select(array('users.*', DB::raw('COUNT(R2.`user_id`) as reviews_n'))) N.B. può dare problemi con la union (avendo un campo in più)
         ->select('users.*')
         ->groupBy('R2.user_id')
-        ->havingRaw('COUNT(R2.user_id) >= ?', [$reviews])
-        ->orderBy('R2.user_id', 'desc');
+        ->havingRaw('COUNT(R2.`user_id`) >= ?', [$reviews])
+        ->orderByRaw('R2.`user_id` DESC');
         
         /* query grezza (testata su phpmyadmin, ma senza prefiltraggio degli users)
         $queryRaw = "SELECT `users`.*, COUNT(`user_id`) as `reviews_n` 
