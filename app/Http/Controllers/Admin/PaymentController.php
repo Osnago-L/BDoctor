@@ -7,11 +7,13 @@ use DateTime;
 use App\Http\Controllers\Controller;
 use App\Sponsorship;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
+
     public function index(User $user)
     {
 
@@ -67,13 +69,27 @@ class PaymentController extends Controller
 
         
         $nuovaSponsorship = new Sponsorship();
+        $start = Carbon::now();
+
+
+        $utenteLoggato = User::where('id', $user['id'])->with('sponsorships')->first();
+
+
+        foreach ($utenteLoggato->sponsorships as $elemento) {
+
+            $date_format = DateTime::createFromFormat('Y-m-d H:i:s', $elemento->pivot->expiration);
+
+            if($date_format > $start){
+                $start = $date_format;
+            }
+        }
+        
         $sponsorshipLength = intval(Sponsorship::where('id', $data['sponsorship_id'])->pluck('length')->first()); // pluck restituisce il solo valore e non anche la chiave! la first va usata perché è [value]
-        $start = new DateTime();
         $expiration = clone $start;
         $expiration->add(new DateInterval('PT'.$sponsorshipLength.'H'));
 
         $user->sponsorships()->attach($data['sponsorship_id'], array('start_date'=>$start,'expiration'=>$expiration));
-
+        
         if ($result->success) {
             $transaction = $result->transaction;
             // header("Location: transaction.php?id=" . $transaction->id);
