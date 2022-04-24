@@ -67,10 +67,10 @@ class PaymentController extends Controller
 
         
         $nuovaSponsorship = new Sponsorship();
-
-        $sponsorshipLength = Sponsorship::where('id', $data['sponsorship_id'])->pluck('length')->first(); // pluck restituisce il solo valore e non anche la chiave! la first va usata perché è [value]
+        $sponsorshipLength = intval(Sponsorship::where('id', $data['sponsorship_id'])->pluck('length')->first()); // pluck restituisce il solo valore e non anche la chiave! la first va usata perché è [value]
         $start = new DateTime();
-        $expiration = $start->add(new DateInterval('PT'.$sponsorshipLength.'H'));  //aggiunte ore della sponsorship
+        $expiration = clone $start;
+        $expiration->add(new DateInterval('PT'.$sponsorshipLength.'H'));
 
         $user->sponsorships()->attach($data['sponsorship_id'], array('start_date'=>$start,'expiration'=>$expiration));
 
