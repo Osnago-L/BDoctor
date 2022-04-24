@@ -3,6 +3,13 @@ import "bootstrap-vue/dist/bootstrap-vue.css"
 import App from './App.vue';
 import router from './router';
 
+try {
+    window.Popper = require('popper.js').default;
+    window.$ = window.jQuery = require('jquery');
+
+    require('bootstrap');
+} catch (e) {}
+
 window.Vue = require('vue');
 Vue.use(BootstrapVue)
 

@@ -14435,20 +14435,11 @@ IMPORTS
 }
 
 .ms_front_nav {
-  width: 100vw;
-  height: 70px;
-  padding: 0 20px;
   background-color: rgba(0, 48, 98, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
   font-family: "Nunito", sans-serif;
 }
 
 .ms_front_nav a {
-  margin: 0 40px;
-  color: inherit;
   text-decoration: none;
 }
 
