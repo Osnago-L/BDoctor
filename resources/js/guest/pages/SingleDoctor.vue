@@ -12,8 +12,11 @@
                             <div><span>Indirizzo:</span> {{doctor.address}}</div>
                             <div class="my_hr"></div>
                         </div>
-                        <div class="col-3">
-                            <img class="w-100 img-show" src="https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png" alt="">   
+                        <div class="col-3" v-if="doctor.image">
+                            <img class="w-100 img-show" :src="doctor.image">   
+                        </div>
+                        <div class="col-3" v-else>
+                            <img class="w-100 img-show" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
                         </div>
                         <div class="col-4 text-center">
                             <div v-if="doctor.phone_n"><span>Numero di telefono:</span> {{doctor.phone_n}}</div>
@@ -43,16 +46,16 @@
                         <div class="ml-4 txt">{{doctor.cv}}</div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-12 mt-5 h_rew text-center">
+                <div class="col-lg-4 col-12 mt-4 h_rew text-center">
                     <div class="d-flex align-items-center justify-content-center">
-                        <h3 class="text-center">Recensioni </h3> 
+                        <h3 class="text-center mt-4">Recensioni </h3> 
                         <span class="personal_i"> ({{doctor.reviews.length}})</span>
                     </div>
 
                     <router-link :to="{ name:'review', params: { id:doctor.id }}"><button type="button" class="rew_button mt-3">Scrivi una recensione</button></router-link>
 
-                    <div class="mt-5 text-left" v-for="(review,index) in doctor.reviews" :key="index">
-                        <div class="mt-5 text-left" v-if="review">
+                    <div class="review_my" v-for="(review,index) in doctor.reviews" :key="index">
+                        <div class="mt-4 text-left" v-if="review">
                             <div>
                                 <h5>{{review.title}}</h5>
                             </div>
@@ -98,13 +101,14 @@ export default {
                 return date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear();
           }
          
-       }
+       },
     },
     created(){
         axios                                              //la chiamata axios avviene per verificare l'id del singolo elemento
         .get(`/api/doctors/${this.$route.params.id}`)    //il collegamento lo vediamo da ispeziona nel browser   this senza$
         .then((apirisp)=>{
-            this.doctor= apirisp.data;
+           this.doctor= apirisp.data;
+
         })
     }
 }
@@ -120,16 +124,23 @@ export default {
     font-size: 10px;
 }
 .h_rew{
-    height: calc(100vh - 120px) ;
+    height: calc(100vh - 100px) ;
     overflow: scroll;
+    border-bottom: 4px solid $ms_blue;
+    border-top: 4px solid $ms_blue;
+    border-radius: 5%;
+    box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.100);
 }
 .h_rew::-webkit-scrollbar {
     display: none;
 }
 .profile_scr{
     background-color: white;
+    height: calc(100vh - 100px) ;
     border-radius: 20px;
     box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.100);
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .profile_scr::-webkit-scrollbar {
     display: none;
@@ -143,6 +154,7 @@ export default {
 }
 .txt{
     font-size: 12px;
+    word-wrap: break-word;
 }
 .my_hr{
     margin-top: 20px;
@@ -162,11 +174,27 @@ div{
     border: 2px solid white;
     color: white;
     font-size: 12px;
+    transition: ease 0.5s;
+}
+.rew_button:hover{
+    background-color: rgba($ms_blue, 0.9);
+    transition: all ease-in-out 0.5s;
 }
 .user{
     color: $ms_blue;
 }
 .star{
     color:  rgb(241, 241, 35);;
+}
+.review_my{
+    padding-bottom: 15px;
+    border-bottom: 3px solid white;
+}
+img{
+    transition: ease 0.5s;
+}
+img:hover{
+    filter: brightness(50%);
+    transition: all ease-in-out 0.5s;
 }
 </style>
