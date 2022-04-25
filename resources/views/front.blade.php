@@ -17,28 +17,47 @@
     </head>
     <body>
         <div class="overflow">
-            <nav> 
-                <div class="ms_front_nav">
-                    <div>
-                        <a href="{{ url('/') }}">Home</a>
-                        <a href="{{ url('/search') }}">Ricerca</a>
-                    </div>
-                    <div>
+            <nav class="ms_front_nav navbar navbar-expand-lg navbar-dark d-flex justify-content-between">
+                <a href="{{ url('/') }}">
+                    <img class="d-none d-lg-inline" src="{{asset("/img/"."logo_inverted.png")}}" alt="">
+                    <img class="d-inline d-lg-none" src="{{asset("/img/"."logo_inverted_B.png")}}" alt="">
+                </a>
+                <div class="">
+                  <ul class="navbar-nav w-100 d-flex align-items-center">
+                    <div class="d-flex align-items-center mt-sm-2 mt-lg-0">
                         @if (Route::has('login'))
-                            <div>
                                 @auth
-                                    <a href="{{ url('/admin/') }}">Home</a>
+                                    <li class="nav-item mb-sm-2 mb-md-0 mx-5">
+                                        <button class=" btn btn-secondary btn-sm "><a class="text-dark" href="{{ url('/admin/') }}">Home</a></button>
+                                    </li> 
                                 @else
-                                    <a href="{{ route('login') }}">Accedi</a>
+                                    <li class="nav-item mb-sm-2 mb-lg-0">
+                                        <button class="  btn button_ms_yellow btn-sm text-dark"><a class="text-dark" href="{{ route('login') }}">Accedi</a></button>
+                                    </li> 
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}">Registrati</a>
+                                        <li class="nav-item mb-sm-2 mb-lg-0 mx-2">
+                                            <button class="btn button_ms_yellow btn-sm text-dark"><a class="text-dark" href="{{ route('register') }}">Registrati</a></button>
+                                        </li> 
                                     @endif
                                 @endauth
-                            </div>
                         @endif
                     </div>
+                  </ul>
                 </div>
             </nav>
+            {{-- <nav> 
+                <div class="ms_front_nav">
+                    <div class="d-flex align-items-center">
+                        <img class="d-none d-sm-inline" src="{{asset("/img/"."logo_inverted.png")}}" alt="">
+                        <img class="d-inline d-sm-none" src="{{asset("/img/"."logo_inverted_B.png")}}" alt="">
+                        
+                        
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+            </nav> --}}
                 <div id="app"></div>
             </div>
         </div>
