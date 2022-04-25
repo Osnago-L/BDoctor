@@ -14,6 +14,7 @@
                                     <option value="podologia">Podologia</option>
                                     <option value="urologia">Urologia</option>
                                     <option value="dermatologia">Dermatologia</option>
+                                    <option value="cardiologia">Cardiologia</option>
                                 </select>
                                 <div class="input-group-append">
                                     <router-link
