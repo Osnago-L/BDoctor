@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Title;
 use App\Performance;
+use App\Sponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
