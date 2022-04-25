@@ -15,8 +15,11 @@
             <label for="amount">
                 <span class="input-label">Amount</span>
                 <div class="input-wrapper amount-wrapper">
-                    <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
+                    <input id="amount" name="amount" type="tel" min="1" placeholder="Inserisci l'importo della sponsorship" class="@error('amount') is-invalid @enderror">
                 </div>
+                @error('amount')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </label>
 
             <div class="bt-drop-in-wrapper">

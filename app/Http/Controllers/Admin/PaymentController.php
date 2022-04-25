@@ -7,6 +7,7 @@ use DateTime;
 use App\Http\Controllers\Controller;
 use App\Sponsorship;
 use App\User;
+use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +38,15 @@ class PaymentController extends Controller
 
     public function checkout(Request $request, User $user)
     {
+        $request->validate( [
+            'sponsorship_id' => 'required|integer|exists:sponsorships,id',
+            'amount' => ['required',
+                            Rule::exists('sponsorships', 'price')                     
+                            ->where('id', $request->sponsorship_id)
+        ]
+        ]);
+
+
         $gateway = new \Braintree\Gateway([
             'environment' => config('services.braintree.environment'),
             'merchantId' => config('services.braintree.merchantId'),
@@ -61,13 +71,10 @@ class PaymentController extends Controller
             ]
         ]);
 
-        $request->validate( [
-            'sponsorship_id' => 'required|integer|exists:sponsorships,id',
-        ]);
 
         $data = $request->all();
 
-        
+       
         $nuovaSponsorship = new Sponsorship();
         $start = Carbon::now();
 
