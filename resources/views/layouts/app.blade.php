@@ -25,12 +25,26 @@
 </head>
 <body>
     <div id="app">
+        {{-------------------------- HEADER ---------------------------------}}
+        {{-- <div class="ms_header d-flex justify-content-between">
+            <div>
+                <h2 class="text-white p-2">BDoctor</h2>
+            </div>
+            @if (!Auth::user())
+            <div class="d-flex align-items-center">
+                <a class="text-white p-2" href="{{ route('login') }}">Accedi</a>
+                <a class="text-white p-2" href="{{ route('register') }}">Registrati</a>
+            </div>
+            @endif
+        </div> --}}
+        {{-------------------------- SIDEBAR FOR LOGGED USERS ---------------------------------}}
+        @if ( Auth::user())
         <div class="ms_nav">
-            @if ( Auth::user())
-                <i class="fa-brands fa-dailymotion d-block d-lg-none"></i><p class="ms_title p-3 d-none d-lg-block">iDoctor Dashboard</p>
+                <p class="ms_title p-3 d-none d-lg-block">Bdoctor Dashboard</p>
                 <div class="nav-item">
+                    <img class="d-block d-lg-none" src="{{ asset('img/' . "logo.png") }}" alt="">
                     <div class="ms_boxnav d-flex flex-column">
-                        <a href="{{route("admin.home")}}"><i class="fa-solid fa-house-user"></i> <p class="d-none d-lg-block">Home</p></a>
+                        <a href="{{route("admin.home")}}"><i class="fa-solid fa-house-user"></i><p class="d-none d-lg-block">Home</p></a>
                         <a href="{{route("admin.user.index")}}"><i class="fa-solid fa-user"></i><p class="d-none d-lg-block">Profilo</p></a>
                         <a href="{{route("admin.messages.index",Auth::user()->id)}}"><i class="fa-solid fa-inbox"></i><p class="d-none d-lg-block">Messaggi</p></a>
                         <a href="{{route("admin.reviews.index",Auth::user()->id)}}"><i class="fa-solid fa-comment"></i><p class="d-none d-lg-block">Recensioni</p></a>
@@ -48,10 +62,13 @@
         </div>
 
         <main>
-            @yield('content')
+            <div class="box">
+                @yield('content')
+            </div>
         </main>
 
     </div>
     
 </body>
+
 </html>

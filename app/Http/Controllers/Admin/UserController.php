@@ -106,7 +106,9 @@ class UserController extends Controller
 
         $user->update($form_data);
 
-        return redirect()->route('admin.user.index');
+        /* Flash::success('Profile updated successfully.'); */
+
+        return redirect()->route('admin.user.index')->with('message', 'Profilo modificato!');
     }
 
     /**
@@ -115,8 +117,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy($id)
     {
         //
     }
+
 }

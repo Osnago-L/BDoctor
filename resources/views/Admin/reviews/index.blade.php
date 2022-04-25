@@ -33,25 +33,25 @@
 
 @endphp
 
-<div class="container vh-100">
+<div class="container py-5">
 
-    <h1>Recensioni ({{count($reviews) }})</h1>
+    <h2>Recensioni ricevute ({{count($reviews) }})</h2>
 
-   
+
     @if(count($reviews) > 0 )
         <h5>Media recensioni: {!!$avgStars!!} <strong>{{$avgScore}} / 5</strong></h5>
     <hr class='mb-5'>
 
     @foreach($reviews as $review)
-
-        <div class="review">
-
-            <div class="review-header">
+        
+        <div class="ms_card my-2 p-1">
+    
+            <div class="review-header p-2">
 
                 <div class="row align-items-center">
 
                     <div class="col-auto">
-                        <h2>{{$review->title}}</h2>
+                        <h3>{{$review->title}}</h3>
                     </div>
                     
                     <div class="col">
@@ -81,10 +81,11 @@
                 </div>
             </div>
 
-        <div class="review-body p-4">
-            <p>{{$review->content}}</p>
+            <div class="review-body p-3">
+                <p>{{$review->content}}</p>
+            </div>
+
         </div>
-    </div>
     @endforeach
     @endif
 </div>
