@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Title;
 use App\Performance;
+use App\Sponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -106,7 +107,9 @@ class UserController extends Controller
 
         $user->update($form_data);
 
-        return redirect()->route('admin.user.index');
+        /* Flash::success('Profile updated successfully.'); */
+
+        return redirect()->route('admin.user.index')->with('message', 'Profilo modificato!');
     }
 
     /**
@@ -115,8 +118,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy($id)
     {
         //
     }
+
 }

@@ -25,3 +25,12 @@ $ms_pink: #EE9D96;
 $ms_yellow: #FAE875;
 $ms_white: #efe9f4;
 $ms_black: #171d1c;
+
+//Global elements
+.button_ms_blue{
+    background-color: #003062;
+    color: white;
+}
+.button_ms_yellow{
+    background-color: rgba($ms_white, 1);
+}

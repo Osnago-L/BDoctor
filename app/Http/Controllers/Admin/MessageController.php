@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Message;
-use App\User;
 use Illuminate\Auth\Events\Validated;
+
+use DateTime;
+
 
 class MessageController extends Controller
 {
@@ -23,7 +25,8 @@ class MessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $user = Auth::user();
         $messages = Message::where('user_id', Auth::user()->id)->get();
 
         return view('admin.messages.index', compact('messages'));
@@ -56,9 +59,18 @@ class MessageController extends Controller
      * @param  id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user, Message $message)
+    public function show(User $user,Message $message)
     {
-        return view('admin.messages.show', compact('message'));
+        
+        $dateTime = new DateTime($message->created_at);
+        $date = $dateTime->format('d/m/Y');
+        $time = $dateTime->format("H:i");
+
+        if (!$message){
+            abort(404);
+        }
+
+        return view('admin.messages.show', compact('message','date','time'));
     }
 
     /**
@@ -90,10 +102,11 @@ class MessageController extends Controller
      * @param  Message dependency injection with passed id of message
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user, Message $message)
-    {
-        $user_id = $message->user_id;
+    public function destroy(User $user,Message $message)
+    {   
+        
         $message->delete();
-        return redirect()->route('admin.messages.index', $user_id);
+
+        return redirect()->route('admin.messages.index', Auth::id())->with('success','Messaggio Cancellato');
     }
 }
