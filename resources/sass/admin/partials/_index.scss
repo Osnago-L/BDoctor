@@ -1,3 +1,36 @@
-.ms_box{
-    border: 1px solid red;
+/* .ms_success{
+    animation: fadeinout 2s linear;
 }
+
+
+@keyframes fadeinout {
+    
+    0%,100% { opacity: 0; }
+    50% { opacity: 1; }
+} */
+
+.ms_cardmessage{
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.100);
+    border-radius:10px;
+    background-color:white;
+    word-break:break-all;
+}
+.ms_buttonbox{
+
+    .btn_custom{
+        background-color:#003062;
+    }
+    width: 100%;
+    a{
+        width: 50%;
+        button{
+            width:100%
+        }
+    }
+        .custom{
+            width: 50%
+        }
+    
+}
+
+
