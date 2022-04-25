@@ -38,24 +38,19 @@ class DoctorController extends Controller
             $filtered = true;
         }
         $this->filteredDoctorsQB = clone($this->doctorsQB); //inizializza il contenuto filtrato        
-
-        $starsFilter = isset($_GET['stars']) && 0 < $_GET['stars'] && $_GET['stars'] <= 5;
-        $reviewsFilter = isset($_GET['reviews']) && $_GET['reviews'] > 0;
         
-        if ($starsFilter && $reviewsFilter){
-            $this->filterByStarsAndReviews($_GET['stars'], $_GET['reviews']);
-            $filtered = true;
+
+        if (isset($_GET['stars']) && 0 < $_GET['stars'] && $_GET['stars'] <= 5){
+                $this->filterByReviewStars($_GET['stars']);
+                $filtered = true;
         }
-        else {
-            if ($starsFilter){
-                    $this->filterByReviewStars($_GET['stars']);
-                    $filtered = true;
-            }
-            if ($reviewsFilter){
-                    $this->filterByReviewsCount($_GET['reviews']);
-                    $filtered = true;
-            }
+        if (isset($_GET['reviews']) && $_GET['reviews'] > 0){
+                $oldFilteredQB = clone($this->filteredDoctorsQB);
+                $this->filterByReviewsCount($_GET['reviews']);
+                $filtered = true;
         }
+        
+
         $this->doctorsQB = $this->filteredDoctorsQB; //rende il filtraggio effettivo
 
         // dd($this->doctorsQB->toSql());
@@ -126,31 +121,33 @@ class DoctorController extends Controller
 
     /* OTHER METHODS */
 
-
+    // ->select(array('users.*', DB::raw('AVG(R1.`score`) as avg_rate'))) N.B. può dare problemi con la union (avendo un campo in più)
+    // ->havingRaw('AVG(R1.score) BETWEEN ? AND ?', [$stars, $stars+0.5])
     private function filterByReviewStars(int $stars){
 
-        $this->filteredDoctorsQB->join('reviews as R1', 'users.id', '=', 'R1.user_id')
+        $filteredDoctors = $this->filteredDoctorsQB->join('reviews as R1', 'users.id', '=', 'R1.user_id')
         ->select('users.*')
         ->groupBy('R1.user_id')
         ->havingRaw('AVG(R1.`score`) >= ?', [$stars])
         ->orderByRaw('AVG(R1.`score`) DESC');
     }
 
+    // ->select(array('users.*', DB::raw('COUNT(R2.`user_id`) as reviews_n'))) N.B. può dare problemi con la union (avendo un campo in più)
     private function filterByReviewsCount(int $reviews){
-
-        $this->filteredDoctorsQB->join('reviews as R2', 'users.id', '=', 'R2.user_id')
+        $filteredDoctors = $this->filteredDoctorsQB->join('reviews as R2', 'users.id', '=', 'R2.user_id')
         ->select('users.*')
         ->groupBy('R2.user_id')
         ->havingRaw('COUNT(R2.`user_id`) >= ?', [$reviews])
         ->orderByRaw('COUNT(R2.`user_id`) DESC');
-    }
-
-    private function filterByStarsAndReviews(int $stars, int $reviews){
-        $this->filteredDoctorsQB->join('reviews', 'users.id', '=', 'reviews.user_id')
-        ->select('users.*')
-        ->groupBy('reviews.user_id')
-        ->havingRaw('AVG(reviews.score) >= ? AND COUNT(reviews.user_id) >= ?', [$stars, $reviews])
-        ->orderByRaw('AVG(reviews.score) DESC, COUNT(reviews.user_id) DESC');
+        
+        /* query grezza (testata su phpmyadmin, ma senza prefiltraggio degli users)
+        $queryRaw = "SELECT `users`.*, COUNT(`user_id`) as `reviews_n` 
+        FROM `users`, `reviews` 
+        WHERE `users`.id = `reviews`.user_id 
+        GROUP BY(user_id) 
+        HAVING COUNT(`user_id`) >= $reviews
+        ORDER BY (`user_id`) DESC";
+        */
     }
 
 

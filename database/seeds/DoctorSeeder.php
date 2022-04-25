@@ -10,6 +10,7 @@ use App\Title;
 use App\Sponsorship;
 
 
+
 class DoctorSeeder extends Seeder
 {
     /**
@@ -45,9 +46,9 @@ class DoctorSeeder extends Seeder
             $doctor->birth_date = $faker->dateTimeBetween('-75 years', '-25 years');
             $birth_year = $doctor->birth_date->format("Y");
             
-            $doctor->address = "via ".$addresses[rand(0, count($addresses)-1)]." ".$faker->numberBetween($min = 1, $max = 250).$faker->optional()->randomElement($array = array ('a','b','c','d','e','f'));
+            $doctor->address = "via ".$addresses[rand(0, count($addresses)-1)]." ".$faker->numberBetween($min = 1, $max = 250).$faker->optional()->randomElement(array ('a','b','c','d','e','f'));
             $doctor->phone_n = $faker->regexify('0[1-9]{1,3} [1-9]{4,8}'); //numeri formato italiano
-            $doctor->email = strtolower(Str::of($doctor->name)).strtolower(Str::of($doctor->surname)).substr($birth_year, 2, 4)."@example.it";
+            $doctor->email = strtolower(Str::of($doctor->name)).strtolower(Str::of($doctor->surname)).substr($birth_year, 2, 4)."@example.".$faker->randomElement(array('it', 'com', 'net', 'org'));
             
             
             $doctor->password = bcrypt(Str::of($doctor->name).Str::of($doctor->surname));
@@ -60,9 +61,11 @@ class DoctorSeeder extends Seeder
             if (rand(0,1)){
                 $sponsorshipId = Sponsorship::inRandomOrder()->first()->id;
 
-                $sponsorshipLength = Sponsorship::where('id', $sponsorshipId)->pluck('length')->first(); // pluck restituisce il solo valore e non anche la chiave! la first va usata perché è [value]
+                $sponsorshipLength = intval(Sponsorship::where('id', $sponsorshipId)->pluck('length')->first()); // pluck restituisce il solo valore e non anche la chiave! la first va usata perché è [value]
                 $start = new DateTime();
-                $expiration = $start->add(new DateInterval('PT'.$sponsorshipLength.'H'));  //aggiunte ore della sponsorship
+                $expiration = clone $start;
+                $expiration->add(new DateInterval('PT'.$sponsorshipLength.'H'));
+                  //aggiunte ore della sponsorship
                 $doctor->sponsorships()->attach($sponsorshipId, array('start_date'=>$start,'expiration'=>$expiration));
             }
 
