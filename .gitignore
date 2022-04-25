@@ -12,3 +12,4 @@ npm-debug.log
 yarn-error.log
 app/Http/Controllers/Api/DoctorController_old.php
 app/Http/Controllers/Api/DoctorController copy.php
+database/seeds/ReviewSeeder_old.php
