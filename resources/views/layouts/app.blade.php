@@ -26,17 +26,37 @@
 <body>
     <div id="app">
         {{-------------------------- HEADER ---------------------------------}}
-        {{-- <div class="ms_header d-flex justify-content-between">
-            <div>
-                <h2 class="text-white p-2">BDoctor</h2>
+        <nav class="ms_front_nav navbar navbar-expand-lg navbar-dark d-flex justify-content-between">
+            <a href="{{ url('/') }}">
+                <img class="d-none d-lg-inline" src="{{ asset('/img/' . 'logo_inverted.png') }}" alt="">
+                <img class="d-inline d-lg-none" src="{{ asset('/img/' . 'logo_inverted_B.png') }}" alt="">
+            </a>
+            <div class="">
+                <ul class="navbar-nav w-100 d-flex align-items-center">
+                    <div class="d-flex align-items-center mt-sm-2 mt-lg-0">
+                        @if (Route::has('login'))
+                            @auth
+                                <li class="nav-item mb-sm-2 mb-md-0 mx-5">
+                                    <button class=" btn button_ms_yellow btn-sm text-dark"><a class="text-dark"
+                                            href="{{ url('/admin/') }}">Home</a></button>
+                                </li>
+                            @else
+                                <li class="nav-item mb-sm-2 mb-lg-0">
+                                    <button class="  btn button_ms_yellow btn-sm text-dark"><a class="text-dark"
+                                            href="{{ route('login') }}">Accedi</a></button>
+                                </li>
+                                @if (Route::has('register'))
+                                    <li class="nav-item mb-sm-2 mb-lg-0 mx-2">
+                                        <button class="btn button_ms_yellow btn-sm text-dark"><a class="text-dark"
+                                                href="{{ route('register') }}">Registrati</a></button>
+                                    </li>
+                                @endif
+                            @endauth
+                        @endif
+                    </div>
+                </ul>
             </div>
-            @if (!Auth::user())
-            <div class="d-flex align-items-center">
-                <a class="text-white p-2" href="{{ route('login') }}">Accedi</a>
-                <a class="text-white p-2" href="{{ route('register') }}">Registrati</a>
-            </div>
-            @endif
-        </div> --}}
+        </nav>
         {{-------------------------- SIDEBAR FOR LOGGED USERS ---------------------------------}}
         @if ( Auth::user())
         <div class="ms_nav">

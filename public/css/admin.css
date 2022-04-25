@@ -1,5 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css);@charset "UTF-8";
 
+.button_ms_blue {
+  background-color: #003062;
+  color: white;
+}
+
+.button_ms_yellow {
+  background-color: #efe9f4;
+}
+
 /*!
  * Bootstrap v4.6.1 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -11103,6 +11112,28 @@ p {
         }
     }
 } */
+
+.button_ms_blue {
+  background-color: #003062;
+  color: white;
+}
+
+.button_ms_yellow {
+  background-color: #efe9f4;
+}
+
+.ms_front_nav {
+  background-color: rgba(0, 48, 98, 0.9);
+  font-family: "Nunito", sans-serif;
+}
+
+.ms_front_nav a {
+  text-decoration: none;
+}
+
+.ms_front_nav a:hover {
+  text-decoration: underline;
+}
 
 .ms_header {
   height: 50px;

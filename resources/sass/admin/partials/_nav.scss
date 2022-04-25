@@ -1,0 +1,22 @@
+@import './variables';
+
+.ms_front_nav{
+    // width: 100vw;
+    // height: 70px;
+
+    // padding: 0 20px;
+
+    // background-color: rgba(128, 128, 128, 0.20);
+    background-color: rgba(#003062, 0.9);
+
+
+
+    font-family: $font-family-sans-serif;
+
+    a{
+        text-decoration: none;
+    }
+    a:hover{
+        text-decoration: underline;
+    }
+}
