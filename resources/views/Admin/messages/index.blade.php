@@ -76,7 +76,7 @@
                                     <form action="{{route("admin.messages.destroy", [Auth::user()->id, $message->id])}}" method="POST">
                                         @csrf
                                         @method("DELETE")
-                                        <button  type="submit" class="btn custom btn-danger  rounded-0" data-toggle="modal" data-target="#exampleModal">
+                                        <button  type="submit" class="btn custom btn-danger  " data-toggle="modal" data-target="#exampleModal">
                                             Cancella
                                         </button>
                                     </form>
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     </div> 
-
+{{-- 
                             <form action="{{route("admin.messages.destroy", [Auth::user()->id, $message->id])}}" method="POST">
                                 @csrf
                                 @method("DELETE")
@@ -95,10 +95,10 @@
                                 </button>
                             </form>
                         </td>
-                    </tr>
+                    </tr> --}}
                     @endforeach
                 
-                </tbody>
+                {{-- </tbody> --}}
             </table>
             @else
                 <div>Non ci sono messaggi!</div>
