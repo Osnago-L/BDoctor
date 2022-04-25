@@ -16,7 +16,7 @@ class DoctorController extends Controller
     private $doctorsQB;
     private $filteredDoctorsQB;
     private $additionalTables = ['titles', 'performances', 'reviews','sponsorships'];
-    public static $MAX_PAGE_ITEMS = 10;
+    public static $MAX_PAGE_ITEMS = 4;
 
 
     /* PUBLIC API METHODS */
@@ -56,7 +56,7 @@ class DoctorController extends Controller
                     $filtered = true;
             }
         }
-        $this->doctorsQB = $this->filteredDoctorsQB; //rende il filtraggio effettivo
+        $this->doctorsQB = $this->filteredDoctorsQB; //rende effettivo l'eventuale filtraggio
 
         // dd($this->doctorsQB->toSql());
 
@@ -126,7 +126,6 @@ class DoctorController extends Controller
 
     /* OTHER METHODS */
 
-
     private function filterByReviewStars(int $stars){
 
         $this->filteredDoctorsQB->join('reviews as R1', 'users.id', '=', 'R1.user_id')
@@ -183,34 +182,6 @@ class DoctorController extends Controller
                 })->get();
         }
         return response()->json($doctorsQB);
-    }
- 
-
-    private function orderByScore(Builder $doctorsQB){
-
-        $doctorsQBclone = clone ($doctorsQB);
-        $doctorsQBclone->join('reviews', 'users.id', '=', 'reviews.user_id')
-        ->select(array('users.*', DB::raw('AVG(reviews.score) as `avg_rate`')))
-        ->groupBy('user_id')
-        ->orderByRaw('`avg_rate` DESC');
-        return $doctorsQBclone;
-    }
-    
-    private static function getPageItems(array $arr, $page, $itemsPerPage) {
-
-        $lastIndex = count($arr) - 1;
-        $startIndex = ($page - 1) * $itemsPerPage;
-        $remainingItems = $lastIndex - $startIndex; //per verificare se gli elementi non sono esauriti
-        $remainingPageItems = $itemsPerPage - 1; //item restanti della pagina corrente ($page) 
-        $lengthOfSlice = 0;
-    
-        if ($remainingItems > $remainingPageItems) {
-            $lenghtOfSlice = $itemsPerPage;
-        } else {
-            $lenghtOfSlice = $remainingItems + 1;
-        }
-        $var = array_slice($arr, $startIndex, $lenghtOfSlice);
-        return $var;
     }
 
 
