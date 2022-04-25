@@ -252,7 +252,7 @@ export default {
         }
 
         this.getApi();
-        this.filterDrop()
+        document.getElementById("filter-box").classList.remove("show");
         this.selected = this.$route.query.title;
         this.alert = "Scegli una specializzazione...";
       }
