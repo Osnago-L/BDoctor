@@ -252,6 +252,7 @@ export default {
         }
 
         this.getApi();
+        this.filterDrop()
         this.selected = this.$route.query.title;
         this.alert = "Scegli una specializzazione...";
       }
