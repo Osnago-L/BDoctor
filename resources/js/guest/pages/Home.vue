@@ -21,7 +21,7 @@
                                         :event="input ? 'click' : ''"
                                         :to="{
                                             name: 'search',
-                                            query: {search: input},
+                                            query: {title: input},
                                         }"
                                     >
                                         <button type="button" class="text-white button-search btn button_ms_blue">
