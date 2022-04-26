@@ -36,6 +36,25 @@
             </div>
         </div>
 
+        <div class="mt-4 ms_sponsored-doctors-container">
+            <div class="container">
+                    <h2 class="text-center my-4">Medici in evidenza</h2>
+                <div class="row">
+                   <div class="col-sm-6 col-lg justify-content-center"
+                    v-for="element in doctors" :key="element.id">
+
+                        <div class="text-center ms_img-container">
+                            <img v-if="element.image" :src="'../storage/' + element.image" alt="" />
+                            <img v-else src="../../../../public/img/default_user.webp" alt="" />
+                        </div>
+                        
+                        <h4 class="text-center mt-3">{{element.name}} {{element.surname}}</h4> 
+                        <h6 class="text-center"> {{element.titles[0].name}}</h6>
+                    </div>                 
+                </div>
+            </div>
+        </div>
+
         <div class="container mt-5">
             <div class="row">
                 <div class="col-sm-12 col-md-4 ms_bdoctor-info-card">
@@ -137,15 +156,46 @@ export default {
     data() {
         return {
             input: "",
-            alert:"Scegli una specializzazione..."
+            alert:"Scegli una specializzazione...",
+            doctors: [],
         };
+    },
+    created() {
+        this.getApi();
     },
     methods:{
         checkIfEmpty(){
             if(!this.input){
                 this.alert = "Selezionare una specializzazione per continuare..."
             }
-        }
+        },
+        random(min, max) {
+            return min + Math.floor(Math.random() * (max - min));
+        },
+        getApi() {
+        axios
+            .get(`/api/doctors`)
+            .then((response) => {
+                let randomPick = [];
+
+                for(let i=0; i < 4; i++){
+                    let numGen = this.random(0, response.data.data.sponsoredDoctors.length);
+
+                    if(!randomPick.includes(numGen)){
+                        randomPick.push(numGen);
+                    }else{
+                        i--;
+                    }
+                };
+
+                console.log(randomPick);
+                for(let k=0; k < 4; k++){
+                    this.doctors.push(response.data.data.sponsoredDoctors[randomPick[k]]);
+                }
+                console.log(this.doctors);
+
+            });
+        },
     }
 };
 </script>
@@ -206,6 +256,20 @@ export default {
     img {
         width: 100%;
         height: 500px;
+    }
+}
+.ms_sponsored-doctors-container{
+
+    padding: 10px 10px;
+    background-color: rgba($ms_white, 0.400);
+    border-radius: 20px;
+    .ms_img-container{
+        img{
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            height: 200px;
+            width: auto;
+        }
     }
 }
 </style>
