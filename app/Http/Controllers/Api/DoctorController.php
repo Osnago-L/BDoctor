@@ -91,8 +91,9 @@ class DoctorController extends Controller
         return response()->json($doctor);
     }
     
-    public static function getPageNumbers($rowsNum, $itemsPerPage, $url) {
-    
+    public static function getPageNumbers($rowsNum, $itemsPerPage) {
+        
+        $url=$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         $html = "Pagine:";
         $numbers = ceil($rowsNum / $itemsPerPage);
     
