@@ -1,39 +1,45 @@
 <template>
-    <div>
-        <form @submit.prevent="checkForm()">
-            <input
-                type="text"
-                id="name"
-                placeholder="Inserisci il nome"
-                v-model="inputUtente.author"
-            />
-            <input
-                type="text"
-                id="name"
-                placeholder="Inserisci un titolo"
-                v-model="inputUtente.title"
-            />
-            <textarea
-                id="testo"
-                cols="30"
-                rows="5"
-                placeholder="Scrivi qui"
-                v-model="inputUtente.content"
-            ></textarea>
-            <label for="score">Valutazione</label>
+    <div class="container-lg mt-4">
 
-            <select v-model="inputUtente.score" name="score" id="score">
-                <option value="1">1</option>
-                <option value="1.5">1.5</option>
-                <option value="2">2</option>
-                <option value="2.5">2.5</option>
-                <option value="3">3</option>
-                <option value="3.5">3.5</option>
-                <option value="4">4</option>
-                <option value="4.5">4.5</option>
-                <option value="5">5</option>
-            </select>
-            <button type="submit">Invia</button>
+        <form @submit.prevent="checkForm()">
+            <div class="input-row">
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Il tuo nome / nickname"
+                    v-model="inputUtente.author"
+                />
+                </div>
+            <div class="input-row">
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Titolo della recensione"
+                    v-model="inputUtente.title"
+                />
+            </div>
+            <div class="input-row">
+                <textarea
+                    id="testo"
+                    cols="30"
+                    rows="5"
+                    placeholder="Testo della recensione"
+                    v-model="inputUtente.content"
+                ></textarea>
+            </div>
+
+            <div class="input-row">
+                <label for="score">Valutazione</label>
+                <span class="ms_required">*</span>
+            
+                <div class="stars">
+                    <i v-for="index in 5" :id="'star'+index" :key="'star'+index"
+                    :class='isSelected(index)' class='fa-star fa-2x ms_star'  @click="setStars(index)"
+                    ></i>
+                </div>
+            </div>
+
+            <button class='col-sm-10 col-md-5' type="submit">Invia</button>
             <div v-show="errors.length > 0">
                 <ul>
                     <li
@@ -48,6 +54,7 @@
         </form>
         <div v-show="reviewConfirm">Inviato!</div>
     </div>
+
 </template>
 
 <script>
@@ -100,9 +107,68 @@ export default {
                     this.errors.push("Inserisci una valutazione!");
                 }
             }
+        },
+        setStars: function (index) {
+
+            this.inputUtente.score = index;
+            let i = 1;
+            document.getElementByClassName("ms_star").classList = 'fa far fa-star ms_star fa-2x';
+
+            while (i <= index){
+                document.getElementById("star"+i).className = 'fa fas fa-star ms_star active fa-2x';
+                i++;
+            }
+            
+            
+        },
+        isSelected: function(index){
+            if (index <= this.inputUtente.score){
+                return "fas active";
+            }
+            else return "far";
         }
     },
 };
 </script>
 
-<style></style>
+<style scoped>
+
+    .input-row {
+        margin: 1rem 0;
+    }
+
+    .ms_star {
+        color: #777 !important;
+    }
+
+    .ms_star:hover {
+        cursor: pointer;
+    }
+    .ms_star.active {
+        color: orange !important;
+    }
+
+    .ms_required {
+        color: red;
+        font-weight: bold;
+    }
+
+    input, textarea {
+        width: 80%;
+    }
+
+    button[type='submit'] {
+        background-color: #194471;
+        color: white;
+        padding: 0.5rem 0;
+        font-variant: small-caps;
+        font-size: 1.2rem;
+        border-radius: 8px;
+    }
+
+    button[type='submit']:hover {
+        font-weight: bolder;
+        opacity: 0.9;
+        color: red;
+    }
+</style>
