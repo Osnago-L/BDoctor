@@ -181,7 +181,7 @@ export default {
                 let randomPick = [];
                 let maxUsers = response.data.data.sponsoredDoctors.length < 4 ? response.data.data.sponsoredDoctors.length : 4
                 for(let i=0; i < maxUsers; i++){
-                    let numGen = this.random(0, response.data.data.sponsoredDoctors.length);
+                    let numGen = this.random(0, response.data.data.sponsoredDoctors.length - 1);
 
                     if(!randomPick.includes(numGen)){
                         randomPick.push(numGen);
@@ -191,7 +191,7 @@ export default {
                 };
 
                 console.log(randomPick);
-                for(let k=0; k < 4; k++){
+                for(let k=0; k < maxUsers; k++){
                     this.doctors.push(response.data.data.sponsoredDoctors[randomPick[k]]);
                 }
                 console.log(this.doctors);
