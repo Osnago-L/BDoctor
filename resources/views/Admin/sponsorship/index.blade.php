@@ -8,21 +8,31 @@
         @csrf
         <section>
             <p class="py-2">Seleziona un tipo di sponsorizzazione</p>
-            <select name="sponsorship_id" id="sponsorship_id">
-                <option> Seleziona una sponsorizazione</option>
-                @foreach ($sponsorship as $element)
-                    <option value="{{ $element->id }}">{{$element->length}} - {{$element->price}} </option>
-                @endforeach
+{{--             <select name="sponsorship_id" id="sponsorship_id">
+                <option> Seleziona una sponsorizazione</option> --}}
             </select>
             <label for="amount">
                 {{-- <span class="input-label">Amount</span> --}}
-                <div class="input-wrapper amount-wrapper">
-                    <input id="amount" name="amount" type="tel" min="1" placeholder="Inserisci l'importo della sponsorship" class="@error('amount') is-invalid @enderror">
-                </div>
+                
                 @error('amount')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </label>
+            
+            @foreach ($sponsorship as $element)
+                {{-- <option value="{{ $element->id }}">{{$element->length}} - {{$element->price}} </option> --}}
+                <div class="first hero">
+                    <div class="hero-description-bk"></div>
+                    <div class="hero-description">
+                        <p>Compra la seguente sponsorizazione! Otterrai {{$element->length}} ore di profilo boostato</p>
+                    </div>
+                    <div  class="hero-date">
+                        <p><h3>Prezzo</h3>{{$element->price}}</p>
+                    <input id="sponsorship_id" value="{{$element->id}}" name="sponsorship_id" type="radio">
+                    </div>
+                </div>
+                  
+            @endforeach
 
             <div class="bt-drop-in-wrapper">
                 <div id="bt-dropin"></div>

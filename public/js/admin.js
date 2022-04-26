@@ -38116,7 +38116,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/mario/Desktop/boolean/repository/bdoctor_c51_5/BDoctor/resources/js/admin/admin.js */"./resources/js/admin/admin.js");
+module.exports = __webpack_require__(/*! D:\Boolean\Repo github\BDoctor\resources\js\admin\admin.js */"./resources/js/admin/admin.js");
 
 
 /***/ })
