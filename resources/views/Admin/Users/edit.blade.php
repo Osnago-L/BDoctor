@@ -65,7 +65,7 @@
                 <input class="form-check-input" type="checkbox" value="{{$title->id}}" 
                 name="titles[]" id="{{$title->id}}"
                 {{$user->titles->contains($title) ? "checked" : ""}}>
-                <label class="form-check-label" for="{{$title->id}}">
+                <label class="form-check-label text-black" style="color: black" for="{{$title->id}}">
                     {{$title->name}}
                 </label>
                 @error('title')
@@ -79,7 +79,7 @@
                 <input class="form-check-input" type="checkbox" value="{{$performance->id}}" 
                 name="performances[]" id="{{$performance->id}}"
                 {{$user->performances->contains($performance) ? "checked" : ""}}>
-                <label class="form-check-label" for="{{$performance->id}}">
+                <label class="form-check-label text-black" style="color: black" for="{{$performance->id}}">
                     {{$performance->name}}
                 </label>
                 @error('performance')
