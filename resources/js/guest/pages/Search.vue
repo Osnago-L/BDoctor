@@ -91,19 +91,18 @@
                 >10+</a
               >
             </div>
-            <div class="col-3">
-              <button
-                class="btn ms_button_blue"
-                @click="
-                  score = 0;
-                  reviews = 0;
-                "
-              >
-                Reset
-              </button>
-            </div>
+            <div class="col-3"></div>
             <div class="col-3"></div>
           </div>
+          <button
+            class="btn btn-sm button_ms_blue reset_button"
+            @click="
+              score = 0;
+              reviews = 0;
+            "
+          >
+            Reset
+          </button>
         </div>
         <!-- /////////////////// -->
         <h3
@@ -331,6 +330,12 @@ svg {
   border: 0.5px solid rgba(0, 0, 0, 0.11);
   box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.1);
   display: none;
+  position: relative;
+}
+.reset_button {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
 }
 .card-group {
   margin-top: 30px;
