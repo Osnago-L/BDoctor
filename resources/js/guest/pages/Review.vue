@@ -2,31 +2,18 @@
     <div class="back_app">
         <div class="container">
             <div class="row justify-content-center">
-               <!-- <div class="col-2">
-                    <img
-                    src="https://www.idoctors.it/images/frontend/consultazione-sito.svg?v=2"
-                    alt=""
-                    class="mt-5 w-100"/>
-                    <div class="sm_description">Scrivere una recensione aiuta il dottore professionista e tutti i suoi futuri clienti.</div>
-                    <img
-                    src="https://www.idoctors.it/images/frontend/prenotazione-online.svg?v=2"
-                    alt=""
-                    class="mt-5 w-100"/>
-                    <div class="sm_description">Scrivere una recensione non vuol dire che deve essere per forza negativa. Fai sapere a tutti se il dottore che ti ha visitato/a è valido !</div>
-                </div>
-                -->
-                <div class="mt-4 col-lg-4 col-12 blu_ln">
+                <div class="mt-4 d-none d-lg-block col-lg-4 blu_ln">
                     <div class="row d-flex align-items-center justify-content-center mt-5 personal_i">
                         <div class="col-4 text-center">
                             <div v-if="doctor.birth_date">
-                                <span>Data di nascita:</span> 
+                                <span>Anno di nascita:</span> 
                                 {{formattazione_anno(doctor.birth_date,true)}}
                             </div>
                             <div><span>Indirizzo:</span> {{doctor.address}}</div>
                             <div class="my_hr"></div>
                         </div>
                         <div class="col-3" v-if="doctor.image">
-                            <img class="w-100 img-show" :src="doctor.image">   
+                            <img class="w-100 img-show" :src="'../storage/'+ doctor.image">   
                         </div>
                         <div class="col-3" v-else>
                             <img class="w-100 img-show" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
@@ -55,7 +42,7 @@
                     </div>
                     <div class=" m-5 text-center"><router-link :to="{ name:'message', params: { id:doctor.id }}"><button type="button" class="mt-5 rew_button">Scrivi un Messaggio</button></router-link></div>
                 </div>
-                <div class="col-lg-8 rew_scr col-12 mt-4 h_rew text-center">
+                <div class="col-lg-7 rew_scr col-12 mt-4 ml-5 h_rew text-center">
                     <div v-if="!reviewConfirm">
                         <form @submit.prevent="checkForm()">
                             <h4 class="m-4">Scrivi la tua Recensione</h4>
@@ -64,27 +51,27 @@
                                 class="form-control"
                                 type="text"
                                 id="name"
-                                placeholder="Inserisci il tuo nome"
+                                placeholder=""
                                 v-model="inputUtente.author"
                             />
-                            <label class="mt-4" for="score">Titolo Recensione:</label>
+                            <label class="mt-4 " for="score">Titolo Recensione:</label>
                             <input
                                 class="form-control"
                                 type="text"
                                 id="name"
-                                placeholder="Inserisci un titolo"
+                                placeholder=""
                                 v-model="inputUtente.title"
                             />
-                            <label class="mt-4" for="score">Testo Recensione:</label>
+                            <label class="mt-4 " for="score">Testo Recensione:</label>
                             <textarea
                                 class="form-control"
                                 id="testo"
                                 cols="30"
                                 rows="5"
-                                placeholder="Scrivi qui"
+                                placeholder=""
                                 v-model="inputUtente.content"
                             ></textarea>
-                            <label class="mt-4" for="score">Valutazione</label>
+                            <label class="mt-4 " for="score">Valutazione</label>
 
                             <select class="form-control" v-model="inputUtente.score" name="score" id="score">
                                 <option value="1">1</option>
@@ -116,19 +103,6 @@
                         <router-link :to="{ name:'single-doctor', params: { id:doctor.id }}"><button class="mt-5 rew_button">Torna indietro</button></router-link>
                     </div>
                 </div>
-
-              <!--  <div class="col-2">
-                    <img
-                    src="https://www.idoctors.it/images/frontend/medico-e-paziente.svg?v=2"
-                    alt=""
-                    class="mt-5 w-100"/>
-                    <div class="sm_description">Scrivere una recensione aiuta il dottore professionista e tutti i suoi futuri clienti.</div>
-                    <img
-                    src="https://www.idoctors.it/images/frontend/prenotazione-online.svg?v=2"
-                    alt=""
-                    class="mt-5 w-100"/>
-                    <div class="sm_description">Scrivere una recensione non vuol dire che deve essere per forza negativa. Fai sapere a tutti se il dottore che ti ha visitato/a è valido !</div>
-                </div>-->
             </div>
         </div>
     </div>
@@ -227,11 +201,12 @@ export default {
 .back_app{
     background-color: rgba($ms_white,0.5);
     position: relative;
+
     .back_rew{
         padding: 30px 80px;
         background-color: white;
         border-radius: 20px;
-        box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.100);
+        box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.500);
     }
     ul{
         li{
@@ -261,6 +236,7 @@ export default {
     background-color: white;
     border-radius: 20px;
     box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.100);
+    height: calc(100vh - 90px) ;
     }
     .profile_scr::-webkit-scrollbar {
         display: none;
@@ -293,12 +269,14 @@ export default {
     }
     .h_rew{
         max-height: 100vh;
+        background-color: $ms_blue;
+        color: white;
     }
     .send{
         color: $ms_green;
     }
     .blu_ln{
-        height: calc(100vh - 100px) ;
+        height: calc(100vh - 90px) ;
         overflow: scroll;
         border-bottom: 4px solid $ms_blue;
         border-top: 4px solid $ms_blue;
@@ -311,6 +289,25 @@ export default {
     img:hover{
         filter: brightness(50%);
         transition: all ease-in-out 0.5s;
+    }
+    input{
+        background-color: rgba(5, 62, 122, 0.9176470588); 
+        border: none;
+        color: white;
+    }
+    textarea{
+        border: none;
+        background-color: rgba(5, 62, 122, 0.9176470588); 
+    }
+    select{
+            border: none;
+            background-color: rgba(5, 62, 122, 0.9176470588); 
+        option{
+            border: none;
+            background-color: rgba(5, 62, 122, 0.9176470588); 
+            color: white;
+            
+        }
     }
 }
 </style>

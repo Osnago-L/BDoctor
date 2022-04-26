@@ -2,21 +2,24 @@
     <div class="all_bac">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mt-4 col-12 profile_scr">
+                <div class="col-lg-7 mr-5 mt-4 col-12 profile_scr">
+                    <div :class="doctor.sponsorships.length==0 ? 'd-none' : 'd-block'" class="col-2 mt-4">
+                        <img src="https://1.bp.blogspot.com/-oESQV74WVu8/Wn8p7575E5I/AAAAAAAAKco/_y8P6VjRF0oQK7Dx-2vhF81MhB-etCSJwCEwYBhgL/s1600/Sponsored-Stamp.png" alt="" class="w-100">
+                    </div>
                     <div class="row d-flex align-items-center justify-content-center mt-5 personal_i">
                         <div class="col-4 text-center">
                             <div v-if="doctor.birth_date">
-                                <span>Data di nascita:</span> 
+                                <span>Anno di nascita:</span> 
                                 {{formattazione_anno(doctor.birth_date,true)}}
                             </div>
                             <div><span>Indirizzo:</span> {{doctor.address}}</div>
                             <div class="my_hr"></div>
                         </div>
-                        <div class="col-3" v-if="doctor.image">
-                            <img class="w-100 img-show" :src="doctor.image">   
+                        <div class="col-3 img-show back_user" v-if="doctor.image" >
+                            <img class="w-100" :src="'../storage/'+doctor.image">   
                         </div>
-                        <div class="col-3" v-else>
-                            <img class="w-100 img-show" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
+                        <div class="col-3 img-show no_photo" v-else>
+                            <img class="w-100" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
                         </div>
                         <div class="col-4 text-center">
                             <div v-if="doctor.phone_n"><span>Numero di telefono:</span> {{doctor.phone_n}}</div>
@@ -50,8 +53,9 @@
                     <div class="d-flex align-items-center justify-content-center">
                         <h3 class="text-center mt-4">Recensioni </h3> 
                         <span class="personal_i"> ({{doctor.reviews.length}})</span>
+                        media recensioni 
+                        <span>{{media(doctor.reviews.length,doctor.reviews.score)}}</span>   <!--undefinded perchè doctor.reviews dovrebbe essere ciclato-->
                     </div>
-
                     <router-link :to="{ name:'review', params: { id:doctor.id }}"><button type="button" class="rew_button mt-3">Scrivi una recensione</button></router-link>
 
                     <div class="review_my" v-for="(review,index) in doctor.reviews" :key="index">
@@ -99,10 +103,20 @@ export default {
 
           }else{
                 return date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear();
-          }
-         
+          }       
        },
+        media(arrayLen,vote) {
+            console.log(vote);
+            let i = 0;
+            let summ = 0;
+            let voteArr=[1,2,3,4,5];
+            while (i < arrayLen) {
+                summ = summ + voteArr[i++];
+            }
+                return summ / arrayLen;
+        }
     },
+
     created(){
         axios                                              //la chiamata axios avviene per verificare l'id del singolo elemento
         .get(`/api/doctors/${this.$route.params.id}`)    //il collegamento lo vediamo da ispeziona nel browser   this senza$
@@ -124,23 +138,37 @@ export default {
     font-size: 10px;
 }
 .h_rew{
-    height: calc(100vh - 100px) ;
+    height: calc(100vh - 90px) ;
     overflow: scroll;
-    border-bottom: 4px solid $ms_blue;
+    background-color:white ;
     border-top: 4px solid $ms_blue;
+    border-bottom: 4px solid $ms_blue;
     border-radius: 5%;
-    box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.100);
+    box-shadow: 2px 2px 30px 1px rgba(51, 58, 154, 0.1);
+    transition: ease 0.5s;
 }
 .h_rew::-webkit-scrollbar {
     display: none;
 }
+.h_rew:hover{
+    transition: all ease-in-out 0.5s;
+    box-shadow: 2px 2px 30px 1px rgba(77, 87, 217, 0.415);
+}
+
 .profile_scr{
     background-color: white;
-    height: calc(100vh - 100px) ;
+    height: calc(100vh - 90px) ;
     border-radius: 20px;
     box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.100);
     overflow-y: scroll;
     overflow-x: hidden;
+    border-top: 5px solid $ms_pink;
+    border-bottom: 5px solid $ms_pink;
+    transition: ease 0.5s;
+}
+.profile_scr:hover{
+    transition: all ease-in-out 0.5s;
+    box-shadow: 2px 2px 30px 1px rgba(226, 109, 109, 0.324);
 }
 .profile_scr::-webkit-scrollbar {
     display: none;
@@ -176,6 +204,15 @@ div{
     font-size: 12px;
     transition: ease 0.5s;
 }
+.s_button{
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid $ms_blue;
+    color: $ms_blue;
+    font-size: 12px;
+    transition: ease 0.5s;
+}
 .rew_button:hover{
     background-color: rgba($ms_blue, 0.9);
     transition: all ease-in-out 0.5s;
@@ -188,7 +225,7 @@ div{
 }
 .review_my{
     padding-bottom: 15px;
-    border-bottom: 3px solid white;
+    border-bottom: 1px solid white;
 }
 img{
     transition: ease 0.5s;
@@ -196,5 +233,8 @@ img{
 img:hover{
     filter: brightness(50%);
     transition: all ease-in-out 0.5s;
+}
+.back_user{
+    background-image:image-set(url("'..storage'+ doctor.image"));
 }
 </style>
