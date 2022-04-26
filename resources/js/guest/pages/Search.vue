@@ -99,7 +99,7 @@
             @click="
               score = 0;
               reviews = 0;
-              checkIfEmpty()
+              checkIfEmpty();
             "
           >
             Reset
@@ -129,17 +129,39 @@
           >
             <div class="row">
               <div class="col-3 col-lg-2">
-                <img v-if="!element.img" src="/img/default_user.webp" alt="" />
+                <img
+                  v-if="element.image"
+                  :src="'../storage/' + element.image"
+                  alt=""
+                />
+                <img
+                  v-else
+                  src="../../../../public/img/default_user.webp"
+                  alt=""
+                />
               </div>
-              <div class="col-9 col-lg-10">
-                <h5>{{ element.name }} {{ element.surname }}</h5>
-                <span
-                  v-for="(titles, index) in element.titles"
-                  :key="'c' + index"
-                  >{{ titles.name }}</span
-                >
-                <img class="sponsor_badge" src="/img/badge.png" alt="" />
+              <div class="col-4 col-lg-5 d-flex flex-column justify-content-between">
+                <div>
+                  <h5>
+                    {{
+                      element.name.charAt(0).toUpperCase() +
+                      element.name.slice(1)
+                    }}
+                    {{
+                      element.surname.charAt(0).toUpperCase() +
+                      element.surname.slice(1)
+                    }}
+                  </h5>
+                  <span
+                    v-for="(titles, index) in element.titles"
+                    :key="'c' + index"
+                    >{{ titles.name }}</span
+                  >
+                </div>
+                <div class="">Review({{element.reviews.length}}):{{getAvarageScore(element.reviews)}}</div>
               </div>
+              <div class="col-5 col-lg-5"></div>
+              <img class="sponsor_badge" src="/img/badge.png" alt="" />
             </div>
             <router-link
               class="view_doctor"
@@ -161,13 +183,16 @@
               <div class="col-3 col-lg-2">
                 <img v-if="!element.img" src="/img/default_user.webp" alt="" />
               </div>
-              <div class="col-9 col-lg-10">
-                <h5>{{ element.name }} {{ element.surname }}</h5>
-                <span
-                  v-for="(titles, index) in element.titles"
-                  :key="'e' + index"
-                  >{{ titles.name }}</span
-                >
+              <div class="col-9 col-lg-10 d-flex flex-column justify-content-between">
+                <div>
+                  <h5>{{ element.name }} {{ element.surname }}</h5>
+                  <span
+                    v-for="(titles, index) in element.titles"
+                    :key="'e' + index"
+                    >{{ titles.name }}</span
+                  >
+                </div>
+                <div class="">Review({{element.reviews.length}}):{{getAvarageScore(element.reviews)}}</div>
               </div>
             </div>
             <router-link
@@ -202,7 +227,7 @@ export default {
       alert: "Scegli una specializzazione...",
     };
   },
-  created() {
+  mounted() {
     this.selected = this.$route.query.title;
     if (this.$route.query.score) {
       this.score = this.$route.query.score;
@@ -211,8 +236,8 @@ export default {
       this.reviews = this.$route.query.reviews;
     }
     this.selected = this.$route.query.title;
+    this.title = this.$route.query.title;
     this.getApi();
-
   },
   methods: {
     getApi() {
@@ -272,6 +297,12 @@ export default {
         this.$router.replace({ query });
       }
     },
+    getAvarageScore(data){
+      let getLength = data.length;
+      let sum = 0
+      data.map(x=>sum=sum + x.score)
+      return Math.round(sum/getLength)
+    }
   },
 };
 </script>
@@ -386,8 +417,8 @@ svg {
     width: 38px;
     height: 22px;
     position: absolute;
-    top: 5px;
-    right: 16px;
+    top: 16px;
+    right: 20px;
   }
 }
 </style>
