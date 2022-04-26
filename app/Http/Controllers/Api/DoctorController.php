@@ -16,7 +16,7 @@ class DoctorController extends Controller
     private $doctorsQB;
     private $filteredDoctorsQB;
     private $additionalTables = ['titles', 'performances', 'reviews','sponsorships'];
-    public static $MAX_PAGE_ITEMS = 4;
+    public static $MAX_PAGE_ITEMS = 10;
 
 
     /* PUBLIC API METHODS */

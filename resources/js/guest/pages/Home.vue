@@ -177,9 +177,10 @@ export default {
         axios
             .get(`/api/doctors`)
             .then((response) => {
+                console.log(response.data.data.sponsoredDoctors.length);
                 let randomPick = [];
-
-                for(let i=0; i < 4; i++){
+                let maxUsers = response.data.data.sponsoredDoctors.length < 4 ? response.data.data.sponsoredDoctors.length : 4
+                for(let i=0; i < maxUsers; i++){
                     let numGen = this.random(0, response.data.data.sponsoredDoctors.length);
 
                     if(!randomPick.includes(numGen)){
