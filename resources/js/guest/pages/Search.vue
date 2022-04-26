@@ -99,6 +99,7 @@
             @click="
               score = 0;
               reviews = 0;
+              checkIfEmpty()
             "
           >
             Reset
@@ -209,9 +210,9 @@ export default {
     if (this.$route.query.reviews) {
       this.reviews = this.$route.query.reviews;
     }
-    console.log(this.$route.query.length);
+    this.selected = this.$route.query.title;
     this.getApi();
-    console.log(this.selected);
+
   },
   methods: {
     getApi() {
