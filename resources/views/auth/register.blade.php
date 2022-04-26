@@ -16,8 +16,8 @@
                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                     @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
                         </span>
                     @enderror
                 </div>
@@ -30,8 +30,8 @@
                     <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required autocomplete="surname" autofocus>
 
                     @error('surname')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
                         </span>
                     @enderror
                 </div>
@@ -44,8 +44,8 @@
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                     @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
                         </span>
                     @enderror
                 </div>
@@ -58,8 +58,8 @@
                     <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
 
                     @error('address')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
                         </span>
                     @enderror
                 </div>
@@ -78,8 +78,8 @@
                         @endforeach
                 </select>   
                 @error('title_id')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                    <span class="invalid-feedback text-right" role="alert">
+                        <strong>{{ __($message) }}</strong>
                     </span>
                 @enderror
             </div>
@@ -91,8 +91,8 @@
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                     @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
                         </span>
                     @enderror
                 </div>
@@ -129,8 +129,8 @@
             <div class="cut cut-short"></div>
             <label for="name" class="placeholder">Nome</label>
             @error('name')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                <span class="invalid-feedback text-right" role="alert">
+                    <strong>{{ __($message) }}</strong>
                 </span>
             @enderror
         </div>
@@ -140,8 +140,8 @@
             <div class="cut"></div>
             <label for="surname" class="placeholder">Cognome</label>
             @error('surname')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                <span class="invalid-feedback text-right" role="alert">
+                    <strong>{{ __($message) }}</strong>
                 </span>
             @enderror
         </div>
@@ -151,8 +151,8 @@
             <div class="cut cut-short"></div>
             <label for="email" class="placeholder">Email</label>
             @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                <span class="invalid-feedback text-right" role="alert">
+                    <strong>{{ __($message) }}</strong>
                 </span>
             @enderror
         </div>
@@ -162,8 +162,8 @@
             <div class="cut"></div>
             <label for="address" class="placeholder">Indirizzo</label>
             @error('address')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                <span class="invalid-feedback text-right" role="alert">
+                    <strong>{{ __($message) }}</strong>
                 </span>
             @enderror
         </div>
@@ -181,27 +181,32 @@
                     @endforeach
             </select>   
             @error('title_id')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                <span class="invalid-feedback text-right" role="alert">
+                    <strong>{{ __($message) }}</strong>
                 </span>
             @enderror
         </div>
         {{----------------------------------- PASSWORD -----------------------------------}}
         <div class="input-container ic1">
-            <input id="password" type="password" class="input @error('Password') is-invalid @enderror" name="password"  placeholder=" " required autocomplete="new-password">
+            <input id="password" type="password" class="input @error('password') is-invalid @enderror" name="password"  placeholder=" " required autocomplete="new-password">
             <div class="cut"></div>
             <label for="password" class="placeholder">Password</label>
-            @error('Password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+            @error('password')
+                <span class="invalid-feedback text-right" role="alert">
+                    <strong>{{ __($message) }}</strong>
                 </span>
             @enderror
         </div>
         {{----------------------------------- CONFERMA PASSWORD -----------------------------------}}
         <div class="input-container ic1">
-            <input id="password-confirm" type="password" class="input"  name="password_confirmation"  placeholder=" " required autocomplete="new-password">
+            <input id="password-confirmation" type="password" class="input @error('password_confirmation') is_invalid @enderror" name="password_confirmation"  placeholder=" " required autocomplete="new-password">
             <div class="cut cut-long"></div>
             <label for="password-confirm" class="placeholder">Conferma Password</label>
+            @error('password_confirmation')
+            <span class="invalid-feedback text-right" role="alert">
+                <strong>{{ __($message) }}</strong>
+            </span>
+            @enderror
         </div>
         {{----------------------------------- BOTTONI -----------------------------------}}
         <div class="form-group row mb-0">

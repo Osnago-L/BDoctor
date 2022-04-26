@@ -132,6 +132,7 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -196,6 +197,25 @@ export default {
                     this.errors.push("Inserisci una valutazione!");
                 }
             }
+        },
+        setStars: function (index) {
+
+            this.inputUtente.score = index;
+            let i = 1;
+            document.getElementByClassName("ms_star").classList = 'fa far fa-star ms_star fa-2x';
+
+            while (i <= index){
+                document.getElementById("star"+i).className = 'fa fas fa-star ms_star active fa-2x';
+                i++;
+            }
+            
+            
+        },
+        isSelected: function(index){
+            if (index <= this.inputUtente.score){
+                return "fas active";
+            }
+            else return "far";
         }
     },
 };
