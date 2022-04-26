@@ -171,24 +171,22 @@ export default {
             }
         },
         random(min, max) {
-            return min + Math.floor(Math.random() * (max - min));
+            return min + Math.floor(Math.random() * (max - min +1));
         },
         getApi() {
         axios
             .get(`/api/doctors`)
             .then((response) => {
-                console.log(response.data.data.sponsoredDoctors.length);
                 let randomPick = [];
                 let maxUsers = response.data.data.sponsoredDoctors.length < 4 ? response.data.data.sponsoredDoctors.length : 4
-                for(let i=0; i < maxUsers; i++){
-                    let numGen = this.random(0, response.data.data.sponsoredDoctors.length - 1);
+
+                while(randomPick.length < maxUsers){
+                    let numGen = this.random(0, response.data.data.sponsoredDoctors.length-1);
 
                     if(!randomPick.includes(numGen)){
                         randomPick.push(numGen);
-                    }else{
-                        i--;
                     }
-                };
+                }
 
                 console.log(randomPick);
                 for(let k=0; k < maxUsers; k++){
