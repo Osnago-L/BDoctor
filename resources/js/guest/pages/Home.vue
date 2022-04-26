@@ -14,6 +14,7 @@
                                     <option value="podologia">Podologia</option>
                                     <option value="urologia">Urologia</option>
                                     <option value="dermatologia">Dermatologia</option>
+                                    <option value="cardiologia">Cardiologia</option>
                                 </select>
                                 <div class="input-group-append">
                                     <router-link
@@ -21,7 +22,7 @@
                                         :event="input ? 'click' : ''"
                                         :to="{
                                             name: 'search',
-                                            query: {search: input},
+                                            query: {title: input},
                                         }"
                                     >
                                         <button type="button" class="text-white button-search btn button_ms_blue">
