@@ -143,7 +143,7 @@
                   alt=""
                 />
               </div>
-              <div class="col-4 col-lg-5 d-flex flex-column justify-content-between">
+              <div class="col-4 col-lg-3 d-flex flex-column justify-content-between">
                 <div>
                   <h5>
                     {{
@@ -161,9 +161,15 @@
                     >{{ titles.name }}</span
                   >
                 </div>
-                <div class="">Review({{element.reviews.length}}):{{getAvarageScore(element.reviews)}}</div>
+                <div class="">
+                  <span v-for="stars,index in getAvarageScore(element.reviews)" :key="'s'+ index" class="text-warning">&#9733;</span>
+                  ({{element.reviews.length}}):
+                  </div>
               </div>
-              <div class="col-5 col-lg-5"></div>
+              <div class="border-left col-3 col-lg-3 d-flex flex-column justify-content-center">
+                <span v-for="performances,index in element.performances" :key="'p'+ index">{{performances.name}}</span>
+              </div>
+              <div class="col-2 col-lg-4"></div>
               <img v-if="checkSponsor(element.sponsorships)" class="sponsor_badge" src="/img/badge.png" alt="" />
             </div>
             <router-link
@@ -273,6 +279,7 @@ export default {
       return Math.round(sum/getLength)
     },
     checkSponsor(data){
+      
       if(data.length>0){
         let checkExpire = new Date(data[data.length-1].pivot.expiration) 
         let today = new Date();
@@ -286,6 +293,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 @import "../../../sass/guest/_variables.scss";
 .background_color {
   background-image: linear-gradient(
