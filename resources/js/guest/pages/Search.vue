@@ -108,22 +108,25 @@
         <!-- /////////////////// -->
         <h3
           v-if="
-            selected != '' && (sponsor.length > 0 || not_sponsor.length > 0)
+            selected != '' && (doctors.length > 0)
           "
           class="mt-3 ml-2"
         >
-          I nostri specialisti in {{ selected }}:
+          I nostri specialisti in {{ 
+            selected.charAt(0).toUpperCase() +
+            selected.slice(1) 
+          }}:
         </h3>
 
         <div class="card-group col-12 px-sm-5 px-md-5">
           <h3
-            v-if="sponsor.length == 0 && not_sponsor.length == 0"
+            v-if="doctors.length == 0"
             class="mt-3 ml-2 text-center"
           >
             Nessun risultato per questa ricerca
           </h3>
           <div
-            v-for="(element, index) in sponsor"
+            v-for="(element, index) in doctors"
             :key="'b' + index"
             class="doctor_card mb-3"
           >
@@ -161,39 +164,7 @@
                 <div class="">Review({{element.reviews.length}}):{{getAvarageScore(element.reviews)}}</div>
               </div>
               <div class="col-5 col-lg-5"></div>
-              <img class="sponsor_badge" src="/img/badge.png" alt="" />
-            </div>
-            <router-link
-              class="view_doctor"
-              :to="{
-                name: 'single-doctor',
-                params: { id: element.id },
-              }"
-              ><button class="btn btn-sm button_ms_blue">
-                Mostra
-              </button></router-link
-            >
-          </div>
-          <div
-            v-for="(element, index) in not_sponsor"
-            :key="'d' + index"
-            class="doctor_card mb-3"
-          >
-            <div class="row">
-              <div class="col-3 col-lg-2">
-                <img v-if="!element.img" src="/img/default_user.webp" alt="" />
-              </div>
-              <div class="col-9 col-lg-10 d-flex flex-column justify-content-between">
-                <div>
-                  <h5>{{ element.name }} {{ element.surname }}</h5>
-                  <span
-                    v-for="(titles, index) in element.titles"
-                    :key="'e' + index"
-                    >{{ titles.name }}</span
-                  >
-                </div>
-                <div class="">Review({{element.reviews.length}}):{{getAvarageScore(element.reviews)}}</div>
-              </div>
+              <img v-if="checkSponsor(element.sponsorships)" class="sponsor_badge" src="/img/badge.png" alt="" />
             </div>
             <router-link
               class="view_doctor"
@@ -221,8 +192,7 @@ export default {
       title: "",
       score: "",
       reviews: "",
-      sponsor: "",
-      not_sponsor: "",
+      doctors:"",
       selected: "",
       alert: "Scegli una specializzazione...",
     };
@@ -250,8 +220,7 @@ export default {
           },
         })
         .then((response) => {
-          this.sponsor = response.data.data.sponsoredDoctors;
-          this.not_sponsor = response.data.data.unsponsoredDoctors;
+          this.doctors = response.data.data.sponsoredDoctors.concat(response.data.data.unsponsoredDoctors)
         });
     },
     checkIfEmpty() {
@@ -302,6 +271,15 @@ export default {
       let sum = 0
       data.map(x=>sum=sum + x.score)
       return Math.round(sum/getLength)
+    },
+    checkSponsor(data){
+      if(data.length>0){
+        let checkExpire = new Date(data[data.length-1].pivot.expiration) 
+        let today = new Date();
+        return checkExpire>today ? true :false
+      }else{
+        return false
+      }
     }
   },
 };
