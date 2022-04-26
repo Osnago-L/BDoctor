@@ -11,9 +11,9 @@
                     {{ session()->get('message') }}
                 </div>
             @endif
-
+            <h1 class="py-4">Profilo di {{$user->name}}</h1>
             <div class="ms_card d-flex flex-column  justify-content-center">
-                    
+                
                 <div class="ms_image d-flex justify-content-center py-3">
                     <img  class="rounded-circle " src="{{ asset('storage/' . $user->image) }}" alt="">
                 </div>
@@ -49,8 +49,8 @@
                         @endforeach
                     </div>
                 </div>
-                
         </div>
+        <a class="mt-3" href="{{route("admin.payment",Auth::id())}}"><button class="btn btn-primary my-5">Sponsorizza il tuo profilo</button></a>
     </div>
 </div>
 

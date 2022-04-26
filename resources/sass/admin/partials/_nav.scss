@@ -7,7 +7,13 @@
     // padding: 0 20px;
 
     // background-color: rgba(128, 128, 128, 0.20);
-    background-color: rgba(#003062, 0.9);
+    background-color: #003062;
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+    top: 0;
+    z-index: 2;
+    margin-bottom: 20px;
 
 
 
@@ -18,5 +24,41 @@
     }
     a:hover{
         text-decoration: underline;
+    }
+}
+
+/* .ms_header{
+    height:50px;
+    background-color:#003062;
+    border-bottom: 1px solid rgb(148, 148, 148);
+    width: 100%;
+} */
+
+.ms_leftnav{
+    position: fixed;
+    background-color: #003062;
+    height: 100%;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.100);
+    .nav-item{
+        padding-top: 60px;
+    }
+}
+
+.ms_boxnav{
+    width: 100%;
+    a{  
+        color:white;
+        text-decoration: none;
+        padding: 10px 10px;
+        height:50px;
+        border-bottom: 1px solid rgb(148, 148, 148);
+        display: flex;
+        &:hover{
+            opacity:0.5;
+        }
+    }
+    .fa-solid{
+        font-size:25px;
+        padding: 0px 7px;
     }
 }

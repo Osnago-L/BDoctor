@@ -11123,7 +11123,13 @@ p {
 }
 
 .ms_front_nav {
-  background-color: rgba(0, 48, 98, 0.9);
+  background-color: #003062;
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  top: 0;
+  z-index: 2;
+  margin-bottom: 20px;
   font-family: "Nunito", sans-serif;
 }
 
@@ -11135,18 +11141,83 @@ p {
   text-decoration: underline;
 }
 
-.ms_header {
-  height: 50px;
-  background-color: #003062;
-  border-bottom: 1px solid rgb(148, 148, 148);
-  width: 100%;
-}
+/* .ms_header{
+    height:50px;
+    background-color:#003062;
+    border-bottom: 1px solid rgb(148, 148, 148);
+    width: 100%;
+} */
 
-.ms_nav {
+.ms_leftnav {
   position: fixed;
   background-color: #003062;
   height: 100%;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.ms_leftnav .nav-item {
+  padding-top: 60px;
+}
+
+.ms_boxnav {
+  width: 100%;
+}
+
+.ms_boxnav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 10px;
+  height: 50px;
+  border-bottom: 1px solid rgb(148, 148, 148);
+  display: flex;
+}
+
+.ms_boxnav a:hover {
+  opacity: 0.5;
+}
+
+.ms_boxnav .fa-solid {
+  font-size: 25px;
+  padding: 0px 7px;
+}
+
+.braintree-sheet__header {
+  background-color: #003062;
+}
+
+.braintree-sheet__header .braintree-sheet__text {
+  color: white;
+}
+
+.button {
+  background-color: #003062;
+  color: white;
+  padding: 5px 5px;
+  border-radius: 3px;
+  border: 0;
+}
+
+.braintree-sheet__content {
+  background-color: rgba(0, 48, 98, 0.3);
+  color: white;
+}
+
+.braintree-form__label {
+  color: white;
+  font-size: 500px;
+}
+
+.braintree-form__field {
+  background-color: rgba(0, 48, 98, 0.8);
+  border-radius: 3px;
+}
+
+.number {
+  background-color: white;
+}
+
+label {
+  color: white;
 }
 
 main {
@@ -11160,7 +11231,7 @@ main {
 
 @media (min-width: 992px) {
   .box {
-    margin-left: 163px;
+    margin-left: 154px;
   }
 }
 
@@ -11174,28 +11245,6 @@ main {
   font-size: 25px;
   padding: 5px 15px;
   color: white;
-}
-
-.ms_boxnav {
-  width: 100%;
-}
-
-.ms_boxnav a {
-  color: white;
-  text-decoration: none;
-  padding: 15px 0px;
-  height: 50px;
-  border-bottom: 1px solid rgb(148, 148, 148);
-  display: flex;
-}
-
-.ms_boxnav a:hover {
-  opacity: 0.5;
-}
-
-.ms_boxnav .fa-solid {
-  font-size: 25px;
-  padding: 0px 15px;
 }
 
 .rounded-box {

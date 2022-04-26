@@ -2,10 +2,12 @@
 
 
 @section('content')
-<div class="content">
+<div class="container py-5">
+    <h1>Sponsorizza il tuo profilo</h1>
     <form method="post" id="payment-form" action="{{ route('admin.paymentcheckout', [Auth::user()->id] )}}">
         @csrf
         <section>
+            <p class="py-2">Seleziona un tipo di sponsorizzazione</p>
             <select name="sponsorship_id" id="sponsorship_id">
                 <option> Seleziona una sponsorizazione</option>
                 @foreach ($sponsorship as $element)
@@ -13,7 +15,7 @@
                 @endforeach
             </select>
             <label for="amount">
-                <span class="input-label">Amount</span>
+                {{-- <span class="input-label">Amount</span> --}}
                 <div class="input-wrapper amount-wrapper">
                     <input id="amount" name="amount" type="tel" min="1" placeholder="Inserisci l'importo della sponsorship" class="@error('amount') is-invalid @enderror">
                 </div>

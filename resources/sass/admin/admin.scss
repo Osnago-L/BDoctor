@@ -11,20 +11,9 @@
 @import './partials/index';
 @import './partials/home';
 @import './partials/_nav';
+@import './partials/sponsorship/index';
 
-.ms_header{
-    height:50px;
-    background-color:#003062;
-    border-bottom: 1px solid rgb(148, 148, 148);
-    width: 100%;
-}
 
-.ms_nav{
-    position: fixed;
-    background-color: #003062;
-    height: 100%;
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.100);
-}
 
 
 
@@ -40,7 +29,7 @@ main{
 
 @media (min-width: 992px) { 
     .box{
-        margin-left: 163px;
+        margin-left: 154px;
     }
 }
 
@@ -54,24 +43,7 @@ main{
     padding:5px 15px;
     color: white;
 }
-.ms_boxnav{
-    width: 100%;
-    a{  
-        color:white;
-        text-decoration: none;
-        padding: 15px 0px;
-        height:50px;
-        border-bottom: 1px solid rgb(148, 148, 148);
-        display: flex;
-        &:hover{
-            opacity:0.5;
-        }
-    }
-    .fa-solid{
-        font-size:25px;
-        padding: 0px 15px;
-    }
-}
+
 .rounded-box {
     border-radius: 10px;
     border: 1px solid #cdc;
@@ -234,3 +206,4 @@ background-color: #06b;
         opacity:0.5;
     }
 }
+
