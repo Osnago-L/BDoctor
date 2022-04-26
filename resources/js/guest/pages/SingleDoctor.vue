@@ -53,12 +53,15 @@
                     <div class="d-flex align-items-center justify-content-center">
                         <h3 class="text-center mt-4">Recensioni </h3> 
                         <span class="personal_i"> ({{doctor.reviews.length}})</span>
-                        media recensioni 
-                        <span>{{media(doctor.reviews.length,doctor.reviews.score)}}</span>   <!--undefinded perchè doctor.reviews dovrebbe essere ciclato-->
                     </div>
+                    <div class="personal_i"> Media Recensioni: 
+                        <span v-for="n in media(doctor.reviews)" :key="n">
+                            <i class="star bi bi-star-fill"></i>
+                        </span>
+                    </div>   
                     <router-link :to="{ name:'review', params: { id:doctor.id }}"><button type="button" class="rew_button mt-3">Scrivi una recensione</button></router-link>
 
-                    <div class="review_my" v-for="(review,index) in doctor.reviews" :key="index">
+                    <div class="review_my" v-for="(review,index) in filterRew(doctor.reviews)" :key="index">
                         <div class="mt-4 text-left" v-if="review">
                             <div>
                                 <h5>{{review.title}}</h5>
@@ -96,25 +99,30 @@ export default {
         }
     } ,
     methods:{
-       formattazione_anno(dato,valore){
-          const date= new Date(dato);
-          if(valore){
-                return date.getFullYear();
+        formattazione_anno(dato,valore){
+            const date= new Date(dato);
+            if(valore){
+                    return date.getFullYear();
 
-          }else{
-                return date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear();
-          }       
-       },
-        media(arrayLen,vote) {
-            console.log(vote);
-            let i = 0;
-            let summ = 0;
-            let voteArr=[1,2,3,4,5];
-            while (i < arrayLen) {
-                summ = summ + voteArr[i++];
-            }
-                return summ / arrayLen;
-        }
+            }else{
+                    return date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear();
+            }       
+        },
+        media(data){
+            console.log(data);
+            let getLength = data.length;
+            let sum = 0
+            data.map(x=>sum=sum + x.score)
+            return Math.round(sum/getLength)
+
+        } ,
+        filterRew(array){
+            console.log(array);
+            return array.slice().sort(function(a, b){
+            return (a.review > b.review) ? 1 : -1;
+  });
+}
+        
     },
 
     created(){
