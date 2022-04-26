@@ -1,7 +1,7 @@
 <template>
-    <div class="ground">
+    <div class="ground all_page d-flex align-items-center">
         <div class="container"> 
-                <div class="row all_page justify-content-between align-items-center text-center">
+                <div class="row justify-content-between align-items-center text-center">
                     <div class="col-2 text-center d-lg-none">
                         <div class="sm_description">
                         specializzazioni:
@@ -10,24 +10,24 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-3 d-lg-none" v-if="doctor.image">
-                    <img class="w-100 img-show" :src="doctor.image">   
+                <div class="col-3 d-lg-none img-show" v-if="doctor.image">
+                    <img class="w-100" :src="'../storage/'+ doctor.image"> 
                 </div>
-                <div class="col-3 d-lg-none" v-else>
-                    <img class="w-100 img-show" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
+                <div class="col-3 d-lg-none img-show" v-else>
+                    <img class="w-100 " src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
                 </div>
                 <div class="col-2 text-center d-lg-none">
                     <div><span class="sm_description">Indirizzo:</span><span class="sm_description">{{doctor.address}}</span></div>
                     <div v-if="doctor.phone_n"><span class="sm_description">Numero di telefono:</span><span class="sm_description">{{doctor.phone_n}}</span></div>
                 </div>
-                <div class="col-12 col-lg-6 shadow_my">
+                <div class="col-12 text-left col-lg-6 shadow_my">
                     <form
                         @submit.prevent="checkForm();">
-                        <h4 class="m-4">Scrivi a {{doctor.name}} {{doctor.surname}}</h4>
+                        <h4 class="text-center m-4">Scrivi a {{doctor.name}} {{doctor.surname}}</h4>
                         <label class="" for="score">Nome:</label>
                         <input
                             type="text"
-                            class="form-control text-center"
+                            class="form-control"
                             id="name"
                             placeholder="Inserisci il tuo nome"
                             v-model="inputUtente.author"
@@ -35,14 +35,14 @@
                         <label class="" for="score">Mail:</label>
                         <input
                             type="email"
-                            class="form-control text-center"
+                            class="form-control"
                             id="name"
                             placeholder="Inserisci la tua mail"
                             v-model="inputUtente.email"
                         />
                         <label class="" for="score">Messaggio:</label>
                         <textarea
-                            class="form-control text-center"
+                            class="form-control"
                             id="testo"
                             cols="30"
                             rows="5"
@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="col-2 d-none d-lg-block" v-if="doctor.image">
-                <img class="w-100 img-show" :src="doctor.image">   
+                <img class="w-100 img-show" :src="'../storage/'+ doctor.image">   
             </div>
             <div class="col-2 d-none d-lg-block" v-else>
                 <img class="w-100 img-show" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
@@ -157,7 +157,7 @@ export default {
     font-size: 12px;
 }
 .all_page{
-    height: calc(100vh - 80px) ;
+    height: calc(100vh - 62px) ;
 }
 img{
     transition: ease 0.5s;
@@ -175,7 +175,7 @@ img:hover{
 }
 .send_butt{
     padding: 5px 10px;
-    background-color: $ms_cyan;
+    background-color: rgba(5, 62, 122, 0.9176470588);
     border-radius: 10px;
     border: 2px solid white;
     color: white;
@@ -184,5 +184,14 @@ img:hover{
 }
 .ground{
     background-color: $ms_white;
+}
+input{
+    background-color: rgba(5, 62, 122, 0.9176470588); 
+    border: none;
+    color: white;
+}
+textarea{
+    border: none;
+    background-color: rgba(5, 62, 122, 0.9176470588); 
 }
 </style>
