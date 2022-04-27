@@ -58,64 +58,65 @@
               </div>
             </div>
           </div>
-        </div>
-        <!-- /////////////////// -->
-        <div id="filter-box" class="filter-group">
-          <div class="row p-4">
-            <div class="col-3 d-flex flex-column border-right">
-              <a
-                v-for="(element, index) in 4"
-                :key="'a' + index"
-                :id="4 - index"
-                :class="[score == 4 - index ? 'font-weight-bold' : '']"
-                @click="
-                  [score == 4 - index ? (score = 0) : (score = 4 - index)]
-                "
-                ><span
-                  class="text-warning"
-                  v-for="(stars_filter, index) in 4 - index"
-                  :key="'sf' + index"
-                  >&#9733;</span
+          <!-- /////////////////// -->
+          <div id="filter-box" class="filter-group">
+            <div class="row p-4">
+              <div class="col-4 col-lg-3 d-flex flex-column border-right">
+                <a
+                  v-for="(element, index) in 4"
+                  :key="'a' + index"
+                  :id="4 - index"
+                  :class="[score == 4 - index ? 'selected_element' : '']"
+                  @click="
+                    [score == 4 - index ? (score = 0) : (score = 4 - index)]
+                  "
+                  ><span
+                    class="text-warning"
+                    v-for="(stars_filter, index) in 4 - index"
+                    :key="'sf' + index"
+                    >&#9733;</span
+                  >
+                  o più</a
                 >
-                o più</a
-              >
+              </div>
+              <div class="col-4 col-lg-3 d-flex flex-column">
+                <a
+                  :class="[reviews == 1 ? 'selected_element' : '']"
+                  @click="[reviews == 1 ? (reviews = 0) : (reviews = 1)]"
+                  >1+ recensioni</a
+                >
+                <a
+                  :class="[reviews == 5 ? 'selected_element' : '']"
+                  @click="[reviews == 5 ? (reviews = 0) : (reviews = 5)]"
+                  >5+ recensioni</a
+                >
+                <a
+                  :class="[reviews == 10 ? 'selected_element' : '']"
+                  @click="[reviews == 10 ? (reviews = 0) : (reviews = 10)]"
+                  >10+ recensioni</a
+                >
+                <a
+                  :class="[reviews == 15 ? 'selected_element' : '']"
+                  @click="[reviews == 15 ? (reviews = 0) : (reviews = 15)]"
+                  >15+ recensioni</a
+                >
+              </div>
+              <div class="col-2 col-lg-3"></div>
+              <div class="col-2 col-lg-3"></div>
             </div>
-            <div class="col-3 d-flex flex-column">
-              <a
-                :class="[reviews == 1 ? 'font-weight-bold' : '']"
-                @click="[reviews == 1 ? (reviews = 0) : (reviews = 1)]"
-                >1+ recensioni</a
-              >
-              <a
-                :class="[reviews == 5 ? 'font-weight-bold' : '']"
-                @click="[reviews == 5 ? (reviews = 0) : (reviews = 5)]"
-                >5+ recensioni</a
-              >
-              <a
-                :class="[reviews == 10 ? 'font-weight-bold' : '']"
-                @click="[reviews == 10 ? (reviews = 0) : (reviews = 10)]"
-                >10+ recensioni</a
-              >
-              <a
-                :class="[reviews == 15 ? 'font-weight-bold' : '']"
-                @click="[reviews == 15 ? (reviews = 0) : (reviews = 15)]"
-                >15+ recensioni</a
-              >
-            </div>
-            <div class="col-3"></div>
-            <div class="col-3"></div>
+            <button
+              class="btn btn-sm button_ms_blue reset_button"
+              @click="
+                score = 0;
+                reviews = 0;
+                search();
+              "
+            >
+              Reset
+            </button>
           </div>
-          <button
-            class="btn btn-sm button_ms_blue reset_button"
-            @click="
-              score = 0;
-              reviews = 0;
-              search();
-            "
-          >
-            Reset
-          </button>
         </div>
+
         <!-- /////////////////// -->
         <h3 v-if="selected != '' && data.foundResults > 0" class="mt-3 ml-2">
           I nostri specialisti in
@@ -211,50 +212,51 @@
       </div>
       <!-- //////////////////////// -->
     </div>
-    <div class="pagination">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <router-link
-              class="page-link"
-              :class="{invisible: page == 1 || data.maxPages == 1}"
-
-              @click.native="
-                page--;
-                search();
-              "
-              :to="{}"
-              >Precedente</router-link
-            >
-          </li>
-          <li v-for="pages, index in data.maxPages" :key="'pages'+index" class="page-item">
-            <router-link
-              class="page-link"
-              :class="{'selectedPage' : page == index+1,'invisible': data.maxPages == 1}"
-              
-              @click.native="
-                page= index+1;
-                search();
-              "
-              :to="{}"
-              >{{index+1}}
-            </router-link>
-          </li>
-          <li class="page-item">
-            <router-link
-              class="page-link"
-              :class="{invisible: page == data.maxPages}"
-              @click.native="
-                page++;
-                search();
-              "
-              :to="{}"
-              >Successiva
-            </router-link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <nav v-if="data.foundResults > 0" class="mt-2 pagination_position">
+      <ul class="pagination justify-content-center">
+        <li
+          class="page-item"
+          :class="{ disabled: page == 1 || data.maxPages == 1 }"
+        >
+          <router-link
+            class="page-link"
+            @click.native="
+              page--;
+              search();
+            "
+            :to="{}"
+            >Precedente</router-link
+          >
+        </li>
+        <li
+          v-for="(pages, index) in data.maxPages"
+          :key="'pages' + index"
+          class="page-item"
+          :class="{ active: page == index + 1 }"
+        >
+          <router-link
+            class="page-link"
+            @click.native="
+              page = index + 1;
+              search();
+            "
+            :to="{}"
+            >{{ index + 1 }}
+          </router-link>
+        </li>
+        <li class="page-item" :class="{ disabled: page == data.maxPages }">
+          <router-link
+            class="page-link"
+            @click.native="
+              page++;
+              search();
+            "
+            :to="{}"
+            >Successiva
+          </router-link>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -274,13 +276,15 @@ export default {
     };
   },
   mounted() {
+    this.filters = "0";
     if (this.$route.query.score) {
       this.score = this.$route.query.score;
+      this.filters++;
     }
     if (this.$route.query.reviews) {
       this.reviews = this.$route.query.reviews;
+      this.filters++;
     }
-    this.filters = "0";
     this.selected = this.$route.query.title;
     this.page = this.$route.query.page;
     this.title = this.$route.query.title;
@@ -360,7 +364,7 @@ export default {
       let getLength = data.length;
       let sum = 0;
       data.map((x) => (sum = sum + x.score));
-      return Math.round(sum / getLength);
+      return Math.floor(sum / getLength);
     },
     checkSponsor(data) {
       if (data.length > 0) {
@@ -390,6 +394,7 @@ svg {
   height: 25px;
 }
 .search-group {
+  position: relative;
   height: 100%;
   margin-top: 30px;
   background-color: white;
@@ -413,25 +418,28 @@ svg {
 }
 @keyframes show-block {
   from {
-    height: 0;
+    // height: 0;
     opacity: 0;
   }
   to {
-    height: inherit;
+    // height: inherit;
     opacity: 1;
   }
 }
 
 .filter-group {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 99;
   width: 100%;
   margin-top: 5px;
-  background-color: white;
+  background-color: rgba(255, 255, 255);
   border-radius: 8px;
 
   border: 0.5px solid rgba(0, 0, 0, 0.11);
-  box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 15px 30px 1px rgba(0, 0, 0, 0.2);
   display: none;
-  position: relative;
   a {
     color: inherit;
     text-decoration: none;
@@ -472,7 +480,7 @@ svg {
   font-weight: bold;
 }
 .sponsor_border {
-  border: 1px solid RGBA(24, 67, 112, 0.5) !important;
+  border: 1px solid RGBA(24, 67, 112, 0.2) !important;
   background-image: url("../../../../public/img/wave_search.svg");
   background-position-y: 15px;
   background-size: cover;
@@ -503,15 +511,24 @@ svg {
     right: 10px;
   }
 }
-.pagination {
+.pagination_position {
   position: absolute;
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-
-  .selectedPage{
-    text-decoration: underline;
-    font-weight: bolder;
-  }
+}
+.selected_element {
+  text-decoration: underline !important;
+  font-weight: bolder;
+}
+.active .page-link {
+  color: white !important;
+  background-color: RGBA(24, 67, 112) !important;
+}
+.disabled .page-link {
+  color: grey !important;
+}
+.page-link {
+  color: RGBA(24, 67, 112) !important;
 }
 </style>
