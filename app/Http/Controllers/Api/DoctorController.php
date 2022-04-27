@@ -16,7 +16,7 @@ class DoctorController extends Controller
     private $doctorsQB;
     private $filteredDoctorsQB;
     private $additionalTables = ['titles', 'performances', 'reviews','sponsorships'];
-    public static $MAX_PAGE_ITEMS = 10;
+    public static $MAX_PAGE_ITEMS = 3;
 
 
     /* PUBLIC API METHODS */
@@ -78,6 +78,7 @@ class DoctorController extends Controller
             'success' => true,
             'data' => [
 
+                'foundResults' => $allSortedQB->paginate()->total(),
                 'sponsoredDoctors' => $sponsoredDoctorsQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
                 'unsponsoredDoctors' => $unsponsoredDoctorsQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
                 'allDoctorsSorted' => $allSortedQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items()
@@ -91,11 +92,14 @@ class DoctorController extends Controller
         return response()->json($doctor);
     }
     
-    public static function getPageNumbers($rowsNum, $itemsPerPage) {
+    public static function getPageNumbers() {
         
-        $url=$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        $itemsPerPage = DoctorController::$MAX_PAGE_ITEMS;
+        $items = $_GET['items'];
+        $url = $_GET['route'];
+
         $html = "Pagine:";
-        $numbers = ceil($rowsNum / $itemsPerPage);
+        $numbers = ceil($items / $itemsPerPage);
     
         if ($numbers > 1) {
     
