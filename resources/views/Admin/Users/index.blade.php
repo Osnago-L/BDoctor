@@ -69,7 +69,7 @@
                         <p class="font-weight-bold">Titoli</p>
                         <div class="d-flex">
                             @foreach($user->titles as $title)
-                            <div class="badge badge-secondary mr-2 mt-2">{{$title->name ? $title->name : '-'}}</div>
+                            <div class="badge ms_badge text-white mr-2 mt-2">{{$title->name ? $title->name : '-'}}</div>
                             @endforeach
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                         <p class="font-weight-bold">Prestazioni</p>
                         <div class="d-flex">
                             @foreach($user->performances as $performance)
-                            <div class="badge badge-danger mr-2 mt-2">{{$performance->name ? $performance->name : '-'}}</div>
+                            <div class="badge ms_badge text-white mr-2 mt-2">{{$performance->name ? $performance->name : '-'}}</div>
                             @endforeach
                         </div>
                     </div>
@@ -93,8 +93,7 @@
                 
                 <div class="d-flex justify-content-between">
                     <p>le tue sponsorizzazioni</p>
-                    <p>scadenza sponsorizzazioni</p>
-
+                    <p>Scadenza</p>
                 </div>
                 
                 @foreach($user->sponsorships as $element)

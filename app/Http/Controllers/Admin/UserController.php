@@ -33,10 +33,16 @@ class UserController extends Controller
 
 
         foreach ($user->sponsorships as $sponsor){
-            /* dd($sponsor->pivot); */
-            /* dd(DateTime::createFromFormat('Y-m-d H:i:s', $sponsor->expiration)->format('d-m-Y H:i:s')); */
-            $sponsor->pivot->expiration = DateTime::createFromFormat('Y-m-d H:i:s', $sponsor->pivot->expiration)->format('d-m-Y H:i:s');
+            
+            $sponsor->pivot->expiration = DateTime::createFromFormat('Y-m-d H:i:s', $sponsor->pivot->expiration)->format('d-m-Y H:i:s'); 
+            /* $sorted = collect($sponsor->pivot->expiration)->sortByDesc('expiration'); */
         }; 
+        
+        /* dd($user); */
+        /* $sort = DB::table('sponsorship_user')
+        ->where('user_id' , $user)
+        ->orderBy('expiration','asc')->get();
+        dump($sort); */
         
 
         return view('admin.users.index',compact('user' ,'now' ));
