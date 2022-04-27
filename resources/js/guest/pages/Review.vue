@@ -20,8 +20,8 @@
                         </div>
                         <div class="" v-if="doctor.image">
                             <img
-                                class="w-100 img-show"
-                                :src="'../storage/' + doctor.image"
+                                class=" img-show"
+                                :src="'/storage/' + doctor.image"
                             />
                         </div>
                         <div class="img-show" v-else>
@@ -365,7 +365,7 @@ export default {
     }
     img:hover {
         filter: brightness(50%);
-        transition: all ease-in-out 0.5s;
+        transition: ease-in-out 0.5s;
     }
     input {
         background-color: rgba(5, 62, 122, 0.9176470588);
