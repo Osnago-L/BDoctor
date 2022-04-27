@@ -14440,12 +14440,6 @@ IMPORTS
 TYPO
 ------------------------ */
 
-<<<<<<< HEAD
-.ms_imagebox a img {
-  width: 45px;
-  height: 45px;
-  border-radius: 30px;
-=======
 /* ------------------------
 RESET
 ------------------------ */
@@ -14467,6 +14461,11 @@ RESET
 
 * {
   scrollbar-width: none;
->>>>>>> search-small-fix
+}
+
+.ms_imagebox a img {
+  width: 45px;
+  height: 45px;
+  border-radius: 30px;
 }
 
