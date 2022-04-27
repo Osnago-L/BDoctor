@@ -221,7 +221,7 @@ div{
     color: $ms_blue;
 }
 .star{
-    color:  rgb(241, 241, 35);;
+    color:  rgb(239, 192, 20);;
 }
 .review_my{
     padding-bottom: 15px;
