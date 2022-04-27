@@ -36,7 +36,7 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <i class="fa-solid fa-clock"></i>
-                            <p class="ml-3">{{$message->created_at}}</p>
+                            <p class="ml-3">{{date_format($message->created_at, "d/m/Y H:i")}}</p>
                         </div>
                     </div>
 
