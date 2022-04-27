@@ -23,7 +23,7 @@
                 <div class="col-12 text-left col-lg-6 shadow_my">
                     <form
                         @submit.prevent="checkForm();">
-                        <h4 class="text-center m-4">Scrivi a {{doctor.name}} {{doctor.surname}}</h4>
+                        <h4 class="text-center m-4">Scrivi a {{doctor.name.charAt(0).toUpperCase() + doctor.name.slice(1)}} {{doctor.surname.charAt(0).toUpperCase() + doctor.surname.slice(1)}}</h4>
                         <label class="" for="score">Nome:</label>
                         <input
                             type="text"
@@ -33,11 +33,11 @@
                             v-model="inputUtente.author"
                             
                         />
-                        <div v-show="errors.length > 0">
+                        <div v-show="errors.name">
                             <ul>
                                 <li class="errorss"
                                 >
-                                    {{errors[0]}}
+                                    {{errors.name}}
                                 </li>
                             </ul>
                         </div>
@@ -49,11 +49,11 @@
                             placeholder="Inserisci la tua mail"
                             v-model="inputUtente.email"
                         />
-                        <div v-show="errors.length > 0">
+                        <div v-show="errors.mail">
                             <ul>
                                 <li class="errorss"
                                 >
-                                    {{errors[1]}}
+                                    {{errors.mail}}
                                 </li>
                             </ul>
                         </div>
@@ -65,17 +65,17 @@
                             rows="5"
                             v-model="inputUtente.content"
                         ></textarea>
-                        <div v-show="errors.length > 0">
+                        <div v-show="errors.message">
                             <ul>
                                 <li class="errorss"
                                 >
-                                    {{errors[2]}}
+                                    {{errors.message}}
                                 </li>
                             </ul>
                         </div>
-                        <button type="submit" class="send_butt">Invia</button>
+                        <button type="submit" class="send_butt">{{confirmed}}</button>
                     </form>
-                <div v-show="messageConfirm">Inviato!</div>
+                <!-- <div v-show="messageConfirm">Inviato!</div> -->
             </div>
             <div class="col-2 text-center d-none d-lg-block">
                 <div class="sm_description">
@@ -113,7 +113,12 @@ export default {
                 user_id: null,
             },
             messageConfirm: false,
-            errors: [],
+            errors: {
+                name: "",
+                mail: "",
+                message: ""
+            },
+            confirmed:"Invia"
         };
     },
     created() {
@@ -134,8 +139,11 @@ export default {
                 this.inputUtente.author = "";
                 this.inputUtente.content = "";
                 this.messageConfirm = true;
-                this.errors = [];
-                console.log(response);
+                this.errors.name = "";
+                this.errors.mail = "";
+                this.errors.message = "";
+                this.confirmed = "Inviato!"
+                this.$router.push({name:'single-doctor', params:{id:this.$route.params.id} })
             });
         },
         checkForm: function () {
@@ -146,15 +154,17 @@ export default {
             ) {
                 return this.inviaMessaggio();
             } else {
-                this.errors = [];
+                this.errors.name = "";
+                this.errors.mail = "";
+                this.errors.message = "";
                 if (!this.inputUtente.author) {
-                    this.errors.push("Nome richiesto");
+                    this.errors.name = "Nome richiesto"
                 }
                 if (!this.inputUtente.email){
-                    this.errors.push("Inserisci una mail valida!");
+                    this.errors.mail = "Inserisci una mail valida!"
                 }
                 if (!this.inputUtente.content) {
-                    this.errors.push("Inserisci un messaggio");
+                    this.errors.message = "Inserisci un messaggio"
                 }
             }
         },

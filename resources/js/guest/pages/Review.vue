@@ -20,7 +20,7 @@
                         </div>
                         <div class="" v-if="doctor.image">
                             <img
-                                class=" img-show"
+                                class="img-show"
                                 :src="'/storage/' + doctor.image"
                             />
                         </div>
@@ -39,7 +39,16 @@
                         </div>
                     </div>
                     <div class="text-center m-5">
-                        <h2>{{ doctor.name }} {{ doctor.surname }}</h2>
+                        <h2>
+                            {{
+                                doctor.name.charAt(0).toUpperCase() +
+                                doctor.name.slice(1)
+                            }}
+                            {{
+                                doctor.surname.charAt(0).toUpperCase() +
+                                doctor.surname.slice(1)
+                            }}
+                        </h2>
                     </div>
                     <div class="row justify-content-around">
                         <div class="bb col-5 p-0 ml-2 mt-4 text-center">
@@ -268,7 +277,7 @@ export default {
     .back_rew {
         padding: 30px 80px;
         background-color: white;
-        border-radius: 20px;
+        border-radius: 8px;
         box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.5);
     }
     ul {
@@ -285,9 +294,8 @@ export default {
         color: white;
         font-size: 12px;
         transition: ease 0.5s;
-
     }
-    .send_butt:hover{
+    .send_butt:hover {
         filter: brightness(50%);
         transition: all ease-in-out 0.5s;
     }
@@ -303,7 +311,7 @@ export default {
     }
     .rew_scr {
         background-color: white;
-        border-radius: 20px;
+        border-radius: 8px;
         box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.2);
         height: calc(100vh - 90px);
     }
@@ -339,7 +347,7 @@ export default {
         transition: ease 0.5s;
         font-size: 12px;
     }
-    .rew_button:hover{
+    .rew_button:hover {
         filter: brightness(50%);
         transition: all ease-in-out 0.5s;
     }
@@ -358,7 +366,7 @@ export default {
         border-bottom: 4px solid $ms_blue;
         border-top: 4px solid $ms_blue;
         box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.1);
-        border-radius: 5%;
+        border-radius: 8px;
     }
     img {
         transition: ease 0.5s;

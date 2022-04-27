@@ -188,7 +188,7 @@
                       class="text-warning"
                       >&#9733;</span
                     >
-                    ({{ element.reviews.length }}):
+                    ({{ element.reviews.length }})
                   </div>
                 </div>
                 <div

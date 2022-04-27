@@ -27,7 +27,15 @@
                         </div>
                     </div>
                     <div class="text-center m-5">
-                        <h2>{{doctor.name}} {{doctor.surname}}</h2>     
+                        <h2>{{
+                        doctor.name.charAt(0).toUpperCase() +
+                        doctor.name.slice(1)
+                      }}
+                      {{
+                        doctor.surname.charAt(0).toUpperCase() +
+                        doctor.surname.slice(1)
+                      }}
+                      </h2>     
                     </div>
                     <div class="row justify-content-around">
                         <div class="bb col-5 p-0 ml-2 mt-4 text-center">
@@ -113,7 +121,7 @@ export default {
             let getLength = data.length;
             let sum = 0
             data.map(x=>sum=sum + x.score)
-            return Math.round(sum/getLength)
+            return Math.floor(sum/getLength)
 
         } ,
         filterRew(array){
@@ -154,7 +162,7 @@ export default {
     background-color:white ;
     border-top: 4px solid $ms_blue;
     border-bottom: 4px solid $ms_blue;
-    border-radius: 5%;
+    border-radius: 8px;
     box-shadow: 2px 2px 30px 1px rgba(51, 58, 154, 0.1);
     transition: ease 0.5s;
 }
@@ -169,7 +177,7 @@ export default {
 .profile_scr{
     background-color: white;
     height: calc(100vh - 90px) ;
-    border-radius: 20px;
+    border-radius: 8px;
     box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.100);
     overflow-y: scroll;
     overflow-x: hidden;

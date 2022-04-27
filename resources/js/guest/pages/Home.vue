@@ -142,7 +142,7 @@
 
         <div class="doctor_background">
             <div class="container mt-5">
-                <div class="row">
+                <div class="row px-3 px-lg-0">
                     <div class="col-sm-6 ms_doctor-reg">
                         <img
                             src="https://www.idoctors.it/images/frontend/medico-vertical.svg"

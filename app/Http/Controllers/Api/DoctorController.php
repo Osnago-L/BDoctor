@@ -96,21 +96,10 @@ class DoctorController extends Controller
         return response()->json($doctor);
     }
     
-<<<<<<< HEAD
-    public static function getPageNumbers() {
-        
-        $itemsPerPage = DoctorController::$MAX_PAGE_ITEMS;
-        $items = $_GET['items'];
-        $url = $_GET['route'];
-
-        $html = "Pagine:";
-        $numbers = ceil($items / $itemsPerPage);
-=======
     public static function getPages($rowsNum, $itemsPerPage) {
         // $url=$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         // $html = "Pagine:";
         return ceil($rowsNum / $itemsPerPage);
->>>>>>> search-small-fix
     
         // if ($numbers > 1) {
     
