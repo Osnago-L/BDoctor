@@ -12,7 +12,7 @@ class TitleSeeder extends Seeder
      */
     public function run()
     {
-        $titles = ['Podologia','Urologia','Cardiologia','Dermatologia'];
+        $titles = ['Podologia','Urologia','Cardiologia','Dermatologia','Andrologia','Gastroenterologia','Ginecologia','Oculistica','Ortopedia','Proctologia'];
         
         foreach($titles as $title_name){
             $new_title = new Title();

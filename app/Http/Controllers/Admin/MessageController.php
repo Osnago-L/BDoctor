@@ -24,12 +24,20 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Message $message)
     {   
         $user = Auth::user();
         $messages = Message::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
 
-        return view('admin.messages.index', compact('messages'));
+        $dateTime = new DateTime($message->created_at);
+        $date = $dateTime->format('d/m/Y');
+        $time = $dateTime->format("H:i");
+
+        if (!$message){
+            abort(404);
+        }
+
+        return view('admin.messages.index', compact('user','messages','date','time'));
     }
 
     /**
@@ -65,7 +73,7 @@ class MessageController extends Controller
         $dateTime = new DateTime($message->created_at);
         
         $date = $dateTime->format('d/m/Y');
-        $time = $dateTime->format("H:i");
+        $time = $dateTime->format("H");
 
 
         if (!$message){

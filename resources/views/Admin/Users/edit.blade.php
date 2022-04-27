@@ -104,7 +104,7 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" name="Submit" value="Modifica" class="ms_button btn btn-primary form-control" />
+            <input type="submit" name="Submit" value="Modifica" class="ms_buttonblue btn btn-primary form-control" />
         </div>
     </form>
 

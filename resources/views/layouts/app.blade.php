@@ -24,7 +24,7 @@
     
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="overflow">
         {{-------------------------- HEADER ---------------------------------}}
         <nav class="ms_front_nav navbar navbar-expand-lg navbar-dark d-flex justify-content-between">
             <a href="{{ url('/') }}">
@@ -37,8 +37,9 @@
                         @if (Route::has('login'))
                             @auth
                                 <li class="nav-item mb-sm-2 mb-md-0 mx-5">
-                                    <button class=" btn button_ms_yellow btn-sm text-dark"><a class="text-dark"
-                                            href="{{ url('/admin/') }}">Home</a></button>
+                                    <div class="ms_imagebox">
+                                        <a class="text-dark" href="{{ url('/admin/') }}" ><img  src="{{ asset('storage/' . $user->image) }}" alt=""></a>
+                                    </div>
                                 </li>
                             @else
                                 <li class="nav-item mb-sm-2 mb-lg-0">

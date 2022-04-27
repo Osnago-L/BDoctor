@@ -48,7 +48,7 @@
     
             <div class="review-header p-2">
 
-                <div class="row align-items-center">
+                <div class="asd row align-items-center justify-content-between">
 
                     <div class="col-auto">
                         <h3>{{$review->title}}</h3>
@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col my-2">
+                    <div class="col align-items-center justify-content-between my-2">
                         <span class='ms_user h5'><i class="fa-solid fa-user"></i> {{$review->author}} </span>
                         <span class='ms_datetime ml-2'><i class="fa-solid fa-clock"></i> {{$date}} - {{$time}}</span>
                     </div>
