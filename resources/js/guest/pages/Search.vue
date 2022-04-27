@@ -61,7 +61,7 @@
         <!-- /////////////////// -->
         <div id="filter-box" class="filter-group">
           <div class="row p-4">
-            <div class="col-3 d-flex flex-column">
+            <div class="col-3 d-flex flex-column border-right">
               <a
                 v-for="(element, index) in 4"
                 :key="'a' + index"
@@ -70,25 +70,35 @@
                 @click="
                   [score == 4 - index ? (score = 0) : (score = 4 - index)]
                 "
-                >{{ 4 - index }} stelle o più</a
+                ><span
+                  class="text-warning"
+                  v-for="(stars_filter, index) in 4 - index"
+                  :key="'sf' + index"
+                  >&#9733;</span
+                >
+                o più</a
               >
             </div>
             <div class="col-3 d-flex flex-column">
-              Numero recensioni:
               <a
                 :class="[reviews == 1 ? 'font-weight-bold' : '']"
                 @click="[reviews == 1 ? (reviews = 0) : (reviews = 1)]"
-                >1+</a
+                >1+ recensioni</a
               >
               <a
                 :class="[reviews == 5 ? 'font-weight-bold' : '']"
                 @click="[reviews == 5 ? (reviews = 0) : (reviews = 5)]"
-                >5+</a
+                >5+ recensioni</a
               >
               <a
                 :class="[reviews == 10 ? 'font-weight-bold' : '']"
                 @click="[reviews == 10 ? (reviews = 0) : (reviews = 10)]"
-                >10+</a
+                >10+ recensioni</a
+              >
+              <a
+                :class="[reviews == 15 ? 'font-weight-bold' : '']"
+                @click="[reviews == 15 ? (reviews = 0) : (reviews = 15)]"
+                >15+ recensioni</a
               >
             </div>
             <div class="col-3"></div>
@@ -119,88 +129,80 @@
             v-for="(element, index) in doctors"
             :key="'b' + index"
             class="doctor_card mb-3"
+            :class="{'sponsor_border':checkSponsor(element.sponsorships)}"
           >
-            <div class="row">
-              <div class="col-3 col-lg-2">
-                <img
-                  v-if="element.image"
-                  :src="'../storage/' + element.image"
-                  alt=""
-                />
-                <img
-                  v-else
-                  src="../../../../public/img/default_user.webp"
-                  alt=""
-                />
-              </div>
-              <div
-                class="
-                  col-4 col-lg-3
-                  d-flex
-                  flex-column
-                  justify-content-between
-                "
-              >
-                <div>
-                  <h5>
-                    {{
-                      element.name.charAt(0).toUpperCase() +
-                      element.name.slice(1)
-                    }}
-                    {{
-                      element.surname.charAt(0).toUpperCase() +
-                      element.surname.slice(1)
-                    }}
-                  </h5>
-                  <span
-                    v-for="(titles, index) in element.titles"
-                    :key="'c' + index"
-                    >{{ titles.name }}</span
-                  >
-                </div>
-                <div class="">
-                  <span
-                    v-for="(stars, index) in getAvarageScore(element.reviews)"
-                    :key="'s' + index"
-                    class="text-warning"
-                    >&#9733;</span
-                  >
-                  ({{ element.reviews.length }}):
-                </div>
-              </div>
-              <div
-                class="
-                  border-left
-                  col-3 col-lg-3
-                  d-flex
-                  flex-column
-                  justify-content-center
-                "
-              >
-                <span
-                  v-for="(performances, index) in element.performances"
-                  :key="'p' + index"
-                  >{{ performances.name }}</span
-                >
-              </div>
-              <div class="col-2 col-lg-4"></div>
-              <img
-                v-if="checkSponsor(element.sponsorships)"
-                class="sponsor_badge"
-                src="/img/badge.png"
-                alt=""
-              />
-            </div>
             <router-link
-              class="view_doctor"
               :to="{
                 name: 'single-doctor',
                 params: { id: element.id },
               }"
-              ><button class="btn btn-sm button_ms_blue">
-                Mostra
-              </button></router-link
             >
+              <div class="row">
+                <div class="col-3 col-lg-2 d-flex align-items-center">
+                  <img
+                    v-if="element.image"
+                    :src="'../storage/' + element.image"
+                    alt=""
+                  />
+                  <img
+                    v-else
+                    src="../../../../public/img/default_user.webp"
+                    alt=""
+                  />
+                </div>
+                <div
+                  class="
+                    col-4 col-lg-3
+                    d-flex
+                    flex-column
+                    justify-content-between
+                  "
+                >
+                  <div>
+                    <h5>
+                      {{
+                        element.name.charAt(0).toUpperCase() +
+                        element.name.slice(1)
+                      }}
+                      {{
+                        element.surname.charAt(0).toUpperCase() +
+                        element.surname.slice(1)
+                      }}
+                    </h5>
+                    <span
+                      v-for="(titles, index) in element.titles"
+                      :key="'c' + index"
+                      >{{ titles.name }}</span
+                    >
+                  </div>
+                  <div class="">
+                    <span
+                      v-for="(stars, index) in getAvarageScore(element.reviews)"
+                      :key="'s' + index"
+                      class="text-warning"
+                      >&#9733;</span
+                    >
+                    ({{ element.reviews.length }}):
+                  </div>
+                </div>
+                <div
+                  class="
+                    border-left
+                    col-3 col-lg-3
+                    d-flex
+                    flex-column
+                    justify-content-center
+                  "
+                >
+                  <span
+                    v-for="(performances, index) in element.performances"
+                    :key="'p' + index"
+                    >{{ performances.name }}</span
+                  >
+                </div>
+                <div class="col-2 col-lg-4"></div>
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -245,9 +247,11 @@ export default {
           },
         })
         .then((response) => {
-          this.doctors = response.data.data.sponsoredDoctors.concat(
-            response.data.data.unsponsoredDoctors
-          );
+          
+          this.doctors = response.data.data.allDoctorsSorted
+          // this.doctors = response.data.data.sponsoredDoctors.concat(
+          //   response.data.data.unsponsoredDoctors
+          // );
         });
     },
     checkIfEmpty() {
@@ -321,14 +325,7 @@ export default {
   );
   height: calc(100vh - 70px);
 }
-a {
-  color: inherit;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
+
 svg {
   width: 25px;
   height: 25px;
@@ -341,6 +338,14 @@ svg {
   padding: 20px 0px;
   border: 0.5px solid rgba(0, 0, 0, 0.11);
   box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.1);
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 .show {
   display: inline-block !important;
@@ -368,10 +373,18 @@ svg {
   box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.1);
   display: none;
   position: relative;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 .reset_button {
   position: absolute;
-  bottom: 1.5rem;
+  bottom: 10px;
   right: 1.5rem;
 }
 .card-group {
@@ -399,14 +412,27 @@ svg {
   color: white;
   font-weight: bold;
 }
+.sponsor_border{
+    border:1px solid RGBA(24, 67, 112,0.5)!important;
+    background-image: url('../../../../public/img/wave_search.svg');
+    background-position-y: 15px ;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 .doctor_card {
   width: 100%;
   padding: 20px 20px;
-  background-color: white;
+  
+
+  // background-color: white;
   border: 0.5px solid rgba(0, 0, 0, 0.11);
   box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   position: relative;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
   img {
     width: 100%;
@@ -418,12 +444,6 @@ svg {
     bottom: 10px;
     right: 10px;
   }
-  .sponsor_badge {
-    width: 38px;
-    height: 22px;
-    position: absolute;
-    top: 16px;
-    right: 20px;
-  }
+  
 }
 </style>
