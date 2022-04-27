@@ -27,7 +27,7 @@ class MessageController extends Controller
     public function index()
     {   
         $user = Auth::user();
-        $messages = Message::where('user_id', Auth::user()->id)->get();
+        $messages = Message::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
 
         return view('admin.messages.index', compact('messages'));
     }
@@ -63,8 +63,10 @@ class MessageController extends Controller
     {
         
         $dateTime = new DateTime($message->created_at);
+        
         $date = $dateTime->format('d/m/Y');
         $time = $dateTime->format("H:i");
+
 
         if (!$message){
             abort(404);
