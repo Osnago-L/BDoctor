@@ -27,9 +27,7 @@
                   d="M320 224H416c17.67 0 32-14.33 32-32s-14.33-32-32-32h-95.1c-17.67 0-32 14.33-32 32S302.3 224 320 224zM320 352H480c17.67 0 32-14.33 32-32s-14.33-32-32-32h-159.1c-17.67 0-32 14.33-32 32S302.3 352 320 352zM320 96h32c17.67 0 31.1-14.33 31.1-32s-14.33-32-31.1-32h-32c-17.67 0-32 14.33-32 32S302.3 96 320 96zM544 416h-223.1c-17.67 0-32 14.33-32 32s14.33 32 32 32H544c17.67 0 32-14.33 32-32S561.7 416 544 416zM192.4 330.7L160 366.1V64.03C160 46.33 145.7 32 128 32S96 46.33 96 64.03v302L63.6 330.7c-6.312-6.883-14.94-10.38-23.61-10.38c-7.719 0-15.47 2.781-21.61 8.414c-13.03 11.95-13.9 32.22-1.969 45.27l87.1 96.09c12.12 13.26 35.06 13.26 47.19 0l87.1-96.09c11.94-13.05 11.06-33.31-1.969-45.27C224.6 316.8 204.4 317.7 192.4 330.7z"
                 />
               </svg>
-              <span class="ml-1 font-weight-bold"
-                >Filter({{ Object.keys(this.$route.query).length - 1 }})</span
-              >
+              <span class="ml-1 font-weight-bold">Filter({{ filters }})</span>
             </a>
           </div>
           <div class="w-50">
@@ -43,7 +41,9 @@
               </select>
               <div class="input-group-append">
                 <router-link
-                  @click.native="checkIfEmpty()"
+                  @click.native="
+                  resetPages()
+                  search()"
                   :event="title ? 'click' : ''"
                   :to="{}"
                 >
@@ -109,27 +109,29 @@
             @click="
               score = 0;
               reviews = 0;
-              checkIfEmpty();
+              search();
             "
           >
             Reset
           </button>
         </div>
         <!-- /////////////////// -->
-        <h3 v-if="selected != '' && doctors.length > 0" class="mt-3 ml-2">
+        <h3 v-if="selected != '' && data.foundResults > 0" class="mt-3 ml-2">
           I nostri specialisti in
-          {{ selected.charAt(0).toUpperCase() + selected.slice(1) }}:
+          {{ selected.charAt(0).toUpperCase() + selected.slice(1) }}({{
+            data.foundResults
+          }}):
         </h3>
 
         <div class="card-group col-12 px-sm-5 px-md-5">
-          <h3 v-if="doctors.length == 0" class="mt-3 ml-2 text-center">
+          <h3 v-if="data.foundResults == 0" class="mt-3 ml-2 text-center">
             Nessun risultato per questa ricerca
           </h3>
           <div
-            v-for="(element, index) in doctors"
+            v-for="(element, index) in data.doctors"
             :key="'b' + index"
             class="doctor_card mb-3"
-            :class="{'sponsor_border':checkSponsor(element.sponsorships)}"
+            :class="{ sponsor_border: checkSponsor(element.sponsorships) }"
           >
             <router-link
               :to="{
@@ -208,6 +210,26 @@
       </div>
       <!-- //////////////////////// -->
     </div>
+    <div>
+      <router-link
+        v-if="page > 1 && data.maxPages > 1"
+        @click.native="
+          page--;
+          search();
+        "
+        :to="{}"
+        >&#8592; Precedente</router-link
+      >
+      <router-link
+        v-if="page < data.maxPages"
+        @click.native="
+          page++;
+          search();
+        "
+        :to="{}"
+        >Successiva &#8594;
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -216,27 +238,31 @@ export default {
   name: "Search",
   data() {
     return {
+      filters: "",
       title: "",
       score: "",
       reviews: "",
-      doctors: "",
+      data: "",
+      page: "",
       selected: "",
       alert: "Scegli una specializzazione...",
     };
   },
   mounted() {
-    this.selected = this.$route.query.title;
     if (this.$route.query.score) {
       this.score = this.$route.query.score;
     }
     if (this.$route.query.reviews) {
       this.reviews = this.$route.query.reviews;
     }
+    this.filters = "0";
     this.selected = this.$route.query.title;
+    this.page = this.$route.query.page;
     this.title = this.$route.query.title;
     this.getApi();
   },
   methods: {
+    // GET API
     getApi() {
       axios
         .get(`/api/doctors/`, {
@@ -244,44 +270,60 @@ export default {
             title: this.$route.query.title,
             stars: this.$route.query.score,
             reviews: this.$route.query.reviews,
+            page: this.$route.query.page,
           },
         })
         .then((response) => {
-          
-          this.doctors = response.data.data.allDoctorsSorted
-          // this.doctors = response.data.data.sponsoredDoctors.concat(
-          //   response.data.data.unsponsoredDoctors
-          // );
+          this.data = response.data.data;
         });
     },
-    checkIfEmpty() {
+    // SEARCH USING DIFFERENTS FILTERS
+    search() {
+      console.log("check");
+
       if (!this.title) {
         this.alert = "Selezionare una specializzazione per continuare...";
       } else {
+        this.filters = 2;
         this.$router.push({
           query: {
             title: this.title,
             score: this.score,
             reviews: this.reviews,
+            page: this.page,
           },
         });
-        if (this.score == 0) {
-          let query = Object.assign({}, this.$route.query);
-          delete query.score;
-          this.$router.replace({ query });
-        }
-        if (this.reviews == 0) {
-          let query = Object.assign({}, this.$route.query);
-          delete query.reviews;
-          this.$router.replace({ query });
-        }
 
+        this.removeQuery();
         this.getApi();
         document.getElementById("filter-box").classList.remove("show");
         this.selected = this.$route.query.title;
         this.alert = "Scegli una specializzazione...";
       }
     },
+    resetPages(){
+        if (this.page > 1) {
+          this.page = 1;
+        }
+    },
+    //  REMOVE ALL QUERY
+    removeQuery() {
+      if (this.score == 0) {
+        this.filters--;
+        let query = Object.assign({}, this.$route.query);
+        delete query.score;
+        this.$router.replace({ query });
+      }
+      if (this.reviews == 0) {
+        this.filters--;
+        let query = Object.assign({}, this.$route.query);
+        delete query.reviews;
+        this.$router.replace({ query });
+      }
+    },
+    //////////////////////////
+    /////////////////////////
+    // DROPDOWN FILTER BOX
     filterDrop() {
       let filter_box = document.getElementById("filter-box");
       if (filter_box.classList.contains("show")) {
@@ -290,13 +332,7 @@ export default {
         filter_box.classList.add("show");
       }
     },
-    removeQuery() {
-      if (this.score == 0) {
-        let query = Object.assign({}, this.$route.query);
-        delete query.score;
-        this.$router.replace({ query });
-      }
-    },
+
     getAvarageScore(data) {
       let getLength = data.length;
       let sum = 0;
@@ -412,17 +448,16 @@ svg {
   color: white;
   font-weight: bold;
 }
-.sponsor_border{
-    border:1px solid RGBA(24, 67, 112,0.5)!important;
-    background-image: url('../../../../public/img/wave_search.svg');
-    background-position-y: 15px ;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
+.sponsor_border {
+  border: 1px solid RGBA(24, 67, 112, 0.5) !important;
+  background-image: url("../../../../public/img/wave_search.svg");
+  background-position-y: 15px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .doctor_card {
   width: 100%;
   padding: 20px 20px;
-  
 
   // background-color: white;
   border: 0.5px solid rgba(0, 0, 0, 0.11);
@@ -444,6 +479,5 @@ svg {
     bottom: 10px;
     right: 10px;
   }
-  
 }
 </style>

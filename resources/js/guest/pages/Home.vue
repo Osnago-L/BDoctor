@@ -22,7 +22,10 @@
                                         :event="input ? 'click' : ''"
                                         :to="{
                                             name: 'search',
-                                            query: {title: input},
+                                            query: {
+                                                title: input,
+                                                page: 1,
+                                                },
                                         }"
                                     >
                                         <button type="button" class="text-white button-search btn button_ms_blue">
@@ -140,7 +143,7 @@
                             </li>
                         </ul>
                         <a href="/register">
-                          <button type="button" class="btn btn-warning">
+                        <button type="button" class="btn btn-warning">
                             Registrati
                         </button>
                         </a>
