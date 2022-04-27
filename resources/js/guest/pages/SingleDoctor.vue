@@ -15,10 +15,10 @@
                             <div><span>Indirizzo:</span> {{doctor.address}}</div>
                             <div class="my_hr"></div>
                         </div>
-                        <div class="col-3 img-show back_user" v-if="doctor.image" >
-                            <img class="w-100" :src="'../storage/'+doctor.image">   
+                        <div class="" v-if="doctor.image" >
+                            <img class="img-show" :src="'../storage/'+doctor.image">   
                         </div>
-                        <div class="col-3 img-show no_photo" v-else>
+                        <div class="img-show no_photo" v-else>
                             <img class="w-100" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
                         </div>
                         <div class="col-4 text-center">
@@ -36,7 +36,7 @@
                                 <div class="txt"><i class="bi bi-mortarboard"></i> {{title.name}}</div>
                             </span>
                         </div>
-                        <div v-if="doctor.performances" class="bb p-0 col-5 mt-4 text-center">
+                        <div v-if="doctor.performances.length>0" class="bb p-0 col-5 mt-4 text-center">
                             <h5 class="">Prestazioni</h5>
                             <span class="ml-4" v-for="(performance,index) in doctor.performances" :key="index">
                                 <div class="txt">{{performance.name}}</div>
@@ -54,7 +54,7 @@
                         <h3 class="text-center mt-4">Recensioni </h3> 
                         <span class="personal_i"> ({{doctor.reviews.length}})</span>
                     </div>
-                    <div class="personal_i"> Media Recensioni: 
+                    <div class="personal_i" v-if="doctor.reviews.length>0"> Media Recensioni: 
                         <span v-for="n in media(doctor.reviews)" :key="n">
                             <i class="star bi bi-star-fill"></i>
                         </span>
@@ -142,6 +142,9 @@ export default {
 .all_bac{
     background-color: rgba($ms_white,0.5);
 }
+.breack_sb{
+    word-break: break-all;
+}
 .date_rew{
     font-size: 10px;
 }
@@ -183,6 +186,8 @@ export default {
 }
 .img-show{
     border-radius: 100%;
+    height: 120px;
+    width: 120px;
 }
 .personal_i{
     color: rgb(136, 136, 136);

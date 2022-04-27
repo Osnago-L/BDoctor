@@ -18,15 +18,15 @@
                             </div>
                             <div class="my_hr"></div>
                         </div>
-                        <div class="col-3" v-if="doctor.image">
+                        <div class="" v-if="doctor.image">
                             <img
                                 class="w-100 img-show"
                                 :src="'../storage/' + doctor.image"
                             />
                         </div>
-                        <div class="col-3" v-else>
+                        <div class="img-show" v-else>
                             <img
-                                class="w-100 img-show"
+                                class="w-100"
                                 src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                             />
                         </div>
@@ -284,6 +284,12 @@ export default {
         border: 2px solid white;
         color: white;
         font-size: 12px;
+        transition: ease 0.5s;
+
+    }
+    .send_butt:hover{
+        filter: brightness(50%);
+        transition: all ease-in-out 0.5s;
     }
     .sm_description {
         font-size: 12px;
@@ -298,13 +304,15 @@ export default {
     .rew_scr {
         background-color: white;
         border-radius: 20px;
-        box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.2);
         height: calc(100vh - 90px);
     }
     .profile_scr::-webkit-scrollbar {
         display: none;
     }
     .img-show {
+        height: 65px;
+        width: 65px;
         border-radius: 100%;
     }
     .personal_i {
@@ -328,10 +336,16 @@ export default {
         border-radius: 10px;
         border: 2px solid white;
         color: white;
+        transition: ease 0.5s;
         font-size: 12px;
+    }
+    .rew_button:hover{
+        filter: brightness(50%);
+        transition: all ease-in-out 0.5s;
     }
     .h_rew {
         max-height: 100vh;
+        box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.5);
         background-color: $ms_blue;
         color: white;
     }
