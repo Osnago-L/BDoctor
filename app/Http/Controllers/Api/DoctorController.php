@@ -82,7 +82,7 @@ class DoctorController extends Controller
                 'foundResults' => $foundResults->paginate()->total(),
                 'maxItemsPerPage' => DoctorController::$MAX_PAGE_ITEMS,
                 'maxPages' => DoctorController::getPages($totDoctors->paginate()->total(), DoctorController::$MAX_PAGE_ITEMS),
-                // 'sponsoredDoctors' => $sponsoredDoctorsQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
+                'sponsoredDoctors' => $sponsoredDoctorsQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
                 // 'unsponsoredDoctors' => $unsponsoredDoctorsQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
                 'doctors' => $allSortedQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
                 

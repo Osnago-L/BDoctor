@@ -133,7 +133,9 @@
             v-for="(element, index) in data.doctors"
             :key="'b' + index"
             class="doctor_card mb-3"
-            :class="{ sponsor_border: checkSponsor(element.sponsorships) }"
+            :class="{
+              sponsor_border: checkSponsor(element.sponsorships),
+            }"
           >
             <router-link
               :to="{
@@ -276,6 +278,10 @@ export default {
     };
   },
   mounted() {
+    if (!this.$route.query.title) {
+      this.$router.push({ name: "home" });
+      return;
+    }
     this.filters = "0";
     if (this.$route.query.score) {
       this.score = this.$route.query.score;
@@ -284,6 +290,14 @@ export default {
     if (this.$route.query.reviews) {
       this.reviews = this.$route.query.reviews;
       this.filters++;
+    }
+    if (!this.$route.query.page) {
+      this.$router.push({
+        query: {
+          title: this.$route.query.title,
+          page: 1,
+        },
+      });
     }
     this.selected = this.$route.query.title;
     this.page = this.$route.query.page;
