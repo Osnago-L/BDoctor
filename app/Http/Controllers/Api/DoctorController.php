@@ -72,16 +72,20 @@ class DoctorController extends Controller
         $sponsorCloneQB = clone($sponsoredDoctorsQB); //ad ogni nuova operazione su un QB da salvare, bisogna prima clonarlo (metodi eseguiti cambiano stato degli oggetti QB)
         $unsponsorCloneQB = clone($unsponsoredDoctorsQB);
         $allSortedQB = $sponsorCloneQB->union($unsponsorCloneQB);
+        $foundResults =clone($allSortedQB);
+        $totDoctors =clone($allSortedQB);
 
         return response()->json(
         [
             'success' => true,
             'data' => [
-
-                'foundResults' => $allSortedQB->paginate()->total(),
+                'foundResults' => $foundResults->paginate()->total(),
+                'maxItemsPerPage' => DoctorController::$MAX_PAGE_ITEMS,
+                'maxPages' => DoctorController::getPages($totDoctors->paginate()->total(), DoctorController::$MAX_PAGE_ITEMS),
                 'sponsoredDoctors' => $sponsoredDoctorsQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
-                'unsponsoredDoctors' => $unsponsoredDoctorsQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
-                'allDoctorsSorted' => $allSortedQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items()
+                // 'unsponsoredDoctors' => $unsponsoredDoctorsQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
+                'doctors' => $allSortedQB->paginate(DoctorController::$MAX_PAGE_ITEMS)->items(),
+                
             ]
         ]);
     }
@@ -92,6 +96,7 @@ class DoctorController extends Controller
         return response()->json($doctor);
     }
     
+<<<<<<< HEAD
     public static function getPageNumbers() {
         
         $itemsPerPage = DoctorController::$MAX_PAGE_ITEMS;
@@ -100,20 +105,26 @@ class DoctorController extends Controller
 
         $html = "Pagine:";
         $numbers = ceil($items / $itemsPerPage);
+=======
+    public static function getPages($rowsNum, $itemsPerPage) {
+        // $url=$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        // $html = "Pagine:";
+        return ceil($rowsNum / $itemsPerPage);
+>>>>>>> search-small-fix
     
-        if ($numbers > 1) {
+        // if ($numbers > 1) {
     
-            $pos = strpos($url, "page=");
-            $pos == 0 ? $pos = 1 : $pos;
-            $urlWithoutPage = substr($url, 0, strlen($url) - $pos+1);
-            $sep = "&";
+        //     $pos = strpos($url, "page=");
+        //     $pos == 0 ? $pos = 1 : $pos;
+        //     $urlWithoutPage = substr($url, 0, strlen($url) - $pos+1);
+        //     $sep = "&";
     
-            for ($i = 1; $i <= $numbers; $i++) {
+        //     for ($i = 1; $i <= $numbers; $i++) {
     
-                $url = substr($url, strlen($url));
-                $html .= "&nbsp&nbsp" . "<a href='$urlWithoutPage" . $sep . "page=$i'>$i</a>";
-            }
-        }
+        //         $url = substr($url, strlen($url));
+        //         $html .= "&nbsp&nbsp" . "<a href='$urlWithoutPage" . $sep . "page=$i'>$i</a>";
+        //     }
+        // }
 
         return response()->json(
         [

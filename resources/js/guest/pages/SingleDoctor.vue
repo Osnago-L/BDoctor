@@ -227,7 +227,7 @@ div{
     transition: ease 0.5s;
 }
 .rew_button:hover{
-    background-color: rgba($ms_blue, 0.9);
+    background-color: RGB(24, 67, 112);
     transition: all ease-in-out 0.5s;
 }
 .user{
