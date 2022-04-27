@@ -2,21 +2,21 @@
     <div class="ground all_page d-flex align-items-center">
         <div class="container"> 
                 <div class="row justify-content-between align-items-center text-center">
-                    <div class="col-2 text-center d-lg-none">
-                        <div class="sm_description">
+                    <div class="col-3 text-center d-lg-none">
+                        <div class="sm_description breack_sb">
                         specializzazioni:
                         <span class="" v-for="(title,index) in doctor.titles" :key="index">
                             <div class="sm_description"><i class="bi bi-mortarboard"></i> {{title.name}}</div>
                         </span>
                     </div>
                 </div>
-                <div class="col-3 d-lg-none img-show" v-if="doctor.image">
-                    <img class="w-100" :src="'../storage/'+ doctor.image"> 
+                <div class="d-lg-none" v-if="doctor.image">
+                    <img class="img-show" :src="'/storage/'+ doctor.image"> 
                 </div>
-                <div class="col-3 d-lg-none img-show" v-else>
+                <div class="d-lg-none img-show" v-else>
                     <img class="w-100 " src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
                 </div>
-                <div class="col-2 text-center d-lg-none">
+                <div class="col-3 text-center d-lg-none breack_sb">
                     <div><span class="sm_description">Indirizzo:</span><span class="sm_description">{{doctor.address}}</span></div>
                     <div v-if="doctor.phone_n"><span class="sm_description">Numero di telefono:</span><span class="sm_description">{{doctor.phone_n}}</span></div>
                 </div>
@@ -31,7 +31,16 @@
                             id="name"
                             placeholder="Inserisci il tuo nome"
                             v-model="inputUtente.author"
+                            
                         />
+                        <div v-show="errors.length > 0">
+                            <ul>
+                                <li class="errorss"
+                                >
+                                    {{errors[0]}}
+                                </li>
+                            </ul>
+                        </div>
                         <label class="" for="score">Mail:</label>
                         <input
                             type="email"
@@ -40,6 +49,14 @@
                             placeholder="Inserisci la tua mail"
                             v-model="inputUtente.email"
                         />
+                        <div v-show="errors.length > 0">
+                            <ul>
+                                <li class="errorss"
+                                >
+                                    {{errors[1]}}
+                                </li>
+                            </ul>
+                        </div>
                         <label class="" for="score">Messaggio:</label>
                         <textarea
                             class="form-control"
@@ -48,40 +65,35 @@
                             rows="5"
                             v-model="inputUtente.content"
                         ></textarea>
-                        
-                        <button type="submit" class="send_butt">Invia</button>
-
                         <div v-show="errors.length > 0">
                             <ul>
-                                <li
-                                    v-for="(element, index) in errors"
-                                    :key="index"
-                                    style="color: red"
+                                <li class="errorss"
                                 >
-                                    {{ element }}
+                                    {{errors[2]}}
                                 </li>
                             </ul>
                         </div>
+                        <button type="submit" class="send_butt">Invia</button>
                     </form>
                 <div v-show="messageConfirm">Inviato!</div>
             </div>
             <div class="col-2 text-center d-none d-lg-block">
                 <div class="sm_description">
                     specializzazioni:
-                    <span class="" v-for="(title,index) in doctor.titles" :key="index">
+                    <span class="breack_sb" v-for="(title,index) in doctor.titles" :key="index">
                         <div class="sm_description"><i class="bi bi-mortarboard"></i> {{title.name}}</div>
                     </span>
                 </div>
             </div>
-            <div class="col-2 d-none d-lg-block" v-if="doctor.image">
-                <img class="w-100 img-show" :src="'../storage/'+ doctor.image">   
+            <div class="d-none d-lg-block" v-if="doctor.image">
+                <img class="img-show" :src="'/storage/'+ doctor.image"> 
             </div>
-            <div class="col-2 d-none d-lg-block" v-else>
-                <img class="w-100 img-show" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
+            <div class="img-show d-none d-lg-block" v-else>
+                <img class="w-100" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
             </div>
-            <div class="col-2 text-center d-none d-lg-block">
+            <div class="col-2 text-center breack_sb d-none d-lg-block">
                 <div><span class="sm_description">Indirizzo:</span><span class="sm_description">{{doctor.address}}</span></div>
-                <div v-if="doctor.phone_n"><span class="sm_description">Numero di telefono:</span><span class="sm_description">{{doctor.phone_n}}</span></div>
+                <div v-if="doctor.phone_n"><span class="sm_description breack_sb">Numero di telefono:</span><span class="breack_sb sm_description">{{doctor.phone_n}}</span></div>
             </div>
     
          </div>               
@@ -157,14 +169,21 @@ export default {
     font-size: 12px;
 }
 .all_page{
-    height: calc(100vh - 62px) ;
+    height: 100vh; 
 }
-img{
+.img-show{
+    border-radius: 100%;
     transition: ease 0.5s;
+    height: 160px;
+    width: 160px;
 }
-img:hover{
+
+.img-show:hover{
     filter: brightness(50%);
     transition: all ease-in-out 0.5s;
+}
+.breack_sb{
+    word-break: break-word;
 }
 .shadow_my{
     padding: 30px 80px;
@@ -193,5 +212,9 @@ input{
 textarea{
     border: none;
     background-color: rgba(5, 62, 122, 0.9176470588); 
+}
+.errorss{
+    color: red;
+    list-style-type: none;
 }
 </style>

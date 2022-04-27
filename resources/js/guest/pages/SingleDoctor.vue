@@ -15,10 +15,10 @@
                             <div><span>Indirizzo:</span> {{doctor.address}}</div>
                             <div class="my_hr"></div>
                         </div>
-                        <div class="col-3 img-show back_user" v-if="doctor.image" >
-                            <img class="w-100" :src="'../storage/'+doctor.image">   
+                        <div class="" v-if="doctor.image" >
+                            <img class="img-show" :src="'../storage/'+doctor.image">   
                         </div>
-                        <div class="col-3 img-show no_photo" v-else>
+                        <div class="img-show no_photo" v-else>
                             <img class="w-100" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
                         </div>
                         <div class="col-4 text-center">
@@ -36,7 +36,7 @@
                                 <div class="txt"><i class="bi bi-mortarboard"></i> {{title.name}}</div>
                             </span>
                         </div>
-                        <div v-if="doctor.performances" class="bb p-0 col-5 mt-4 text-center">
+                        <div v-if="doctor.performances.length>0" class="bb p-0 col-5 mt-4 text-center">
                             <h5 class="">Prestazioni</h5>
                             <span class="ml-4" v-for="(performance,index) in doctor.performances" :key="index">
                                 <div class="txt">{{performance.name}}</div>
@@ -53,12 +53,15 @@
                     <div class="d-flex align-items-center justify-content-center">
                         <h3 class="text-center mt-4">Recensioni </h3> 
                         <span class="personal_i"> ({{doctor.reviews.length}})</span>
-                        media recensioni 
-                        <span>{{media(doctor.reviews.length,doctor.reviews.score)}}</span>   <!--undefinded perchè doctor.reviews dovrebbe essere ciclato-->
                     </div>
+                    <div class="personal_i" v-if="doctor.reviews.length>0"> Media Recensioni: 
+                        <span v-for="n in media(doctor.reviews)" :key="n">
+                            <i class="star bi bi-star-fill"></i>
+                        </span>
+                    </div>   
                     <router-link :to="{ name:'review', params: { id:doctor.id }}"><button type="button" class="rew_button mt-3">Scrivi una recensione</button></router-link>
 
-                    <div class="review_my" v-for="(review,index) in doctor.reviews" :key="index">
+                    <div class="review_my" v-for="(review,index) in filterRew(doctor.reviews)" :key="index">
                         <div class="mt-4 text-left" v-if="review">
                             <div>
                                 <h5>{{review.title}}</h5>
@@ -96,25 +99,30 @@ export default {
         }
     } ,
     methods:{
-       formattazione_anno(dato,valore){
-          const date= new Date(dato);
-          if(valore){
-                return date.getFullYear();
+        formattazione_anno(dato,valore){
+            const date= new Date(dato);
+            if(valore){
+                    return date.getFullYear();
 
-          }else{
-                return date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear();
-          }       
-       },
-        media(arrayLen,vote) {
-            console.log(vote);
-            let i = 0;
-            let summ = 0;
-            let voteArr=[1,2,3,4,5];
-            while (i < arrayLen) {
-                summ = summ + voteArr[i++];
-            }
-                return summ / arrayLen;
-        }
+            }else{
+                    return date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear();
+            }       
+        },
+        media(data){
+            console.log(data);
+            let getLength = data.length;
+            let sum = 0
+            data.map(x=>sum=sum + x.score)
+            return Math.round(sum/getLength)
+
+        } ,
+        filterRew(array){
+            console.log(array);
+            return array.slice().sort(function(a, b){
+            return (a.review > b.review) ? 1 : -1;
+  });
+}
+        
     },
 
     created(){
@@ -133,6 +141,9 @@ export default {
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
 .all_bac{
     background-color: rgba($ms_white,0.5);
+}
+.breack_sb{
+    word-break: break-all;
 }
 .date_rew{
     font-size: 10px;
@@ -175,6 +186,8 @@ export default {
 }
 .img-show{
     border-radius: 100%;
+    height: 120px;
+    width: 120px;
 }
 .personal_i{
     color: rgb(136, 136, 136);
