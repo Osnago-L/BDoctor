@@ -131,20 +131,20 @@
                                         @click="setStars(index)"
                                     ></i>
                                 </div>
+                                <div v-show="errors.length > 0">
+                                    <ul>
+                                        <li
+                                            v-for="(element, index) in errors"
+                                            :key="index"
+                                        >
+                                            {{ element }}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                             <button class="send_butt mt-4 mb-3" type="submit">
                                 Invia
                             </button>
-                            <div v-show="errors.length > 0">
-                                <ul>
-                                    <li
-                                        v-for="(element, index) in errors"
-                                        :key="index"
-                                    >
-                                        {{ element }}
-                                    </li>
-                                </ul>
-                            </div>
                         </form>
                     </div>
                     <div v-else class="">
