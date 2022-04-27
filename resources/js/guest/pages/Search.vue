@@ -106,23 +106,13 @@
           </button>
         </div>
         <!-- /////////////////// -->
-        <h3
-          v-if="
-            selected != '' && (doctors.length > 0)
-          "
-          class="mt-3 ml-2"
-        >
-          I nostri specialisti in {{ 
-            selected.charAt(0).toUpperCase() +
-            selected.slice(1) 
-          }}:
+        <h3 v-if="selected != '' && doctors.length > 0" class="mt-3 ml-2">
+          I nostri specialisti in
+          {{ selected.charAt(0).toUpperCase() + selected.slice(1) }}:
         </h3>
 
         <div class="card-group col-12 px-sm-5 px-md-5">
-          <h3
-            v-if="doctors.length == 0"
-            class="mt-3 ml-2 text-center"
-          >
+          <h3 v-if="doctors.length == 0" class="mt-3 ml-2 text-center">
             Nessun risultato per questa ricerca
           </h3>
           <div
@@ -143,7 +133,14 @@
                   alt=""
                 />
               </div>
-              <div class="col-4 col-lg-3 d-flex flex-column justify-content-between">
+              <div
+                class="
+                  col-4 col-lg-3
+                  d-flex
+                  flex-column
+                  justify-content-between
+                "
+              >
                 <div>
                   <h5>
                     {{
@@ -162,15 +159,37 @@
                   >
                 </div>
                 <div class="">
-                  <span v-for="stars,index in getAvarageScore(element.reviews)" :key="'s'+ index" class="text-warning">&#9733;</span>
-                  ({{element.reviews.length}}):
-                  </div>
+                  <span
+                    v-for="(stars, index) in getAvarageScore(element.reviews)"
+                    :key="'s' + index"
+                    class="text-warning"
+                    >&#9733;</span
+                  >
+                  ({{ element.reviews.length }}):
+                </div>
               </div>
-              <div class="border-left col-3 col-lg-3 d-flex flex-column justify-content-center">
-                <span v-for="performances,index in element.performances" :key="'p'+ index">{{performances.name}}</span>
+              <div
+                class="
+                  border-left
+                  col-3 col-lg-3
+                  d-flex
+                  flex-column
+                  justify-content-center
+                "
+              >
+                <span
+                  v-for="(performances, index) in element.performances"
+                  :key="'p' + index"
+                  >{{ performances.name }}</span
+                >
               </div>
               <div class="col-2 col-lg-4"></div>
-              <img v-if="checkSponsor(element.sponsorships)" class="sponsor_badge" src="/img/badge.png" alt="" />
+              <img
+                v-if="checkSponsor(element.sponsorships)"
+                class="sponsor_badge"
+                src="/img/badge.png"
+                alt=""
+              />
             </div>
             <router-link
               class="view_doctor"
@@ -198,7 +217,7 @@ export default {
       title: "",
       score: "",
       reviews: "",
-      doctors:"",
+      doctors: "",
       selected: "",
       alert: "Scegli una specializzazione...",
     };
@@ -226,7 +245,9 @@ export default {
           },
         })
         .then((response) => {
-          this.doctors = response.data.data.sponsoredDoctors.concat(response.data.data.unsponsoredDoctors)
+          this.doctors = response.data.data.sponsoredDoctors.concat(
+            response.data.data.unsponsoredDoctors
+          );
         });
     },
     checkIfEmpty() {
@@ -272,28 +293,26 @@ export default {
         this.$router.replace({ query });
       }
     },
-    getAvarageScore(data){
+    getAvarageScore(data) {
       let getLength = data.length;
-      let sum = 0
-      data.map(x=>sum=sum + x.score)
-      return Math.round(sum/getLength)
+      let sum = 0;
+      data.map((x) => (sum = sum + x.score));
+      return Math.round(sum / getLength);
     },
-    checkSponsor(data){
-      
-      if(data.length>0){
-        let checkExpire = new Date(data[data.length-1].pivot.expiration) 
+    checkSponsor(data) {
+      if (data.length > 0) {
+        let checkExpire = new Date(data[data.length - 1].pivot.expiration);
         let today = new Date();
-        return checkExpire>today ? true :false
-      }else{
-        return false
+        return checkExpire > today ? true : false;
+      } else {
+        return false;
       }
-    }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
 @import "../../../sass/guest/_variables.scss";
 .background_color {
   background-image: linear-gradient(
