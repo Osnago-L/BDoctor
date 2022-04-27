@@ -42,8 +42,9 @@
               <div class="input-group-append">
                 <router-link
                   @click.native="
-                  resetPages()
-                  search()"
+                    resetPages();
+                    search();
+                  "
                   :event="title ? 'click' : ''"
                   :to="{}"
                 >
@@ -210,25 +211,49 @@
       </div>
       <!-- //////////////////////// -->
     </div>
-    <div>
-      <router-link
-        v-if="page > 1 && data.maxPages > 1"
-        @click.native="
-          page--;
-          search();
-        "
-        :to="{}"
-        >&#8592; Precedente</router-link
-      >
-      <router-link
-        v-if="page < data.maxPages"
-        @click.native="
-          page++;
-          search();
-        "
-        :to="{}"
-        >Successiva &#8594;
-      </router-link>
+    <div class="pagination">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <router-link
+              class="page-link"
+              :class="{invisible: page == 1 || data.maxPages == 1}"
+
+              @click.native="
+                page--;
+                search();
+              "
+              :to="{}"
+              >Precedente</router-link
+            >
+          </li>
+          <li v-for="pages, index in data.maxPages" :key="'pages'+index" class="page-item">
+            <router-link
+              class="page-link"
+              :class="{'selectedPage' : page == index+1,'invisible': data.maxPages == 1}"
+              
+              @click.native="
+                page= index+1;
+                search();
+              "
+              :to="{}"
+              >{{index+1}}
+            </router-link>
+          </li>
+          <li class="page-item">
+            <router-link
+              class="page-link"
+              :class="{invisible: page == data.maxPages}"
+              @click.native="
+                page++;
+                search();
+              "
+              :to="{}"
+              >Successiva
+            </router-link>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </template>
@@ -279,8 +304,6 @@ export default {
     },
     // SEARCH USING DIFFERENTS FILTERS
     search() {
-      console.log("check");
-
       if (!this.title) {
         this.alert = "Selezionare una specializzazione per continuare...";
       } else {
@@ -301,10 +324,10 @@ export default {
         this.alert = "Scegli una specializzazione...";
       }
     },
-    resetPages(){
-        if (this.page > 1) {
-          this.page = 1;
-        }
+    resetPages() {
+      if (this.page > 1) {
+        this.page = 1;
+      }
     },
     //  REMOVE ALL QUERY
     removeQuery() {
@@ -478,6 +501,17 @@ svg {
     position: absolute;
     bottom: 10px;
     right: 10px;
+  }
+}
+.pagination {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .selectedPage{
+    text-decoration: underline;
+    font-weight: bolder;
   }
 }
 </style>
