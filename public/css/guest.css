@@ -14461,3 +14461,9 @@ IMPORTS
 TYPO
 ------------------------ */
 
+.ms_imagebox a img {
+  width: 45px;
+  height: 45px;
+  border-radius: 30px;
+}
+

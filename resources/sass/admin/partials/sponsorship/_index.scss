@@ -1,5 +1,5 @@
 .braintree-sheet__header{
-    background-color: #003062;
+    background-color: rgb(24, 67, 112);
     
     .braintree-sheet__text{
         color: white;
@@ -7,7 +7,7 @@
 }
 
 .button{
-    background-color: #003062;
+    background-color:rgba($ms_blue, 0.9);
     color: white;
     padding: 5px 5px;
     border-radius:3px;
@@ -15,7 +15,7 @@
 }
 
 .braintree-sheet__content{
-    background-color:rgba(#003062,0.3) ;
+    background-color:rgba($ms_blue, 0.2);
     color: white;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .braintree-form__field{
-    background-color: rgba(#003062,0.8);
+    background-color: rgb(24, 67, 112);
     border-radius:3px;
 }
 
@@ -34,6 +34,4 @@
     background-color: white;
 }
 
-label{
-    color: white;
-}
+

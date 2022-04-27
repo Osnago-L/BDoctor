@@ -1,0 +1,21 @@
+.ms_cardmessage{
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.100);
+    border-radius:10px;
+    background-color:white;
+    word-break:break-all;
+}
+
+.ms_info{
+    border-bottom: 1px solid rgba($ms_blue, 0.9);
+    border-radius:10px 10px 0px 0px;
+}
+.ms_buttonbox{
+
+    width: 100%;
+    a{
+        width: 50%;
+        button{
+            width:100%
+        }
+    }  
+}

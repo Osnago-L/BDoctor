@@ -1,16 +1,14 @@
 
 .ms_card{
-    /* padding:15px 15px; */
+    padding:15px 15px;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.100);
     border-radius:5px;
     background-color:white;
     word-break:break-all;
+    min-height: 610px;
     
 }
-.ms_button{
-    width: 100px;
-    background-color: #003062;
-}
+
 
 .ms_image{
     width: 100%;
@@ -21,7 +19,7 @@
     }
 
     .circle{
-        border: 3px solid #003062;
+        border: 3px solid  rgba(24, 67, 112,0.7);
     }
 
     .ms_wrapper{
@@ -60,11 +58,17 @@
     }
 }
 
+.ms_badge{
+    background-color:$ms_blue;
+    font-size: 12px;
+    font-weight: normal;
+}
+
 .ms_boxinput{
     height:65px;
 }
 .ms_checkbox{
-    accent-color: #003062;
+    accent-color: rgb(24, 67, 112);
 }
 p{  
     margin: 0;

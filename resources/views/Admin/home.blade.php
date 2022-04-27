@@ -29,7 +29,7 @@
 
                 <div class="box-info p-2">
                     <div class="py-2 d-flex align-items-center border-bottom">
-                        <div class="w-25">
+                        <div class="w-50">
                             <p class="font-weight-bold">Nome:</p>
                         </div>
                         <div>
@@ -39,17 +39,17 @@
                     </div>
     
                     <div class="py-2 d-flex align-items-center border-bottom">
-                        <div>
-                            <p class="font-weight-bold">Specializzazione:</p>
+                        <div class="w-50">
+                            <p class="font-weight-bold">Specializzazione Primaria:</p>
                         </div>
                         <div>
-                            <span class="ml-3">{{$titlesingola->name}}</span>
+                            <span class="ml-3">{{$user->titles[0]->name}}</span>
                         </div>
                         
                     </div>
     
                     <div class="py-2 d-flex align-items-center border-bottom">
-                        <div div class="w-25">
+                        <div  class="w-50">
                             <p class="font-weight-bold">Email:</p>
                         </div>
                         <div>
@@ -58,7 +58,7 @@
                     </div>
     
                     <div class="py-2 d-flex align-items-center border-bottom">
-                        <div div class="w-25">
+                        <div div class="w-50">
                             <p class="font-weight-bold">Cellulare:</p>
                         </div>
                         <div>
@@ -67,17 +67,34 @@
                     </div>
     
                     <div class="py-2 d-flex align-items-center border-bottom">
-                        <div div class="w-25">
+                        <div div class="w-50">
                             <p class="font-weight-bold">Indirizzo:</p>
                         </div>
                         <div>
                             <span class="ml-3">{{$user->address}}</span>
                         </div>
                     </div>
+                    <div class="py-2 border-bottom">
+                        <p class="font-weight-bold">Titoli</p>
+                        <div class="d-flex flex-wrap">
+                            @foreach($user->titles as $title)
+                            <div class="badge ms_badge text-white badge-secondary mr-2 mt-2">{{$title->name ? $title->name : '-'}}</div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="py-2 border-bottom">
+                        <p class="font-weight-bold">Prestazioni</p>
+                        <div class="d-flex">
+                            @foreach($user->performances as $performance)
+                            <div class="badge ms_badge text-white  mr-2 mt-2">{{$performance->name ? $performance->name : '-'}}</div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-                
-
-                <a class="d-block d-lg-none mt-3" href="{{route("admin.user.edit",Auth::id())}}"><button class="btn btn-primary">Modifica Profilo</button></a>
+                <div class="d-flex">
+                    <a class="d-block d-lg-none mt-3" href="{{route("admin.user.edit",Auth::id())}}"><button class="btn ms_buttonblue btn-primary p-1 mx-2">Modifica Profilo</button></a>
+                    <a class="mt-3" href="{{route("admin.payment",Auth::id())}}"><button class="btn ms_buttonblue  text-white p-2">Sponsorizza il tuo profilo</button></a>
+                </div>
             </div>
         </div>
 
@@ -162,7 +179,7 @@
                     </div>
 
                     <h4>Titoli</h4>
-                    <div class="ms_boxinput d-flex">
+                    <div class="ms_boxinput d-flex flex-wrap">
                         @foreach ($titles as $title)
                         <div class="form-check mx-1">
                             <input class="ms_checkbox form-check-input" type="checkbox" value="{{$title->id}}" 
@@ -179,7 +196,7 @@
                     </div>
                     
 
-                    <h4>Performance</h4>
+                    <h4>Prestazioni</h4>
                     <div class="ms_boxinput d-flex">
                         @foreach ($performances as $performance)
                         <div class="form-check mx-1">
@@ -198,7 +215,7 @@
                     
             
                     <div class="form-group">
-                        <input type="submit" name="Submit" value="Modifica" class="ms_button text-white  form-control" />
+                        <input type="submit" name="Submit" value="Modifica" class="ms_buttonblue text-white  form-control" />
                     </div>
                 </form>
             </div>

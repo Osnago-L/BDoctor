@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 
+
+
 class HomeController extends Controller
 {   
     /**
@@ -30,12 +32,23 @@ class HomeController extends Controller
     public function index()
     {   
         $user = Auth::user();
-
-        $titlesingola = Title::find(1);
-
+        $user->load('titles');
+        /* $user = User::with('titles')->get(); */
+        /* dd($user); */
         $titles = Title::all();
         $performances = Performance::all();
 
-        return view('admin.home',compact('user','titlesingola', 'titles','performances'));
+        /* $titlesingola = Title::where();  */
+        
+        /* $titlesingola = $user->titles;*/
+
+        /* dd($titlesingola); */
+        
+
+        /* dd($user); */
+        
+        
+
+        return view('admin.home',compact('user', 'titles','performances'));
     }
 }

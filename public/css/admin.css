@@ -10982,44 +10982,19 @@ a.text-dark:focus {
     50% { opacity: 1; }
 } */
 
-.ms_cardmessage {
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+.ms_box {
+  border: 1px solid #003062;
   border-radius: 10px;
-  background-color: white;
-  word-break: break-all;
-}
-
-.ms_buttonbox {
-  width: 100%;
-}
-
-.ms_buttonbox .btn_custom {
-  background-color: #003062;
-}
-
-.ms_buttonbox a {
-  width: 50%;
-}
-
-.ms_buttonbox a button {
-  width: 100%;
-}
-
-.ms_buttonbox .custom {
-  width: 50%;
+  background-color: rgba(0, 48, 98, 0.2);
 }
 
 .ms_card {
-  /* padding:15px 15px; */
+  padding: 15px 15px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   background-color: white;
   word-break: break-all;
-}
-
-.ms_button {
-  width: 100px;
-  background-color: #003062;
+  min-height: 610px;
 }
 
 .ms_image {
@@ -11032,7 +11007,7 @@ a.text-dark:focus {
 }
 
 .ms_image .circle {
-  border: 3px solid #003062;
+  border: 3px solid rgba(24, 67, 112, 0.7);
 }
 
 .ms_image .ms_wrapper {
@@ -11073,12 +11048,18 @@ a.text-dark:focus {
   transition: 1s;
 }
 
+.ms_badge {
+  background-color: #003062;
+  font-size: 12px;
+  font-weight: normal;
+}
+
 .ms_boxinput {
   height: 65px;
 }
 
 .ms_checkbox {
-  accent-color: #003062;
+  accent-color: rgb(24, 67, 112);
 }
 
 p {
@@ -11123,7 +11104,7 @@ p {
 }
 
 .ms_front_nav {
-  background-color: #003062;
+  background-color: RGB(24, 67, 112);
   position: fixed;
   width: 100%;
   overflow: hidden;
@@ -11150,13 +11131,20 @@ p {
 
 .ms_leftnav {
   position: fixed;
-  background-color: #003062;
+  background-color: RGB(24, 67, 112);
   height: 100%;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+  width: 170px;
 }
 
 .ms_leftnav .nav-item {
-  padding-top: 60px;
+  padding-top: 80px;
+}
+
+@media screen and (max-width: 991px) {
+  .ms_leftnav {
+    width: 65px;
+  }
 }
 
 .ms_boxnav {
@@ -11179,91 +11167,6 @@ p {
 .ms_boxnav .fa-solid {
   font-size: 25px;
   padding: 0px 7px;
-}
-
-.braintree-sheet__header {
-  background-color: #003062;
-}
-
-.braintree-sheet__header .braintree-sheet__text {
-  color: white;
-}
-
-.button {
-  background-color: #003062;
-  color: white;
-  padding: 5px 5px;
-  border-radius: 3px;
-  border: 0;
-}
-
-.braintree-sheet__content {
-  background-color: rgba(0, 48, 98, 0.3);
-  color: white;
-}
-
-.braintree-form__label {
-  color: white;
-  font-size: 500px;
-}
-
-.braintree-form__field {
-  background-color: rgba(0, 48, 98, 0.8);
-  border-radius: 3px;
-}
-
-.number {
-  background-color: white;
-}
-
-label {
-  color: white;
-}
-
-main {
-  background-color: rgba(239, 233, 244, 0.5);
-}
-
-.box {
-  margin-left: 60px;
-  min-height: 930px;
-}
-
-@media (min-width: 992px) {
-  .box {
-    margin-left: 154px;
-  }
-}
-
-.ms_title {
-  border-bottom: 1px solid rgb(148, 148, 148);
-  font-size: 15px;
-  color: white;
-}
-
-.fa-brands {
-  font-size: 25px;
-  padding: 5px 15px;
-  color: white;
-}
-
-.rounded-box {
-  border-radius: 10px;
-  border: 1px solid #cdc;
-  padding: 0.5rem;
-}
-
-.ms_user {
-  color: #003062;
-}
-
-.ms_star {
-  color: orange;
-  font-weight: bold;
-}
-
-.ms_datetime {
-  color: #888;
 }
 
 .form {
@@ -11430,5 +11333,141 @@ margin-top: 40px;
 
 .ms_buttonform:hover {
   opacity: 0.5;
+}
+
+.braintree-sheet__header {
+  background-color: rgb(24, 67, 112);
+}
+
+.braintree-sheet__header .braintree-sheet__text {
+  color: white;
+}
+
+.button {
+  background-color: rgba(0, 48, 98, 0.9);
+  color: white;
+  padding: 5px 5px;
+  border-radius: 3px;
+  border: 0;
+}
+
+.braintree-sheet__content {
+  background-color: rgba(0, 48, 98, 0.2);
+  color: white;
+}
+
+.braintree-form__label {
+  color: white;
+  font-size: 500px;
+}
+
+.braintree-form__field {
+  background-color: rgb(24, 67, 112);
+  border-radius: 3px;
+}
+
+.number {
+  background-color: white;
+}
+
+.review-header h3 {
+  color: #003062;
+}
+
+.ms_user {
+  color: #003062;
+}
+
+.ms_star {
+  color: #003062;
+  font-weight: bold;
+}
+
+.ms_datetime {
+  color: #888;
+}
+
+.ms_cardmessage {
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: white;
+  word-break: break-all;
+}
+
+.ms_info {
+  border-bottom: 1px solid rgba(0, 48, 98, 0.9);
+  border-radius: 10px 10px 0px 0px;
+}
+
+.ms_buttonbox {
+  width: 100%;
+}
+
+.ms_buttonbox a {
+  width: 50%;
+}
+
+.ms_buttonbox a button {
+  width: 100%;
+}
+
+main {
+  background-color: rgba(239, 233, 244, 0.5);
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+  /* font-family: $font-family-sans-serif; */
+}
+
+.box {
+  margin-left: 60px;
+  min-height: 930px;
+}
+
+@media (min-width: 992px) {
+  .box {
+    margin-left: 154px;
+  }
+}
+
+.ms_title {
+  border-bottom: 1px solid rgb(148, 148, 148);
+  font-size: 15px;
+  color: white;
+}
+
+.fa-brands {
+  font-size: 25px;
+  padding: 5px 15px;
+  color: white;
+}
+
+.rounded-box {
+  border-radius: 10px;
+  border: 1px solid #cdc;
+  padding: 0.5rem;
+}
+
+.ms_buttonblue {
+  /* width: 100px; */
+  background-color: rgba(0, 48, 98, 0.9);
+  padding: 3px 3px;
+  border: 0;
+}
+
+.ms_imagebox a img {
+  width: 45px;
+  height: 45px;
+  border-radius: 30px;
+  aspect-ratio: 1/1;
 }
 
