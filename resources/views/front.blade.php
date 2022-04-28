@@ -31,7 +31,11 @@
                             @auth
                                 <li class="nav-item mb-sm-2 mb-md-0 mb-3">
                                     <div class="ms_imagebox">
+                                        @if($user->image)
                                         <a class="text-dark" href="{{ url('/admin/') }}" ><img  src="{{ asset('storage/' . $user->image) }}" alt=""></a>
+                                        @else
+                                        <a class="text-dark" href="{{ url('/admin/') }}" ><img  src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt=""></a>
+                                        @endif
                                     </div>
                                 </li>
                             @else
