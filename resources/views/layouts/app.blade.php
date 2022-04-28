@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,12 +21,14 @@
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 
     <!-- Fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
+
 <body>
     <div id="app" class="overflow">
-        {{-------------------------- HEADER ---------------------------------}}
+        {{-- ------------------------ HEADER ------------------------------- --}}
         <nav class="ms_front_nav navbar navbar-expand-lg navbar-dark d-flex justify-content-between">
             <a href="{{ url('/') }}">
                 <img class="d-none  d-lg-inline" src="{{ asset('/img/' . 'logo_inverted.png') }}" alt="">
@@ -38,7 +41,15 @@
                             @auth
                                 <li class="nav-item mb-sm-2 mb-md-0 mx-5">
                                     <div class="ms_imagebox">
-                                        <a class="text-dark" href="{{ url('/admin/') }}" ><img  src="{{ asset('storage/' . $user->image) }}" alt=""></a>
+
+                                        @if ($user->image)
+                                            <a class="text-dark" href="{{ url('/admin/') }}"><img
+                                                    src="{{ asset('storage/' . $user->image) }}" alt=""></a>
+                                        @else
+                                            <a class="text-dark" href="{{ url('/admin/') }}"><img
+                                                    class="rounded-circle circle"
+                                                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt=""> </a>
+                                        @endif
                                     </div>
                                 </li>
                             @else
@@ -58,38 +69,48 @@
                 </ul>
             </div>
         </nav>
-        {{-------------------------- SIDEBAR FOR LOGGED USERS ---------------------------------}}
-        @if ( Auth::user())
-        <div class="ms_leftnav">
+        {{-- ------------------------ SIDEBAR FOR LOGGED USERS ------------------------------- --}}
+        @if (Auth::user())
+            <div class="ms_leftnav">
                 {{-- <p class="ms_title p-3 d-none d-lg-block">Bdoctor</p> --}}
                 <div class="nav-item">
                     {{-- <img class="d-block d-lg-none" src="{{ asset('img/' . "logo.png") }}" alt=""> --}}
                     <div class="ms_boxnav d-flex flex-column">
-                        <a href="{{route("admin.home")}}"><i class="fa-solid fa-house-user"></i><p class="d-none d-lg-block">Home</p></a>
-                        <a href="{{route("admin.user.index")}}"><i class="fa-solid fa-user"></i><p class="d-none d-lg-block">Profilo</p></a>
-                        <a href="{{route("admin.messages.index",Auth::user()->id)}}"><i class="fa-solid fa-inbox"></i><p class="d-none d-lg-block">Messaggi</p></a>
-                        <a href="{{route("admin.reviews.index",Auth::user()->id)}}"><i class="fa-solid fa-comment"></i><p class="d-none d-lg-block">Recensioni</p></a>
-                        <a href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
+                        <a href="{{ route('admin.home') }}"><i class="fa-solid fa-house-user"></i>
+                            <p class="d-none d-lg-block">Home</p>
+                        </a>
+                        <a href="{{ route('admin.user.index') }}"><i class="fa-solid fa-user"></i>
+                            <p class="d-none d-lg-block">Profilo</p>
+                        </a>
+                        <a href="{{ route('admin.messages.index', Auth::user()->id) }}"><i
+                                class="fa-solid fa-inbox"></i>
+                            <p class="d-none d-lg-block">Messaggi</p>
+                        </a>
+                        <a href="{{ route('admin.reviews.index', Auth::user()->id) }}"><i
+                                class="fa-solid fa-comment"></i>
+                            <p class="d-none d-lg-block">Recensioni</p>
+                        </a>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-                            <i class="fa-solid fa-right-from-bracket"></i><p class="d-none d-lg-block">{{ __('Logout') }}</p>
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <p class="d-none d-lg-block">{{ __('Logout') }}</p>
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
                     </div>
                 </div>
-            @endif
-        </div>
+        @endif
+    </div>
 
-        <main>
-            <div class="box p-4">
-                @yield('content')
-            </div>
-        </main>
+    <main>
+        <div class="box p-4">
+            @yield('content')
+        </div>
+    </main>
 
     </div>
-    
+
 </body>
 
 </html>

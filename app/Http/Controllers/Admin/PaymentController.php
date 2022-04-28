@@ -102,6 +102,7 @@ class PaymentController extends Controller
             // header("Location: transaction.php?id=" . $transaction->id);
 
             return back()->with('success_message', 'Transaction successful');
+            
         } else {
             $errorString = "";
 

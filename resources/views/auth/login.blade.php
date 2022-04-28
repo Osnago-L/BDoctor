@@ -73,7 +73,7 @@
     </div> --}}
     {{-- ////////////////////////////////////////////////////////////////// --}}
     {{-------------------------- NUOVO LOGIN ---------------------------------}}
-    <div class="row justify-content-center ">
+    <div class="row justify-content-center py-5 ">
         <form class="form col-6 mr-5" method="POST" action="{{ route('login') }}">
             @csrf
             
@@ -86,7 +86,7 @@
                 <label for="email" class="placeholder">{{ ('E-Mail') }}</label>
     
                 @error('email')
-                    <span class="invalid-feedback" role="alert">
+                    <span class="invalid-feedback text-right" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
@@ -97,7 +97,7 @@
                 <div class="cut"></div>
                 <label for="password" class="placeholder">{{ ('Password') }}</>
                 @error('password')
-                    <span class="invalid-feedback" role="alert">
+                    <span class="invalid-feedback text-right" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
@@ -127,7 +127,7 @@
                 </div>
             </div>
             <div class="py-3 text-white">
-                Non hai un account?<a class="text-white px-2" href="{{ route('register') }}">Registrati!</a>
+                Non hai un account?<a class="text-white px-2" href="{{ route('register') }}">  Registrati!</a>
             </div>
         </form>
     </div>
