@@ -19,9 +19,9 @@
                                 v-model="input"
                             >
                                 <option value="" selected>{{ alert }}</option>
-                                <option value="podologia">Podologia</option>
-                                <option value="urologia">Urologia</option>
-                                <option value="dermatologia">
+                                <option value="Podologia">Podologia</option>
+                                <option value="Urologia">Urologia</option>
+                                <option value="Dermatologia">
                                     Dermatologia
                                 </option>
                                 <option value="Andrologia">Andrologia</option>

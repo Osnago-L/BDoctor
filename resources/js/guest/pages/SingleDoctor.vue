@@ -3,8 +3,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 mr-5 mt-4 col-12 profile_scr">
-                    <div
-                        :class="{ 'd-none': doctor.sponsorships.length < 1 }"
+                    <!-- <div
+                        v-if="doctor.sponsorships.length == 0"
                         class="col-2 mt-4"
                     >
                         <img
@@ -12,7 +12,7 @@
                             alt=""
                             class="w-100"
                         />
-                    </div>
+                    </div> -->
                     <div
                         class="row d-flex align-items-center justify-content-center mt-4 personal_i"
                     >
@@ -51,12 +51,10 @@
                     <div class="text-center mt-4">
                         <h2>
                             {{
-                                doctor.name.charAt(0).toUpperCase() +
-                                doctor.name.slice(1)
+                                doctor.name
                             }}
                             {{
-                                doctor.surname.charAt(0).toUpperCase() +
-                                doctor.surname.slice(1)
+                                doctor.surname
                             }}
                         </h2>
                     </div>
@@ -206,9 +204,13 @@ export default {
         media(data) {
             console.log(data);
             let getLength = data.length;
-            let sum = 0;
-            data.map((x) => (sum = sum + x.score));
-            return Math.floor(sum / getLength);
+            if (getLength == 0) {
+                return 0;
+            } else {
+                let sum = 0;
+                data.map((x) => (sum = sum + x.score));
+                return Math.floor(sum / getLength);
+            }
         },
         filterRew(array) {
             console.log(array);
