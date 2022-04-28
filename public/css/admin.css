@@ -10982,10 +10982,16 @@ a.text-dark:focus {
     50% { opacity: 1; }
 } */
 
-.ms_box {
+.ms_box-active {
   border: 1px solid #003062;
   border-radius: 10px;
   background-color: rgba(0, 48, 98, 0.2);
+}
+
+.ms_box-expired {
+  border: 1px solid #003062;
+  border-radius: 10px;
+  background-color: rgba(255, 0, 0, 0.1);
 }
 
 .ms_card {

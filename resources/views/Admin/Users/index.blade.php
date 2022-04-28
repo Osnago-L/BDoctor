@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container py-5">
+<div class="container py-5">
         <div class="col-12">
-
+        
             @if (session()->has('success_message'))
                 <div class=" alert alert-success my-3 ms_success">
                     {{ session()->get('success_message') }}
@@ -12,22 +12,19 @@
                 <div class=" alert alert-warning my-3 ms_success">
                     {{ session()->get('error_message') }}
                 </div>
+            @elseif (session()->has('message'))
+                <div class=" alert alert-warning my-3 ms_success">
+                    {{ session()->get('message') }}
+                </div>
             @endif
         </div>
         <h1 class="py-4">Profilo di {{ $user->name }}</h1>
         <div class="row align-items-end">
             <div class="col-12 col-md-6 p-2">
-
-                @if (session()->has('message'))
-                    <div class=" alert alert-success my-3 ms_success">
-                        {{ session()->get('message') }}
-                    </div>
-                @endif
-
                 <div class="ms_card d-flex flex-column  justify-content-center">
 
-                    <div class="ms_image d-flex justify-content-center py-3">
-                        <div class="ms_image d-flex justify-content-center py-3">
+                    <div class="ms_image d-flex justify-content-center">
+                        <div class="ms_image d-flex justify-content-center">
                             @if ($user->image)
                                 <img class="rounded-circle circle" src="{{ asset('storage/' . $user->image) }}" alt="">
                             @else
@@ -111,31 +108,42 @@
 
 
             <div class="col-12 col-md-6 p-2">
-                {{-- <h1 class="py-4">Sponsorizzazioni attive</h1> --}}
                 <div class="ms_card">
-
+                    
                     <div class="d-flex justify-content-between">
-                        <p>le tue sponsorizzazioni</p>
-                        <p>Scadenza</p>
+                        <h4>Le tue sponsorizzazioni</h4>
+                        <h4>Scadenza</h4>
                     </div>
-
-                    @forelse ($user->sponsorships as $element)
-                        <div class="ms_box my-2 p-2 d-flex align-items-center justify-content-between">
+                    
+                    <h6 class="py-4">Sponsorizzazioni attive</h6>
+                    @foreach ($active_sponsorships->sponsorships as $element)
+                        <div class="ms_box-active my-2 p-2 d-flex align-items-center justify-content-between">
 
                             <div>
                                 <h3>{{ $element->name }}</h3>
                             </div>
 
                             <div>
-                                <p>{{ $element->pivot->expiration }}</p>
+                                <p>Termina il : {{ $element->pivot->expiration }}</p>
                             </div>
 
                         </div>
-                    @empty
-                        <div class="text-center py-5">
-                            <h3>Mi dispiace non hai sponsorizzazioni!</h3>
+                    @endforeach
+
+                    <h6 class="py-4">Sponsorizzazioni terminate</h6>
+                    @foreach ($expired_sponsorships->sponsorships as $element)
+                        <div class="ms_box-expired my-2 p-2 d-flex align-items-center justify-content-between">
+
+                            <div>
+                                <h3>{{ $element->name }}</h3>
+                            </div>
+
+                            <div>
+                                <p>Scaduta il : {{ $element->pivot->expiration }}</p>
+                            </div>
+
                         </div>
-                    @endforelse
+                    @endforeach
 
                 </div>
 
