@@ -122,9 +122,10 @@
                     </div>
                     <div class="personal_i" v-if="doctor.reviews.length > 0">
                         Media Recensioni:
-                        <span v-for="n in media(doctor.reviews)" :key="n">
+                        <span v-for="n in Math.floor(media(doctor.reviews))" :key="n">
                             <i class="star bi bi-star-fill"></i>
-                        </span>
+                            <i v-if="halfStar(media(doctor.reviews))" class="bi bi-star-half"></i>
+                        </span>                        
                     </div>
                     <router-link
                         :to="{ name: 'review', params: { id: doctor.id } }"
@@ -188,6 +189,7 @@ export default {
     data() {
         return {
             doctor: {}, //deve ritornare un oggetto
+            media
         };
     },
     methods: {
@@ -210,7 +212,7 @@ export default {
             let getLength = data.length;
             let sum = 0;
             data.map((x) => (sum = sum + x.score));
-            return Math.floor(sum / getLength);
+            return sum / getLength;
         },
         filterRew(array) {
             console.log(array);
@@ -218,6 +220,9 @@ export default {
                 return a.review > b.review ? 1 : -1;
             });
         },
+        halfStar(avg){
+            return avg - Math.floor(avg) >= 0.26;
+        }
     },
 
     created() {
