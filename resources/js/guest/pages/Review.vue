@@ -4,8 +4,20 @@
             <div class="row justify-content-center">
                 <div class="mt-4 d-none d-lg-block col-lg-4 blu_ln">
                     <div
-                        class="row d-flex align-items-center justify-content-center mt-5 personal_i"
+                        class="row d-flex align-items-center justify-content-center mt-4 personal_i"
                     >
+                        <!-- <div class="col-4 text-center">
+                            <div v-if="doctor.birth_date">
+                                <span>Anno di nascita:</span>
+                                {{
+                                    formattazione_anno(doctor.birth_date, true)
+                                }}
+                            </div>
+                            <div>
+                                <span>Indirizzo:</span> {{ doctor.address }}
+                            </div>
+                            <div class="my_hr"></div>
+                        </div> -->
                         <div class="col-4 text-center">
                             <div v-if="doctor.birth_date">
                                 <span>Anno di nascita:</span>
@@ -18,7 +30,7 @@
                             </div>
                             <div class="my_hr"></div>
                         </div>
-                        <div class="" v-if="doctor.image">
+                        <!-- <div class="" v-if="doctor.image">
                             <img
                                 class="img-show"
                                 :src="'/storage/' + doctor.image"
@@ -29,8 +41,20 @@
                                 class="w-100"
                                 src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                             />
+                        </div> -->
+                        <div class="" v-if="doctor.image">
+                            <img
+                                class="img_size"
+                                :src="'/storage/' + doctor.image"
+                            />
                         </div>
-                        <div class="col-4 text-center">
+                        <div class=" img-show no_photo" v-else>
+                            <!-- <img
+                                class="w-100"
+                                src="../../../../public/img/default_user.webp"
+                            /> -->
+                        </div>
+                        <!-- <div class="col-4 text-center">
                             <div v-if="doctor.phone_n">
                                 <span>Numero di telefono:</span>
                                 {{ doctor.phone_n }}
@@ -49,8 +73,28 @@
                                 doctor.surname.slice(1)
                             }}
                         </h2>
+                    </div> -->
+                        <div class="col-4 text-center">
+                            <div v-if="doctor.phone_n">
+                                <span>Numero di telefono:</span>
+                                {{ doctor.phone_n }}
+                            </div>
+                            <div class="my_hr"></div>
+                        </div>
                     </div>
-                    <div class="row justify-content-around">
+                    <div class="text-center mt-4">
+                        <h2>
+                            {{
+                                doctor.name.charAt(0).toUpperCase() +
+                                doctor.name.slice(1)
+                            }}
+                            {{
+                                doctor.surname.charAt(0).toUpperCase() +
+                                doctor.surname.slice(1)
+                            }}
+                        </h2>
+                    </div>
+                    <!-- <div class="row justify-content-around">
                         <div class="bb col-5 p-0 ml-2 mt-4 text-center">
                             <h5 class="">Specializzazioni</h5>
                             <span
@@ -81,18 +125,62 @@
                                 </div>
                             </span>
                         </div>
+                    </div> -->
+                    <div class="row justify-content-around">
+                        <div class="bb col-5 mt-4">
+                            <ul>
+                                <h5 class="ml-2">
+                                    <!-- <i class="bi bi-mortarboard"></i> -->
+                                    Specializzazioni
+                                </h5>
+                                <li
+                                    class="ml-4 mt-2 txt"
+                                    v-for="(title, index) in doctor.titles"
+                                    :key="index"
+                                >
+                                    {{ title.name }}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bb col-5 mt-4">
+                            <ul>
+                                <h5 class="ml-2">
+                                    <!-- <i
+                                        class="icon fa-brands fa-accessible-icon"
+                                    ></i> -->
+                                    Prestazioni
+                                </h5>
+                                <li
+                                    class="ml-4 mt-2 txt"
+                                    v-for="(
+                                        performance, index
+                                    ) in doctor.performances"
+                                    :key="index"
+                                >
+                                    {{ performance.name }}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="m-5 text-center">
+                    <!-- <div class="m-5 text-center">
                         <router-link
                             :to="{ name: 'message', params: { id: doctor.id } }"
                             ><button type="button" class="mt-5 rew_button">
                                 Scrivi un Messaggio
                             </button></router-link
                         >
+                    </div> -->
+                    <div class="text-center position_messageButton">
+                        <router-link
+                            :to="{ name: 'message', params: { id: doctor.id } }"
+                            ><button type="button" class="rew_button">
+                                Scrivi un Messaggio
+                            </button></router-link
+                        >
                     </div>
                 </div>
                 <div
-                    class="col-lg-7 rew_scr col-12 mt-4 ml-5 h_rew text-center"
+                    class="col-lg-7 rew_scr col-12 mt-4 ml-md-3 h_rew text-center"
                 >
                     <div v-if="!reviewConfirm">
                         <form @submit.prevent="checkForm()">
@@ -102,7 +190,7 @@
                                 class="form-control"
                                 type="text"
                                 id="name"
-                                placeholder=""
+                                placeholder="Inserire un nome..."
                                 v-model="inputUtente.author"
                             />
                             <label class="mt-4" for="score"
@@ -112,7 +200,7 @@
                                 class="form-control"
                                 type="text"
                                 id="name"
-                                placeholder=""
+                                placeholder="Inserire il titolo della recensione"
                                 v-model="inputUtente.title"
                             />
                             <label class="mt-4" for="score"
@@ -123,7 +211,7 @@
                                 id="testo"
                                 cols="30"
                                 rows="5"
-                                placeholder=""
+                                placeholder="Inserire il contenuto della recensione"
                                 v-model="inputUtente.content"
                             ></textarea>
                             <div class="input-row">
@@ -283,7 +371,7 @@ export default {
     ul {
         li {
             list-style-type: none;
-            color: red;
+            // color: red;
         }
     }
     .send_butt {
@@ -319,22 +407,30 @@ export default {
         display: none;
     }
     .img-show {
+            background-image: url("../../../../public/img/default_user.webp");
+    background-position: center;
+    background-size: cover;
         height: 65px;
         width: 65px;
         border-radius: 100%;
     }
+    .img_size{
+    border-radius: 100%;
+    height: 120px;
+    width: 120px;
+}
     .personal_i {
         color: rgb(136, 136, 136);
         font-size: 12px;
     }
     .my_hr {
         margin-top: 20px;
-        background-color: $ms_cyan;
+        background-color: rgba($ms_blue, 0.3);
         height: 2px;
     }
     div {
         .bb {
-            border-left: 5px solid $ms_pink;
+            border-left: 5px solid  $ms_blue;
             border-radius: 10px;
         }
     }
@@ -371,26 +467,26 @@ export default {
     img {
         transition: ease 0.5s;
     }
-    img:hover {
-        filter: brightness(50%);
-        transition: ease-in-out 0.5s;
-    }
+    // img:hover {
+    //     filter: brightness(50%);
+    //     transition: ease-in-out 0.5s;
+    // }
     input {
-        background-color: rgba(5, 62, 122, 0.9176470588);
+        background-color: white;
         border: none;
-        color: white;
+        color: rgba(5, 62, 122, 0.9176470588);
     }
     textarea {
         border: none;
-        background-color: rgba(5, 62, 122, 0.9176470588);
+        background-color: white;
     }
     select {
         border: none;
-        background-color: rgba(5, 62, 122, 0.9176470588);
+        background-color: white;
         option {
             border: none;
-            background-color: rgba(5, 62, 122, 0.9176470588);
-            color: white;
+            background-color: rgbawhite;
+            color: rgba(5, 62, 122, 0.9176470588);
         }
     }
     .ms_star {
@@ -403,5 +499,11 @@ export default {
     .ms_star.active {
         color: orange !important;
     }
+}
+.position_messageButton {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>

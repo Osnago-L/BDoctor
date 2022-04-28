@@ -94,13 +94,13 @@
 
         <div class="container mt-5">
             <div class="row">
-                <div class="col-sm-12 col-md-4 ms_bdoctor-info-card">
+                <div class="col-sm-12 col-md-4 ms_bdoctor-info-card ">
                     <div class="card-background">
-                        <img
+                        <img class="mb-3"
                             src="https://www.idoctors.it/images/frontend/consultazione-sito.svg?v=2"
                             alt=""
                         />
-                        <h6>Scegli un medico</h6>
+                        <h5>Scegli un medico</h5>
                         <p>
                             Fai la scelta migliore secondo le tue esigenze:
                             valuta curriculum, prezzo delle prestazioni,
@@ -109,13 +109,13 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4 ms_bdoctor-info-card">
+                <div class="col-sm-12 col-md-4 ms_bdoctor-info-card mb-3">
                     <div class="card-background">
-                        <img
+                        <img class="mb-3"
                             src="https://www.idoctors.it/images/frontend/prenotazione-online.svg?v=2"
                             alt=""
                         />
-                        <h6>Prenota la visita</h6>
+                        <h5>Prenota la visita</h5>
                         <p>
                             Ti bastano pochi secondi: è facile e veloce, non
                             serve telefonare e non è richiesta la carta di
@@ -123,13 +123,13 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4 ms_bdoctor-info-card">
+                <div class="col-sm-12 col-md-4 ms_bdoctor-info-card mb-3">
                     <div class="card-background">
-                        <img
+                        <img class="mb-3"
                             src="https://www.idoctors.it/images/frontend/medico-e-paziente.svg?v=2"
                             alt=""
                         />
-                        <h6>Vai all'appuntamento</h6>
+                        <h5>Vai all'appuntamento</h5>
                         <p>
                             Vai dal Medico scelto, nel giorno e nell'ora
                             selezionati. Dopo la visita potrai lasciare una tua
@@ -143,7 +143,8 @@
         <div class="doctor_background">
             <div class="container mt-5">
                 <div class="row px-3 px-lg-0">
-                    <div class="col-sm-6 ms_doctor-reg">
+                    <div class="col-sm-6 ms_doctor-reg
+                    ">
                         <img
                             src="https://www.idoctors.it/images/frontend/medico-vertical.svg"
                             alt=""
@@ -157,7 +158,7 @@
                             loro Medico su iDoctors, il primo sito in Italia per
                             visitatori e numero di prenotazioni.
                         </p>
-                        <p>Con iDoctors:</p>
+                        <p>Con BDoctors:</p>
                         <ul>
                             <li>Ricevi prenotazioni da nuovi pazienti</li>
                             <li>

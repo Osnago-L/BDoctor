@@ -158,13 +158,13 @@
                 </div>
                 <div
                   class="
-                    col-4 col-lg-3
+                    col-5 col-lg-3
                     d-flex
                     flex-column
                     justify-content-between
                   "
                 >
-                  <div>
+                  <div class="d-flex flex-column">
                     <h5>
                       {{
                         element.name.charAt(0).toUpperCase() +
@@ -176,6 +176,8 @@
                       }}
                     </h5>
                     <span
+                      class="small-fonts"
+                      :class="{'d-none': titles.name.toLowerCase() != $route.query.title.toLowerCase()}"
                       v-for="(titles, index) in element.titles"
                       :key="'c' + index"
                       >{{ titles.name }}</span
@@ -201,12 +203,13 @@
                   "
                 >
                   <span
+                    class="small-fonts"
                     v-for="(performances, index) in element.performances"
                     :key="'p' + index"
                     >{{ performances.name }}</span
                   >
                 </div>
-                <div class="col-2 col-lg-4"></div>
+                <div class="col col-lg-4"></div>
               </div>
             </router-link>
           </div>
@@ -504,7 +507,7 @@ svg {
   width: 100%;
   padding: 20px 20px;
 
-  // background-color: white;
+  background-color: white;
   border: 0.5px solid rgba(0, 0, 0, 0.11);
   box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -544,5 +547,8 @@ svg {
 }
 .page-link {
   color: RGBA(24, 67, 112) !important;
+}
+.small-fonts{
+  font-size: 14px;
 }
 </style>

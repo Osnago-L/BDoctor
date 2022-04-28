@@ -101,7 +101,7 @@ class PaymentController extends Controller
             $transaction = $result->transaction;
             // header("Location: transaction.php?id=" . $transaction->id);
 
-            return back()->with('success_message', 'Transaction successful');
+            return redirect()->route('admin.user.index')->with('success_message', 'Transazione eseguita correttamente!');
         } else {
             $errorString = "";
 
@@ -111,7 +111,7 @@ class PaymentController extends Controller
 
             // $_SESSION["errors"] = $errorString;
             // header("Location: index.php");
-            return back()->withErrors('An error occurred with the message: ' . $result->message);
+            return redirect()->route('admin.user.index')->with('error_message', 'Oops! Qualcosa è andato storto. Riprova più tardi!');
         }
 
 
