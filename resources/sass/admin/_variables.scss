@@ -17,3 +17,21 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+
+$ms_cyan: #3BBDDF;
+$ms_green: #2A7F62;
+$ms_pink: #EE9D96;
+$ms_yellow: #FAE875;
+$ms_white: #efe9f4;
+$ms_black: #171d1c;
+$ms_blue: #003062;
+
+//Global elements
+.button_ms_blue{
+    background-color: #003062;
+    color: white;
+}
+.button_ms_yellow{
+    background-color: rgba($ms_white, 1);
+}

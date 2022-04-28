@@ -1,4 +1,13 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css);@charset "UTF-8";
+
+.button_ms_blue {
+  background-color: #003062;
+  color: white;
+}
+
+.button_ms_yellow {
+  background-color: #efe9f4;
+}
 
 /*!
  * Bootstrap v4.6.1 (https://getbootstrap.com/)
@@ -10962,22 +10971,585 @@ a.text-dark:focus {
   }
 }
 
-.ms_box {
-  border: 1px solid red;
+/* .ms_success{
+    animation: fadeinout 2s linear;
 }
 
-.ms_navbar {
-  position: absolute;
+
+@keyframes fadeinout {
+
+    0%,100% { opacity: 0; }
+    50% { opacity: 1; }
+} */
+
+.ms_box {
+  border: 1px solid #003062;
+  border-radius: 10px;
+  background-color: rgba(0, 48, 98, 0.2);
+}
+
+.ms_card {
+  padding: 15px 15px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: white;
+  word-break: break-all;
+  min-height: 610px;
+}
+
+.ms_image {
+  width: 100%;
+}
+
+.ms_image img {
   width: 150px;
-  top: 0;
+  height: 150px;
+  background-color: #444;
+}
+
+.ms_image .circle {
+  border: 3px solid rgba(24, 67, 112, 0.7);
+}
+
+.ms_image .ms_wrapper {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.ms_image .image-upload {
   bottom: 0;
   left: 0;
-  padding: 48px 0 0;
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  outline: none;
+  color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 60px;
+  /* transition:0.5s; */
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.ms_image .image-upload::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.ms_image .image-upload::before {
+  content: "\F030";
+  font-family: Fontawesome;
+  font-size: 25px;
+  color: white;
+  display: inline-block;
+}
+
+.ms_image .image-upload:hover {
+  opacity: 1;
+  transition: 1s;
+}
+
+.ms_badge {
+  background-color: #003062;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.ms_boxinput {
+  height: 65px;
+}
+
+.ms_checkbox {
+  accent-color: rgb(24, 67, 112);
+}
+
+p {
+  margin: 0;
+}
+
+/* .ms_btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.0);
+    color: white;
+    font-size: 16px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    height:150px;
+    width: 150px;
+    i{
+        display:none
+    }
+
+    &:hover{
+        background-color: rgba(0, 0, 0, 0.5);
+        i{
+            display: block;
+        }
+    }
+} */
+
+.button_ms_blue {
+  background-color: #003062;
+  color: white;
+}
+
+.button_ms_yellow {
+  background-color: #efe9f4;
+}
+
+.ms_front_nav {
+  background-color: RGB(24, 67, 112);
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  top: 0;
+  z-index: 2;
+  margin-bottom: 20px;
+  font-family: "Nunito", sans-serif;
+}
+
+.ms_front_nav a {
+  text-decoration: none;
+}
+
+.ms_front_nav a:hover {
+  text-decoration: underline;
+}
+
+/* .ms_header{
+    height:50px;
+    background-color:#003062;
+    border-bottom: 1px solid rgb(148, 148, 148);
+    width: 100%;
+} */
+
+.ms_leftnav {
+  position: fixed;
+  background-color: RGB(24, 67, 112);
+  height: 100%;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+  width: 170px;
+}
+
+.ms_leftnav .nav-item {
+  padding-top: 80px;
+}
+
+@media screen and (max-width: 991px) {
+  .ms_leftnav {
+    width: 65px;
+  }
+}
+
+.ms_boxnav {
+  width: 100%;
+}
+
+.ms_boxnav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 10px;
+  height: 50px;
+  border-bottom: 1px solid rgb(148, 148, 148);
+  display: flex;
+}
+
+.ms_boxnav a:hover {
+  opacity: 0.5;
+}
+
+.ms_boxnav .fa-solid {
+  font-size: 25px;
+  padding: 0px 7px;
+}
+
+.form {
+  background-color: #184370;
+  border-radius: 20px;
+  box-sizing: border-box;
+  /* height: 500px; */
+  padding: 20px;
+  width: 320px;
+}
+
+.register {
+  /* height: 820px; */
+  width: 600px;
+}
+
+.title {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.subtitle {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.input-container {
+  height: 50px;
+  position: relative;
+  width: 100%;
+}
+
+/* .ic1 {
+margin-top: 40px;
+} */
+
+#title_id {
+  height: 50px;
+}
+
+.ic1 {
+  margin-top: 30px;
+}
+
+.input {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-size: 18px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+
+.input:hover {
+  color: #184370;
+}
+
+.cut {
+  background-color: #184370;
+  border-radius: 10px;
+  height: 20px;
+  left: 20px;
+  position: absolute;
+  top: -20px;
+  transform: translateY(0);
+  transition: transform 200ms;
+  width: 76px;
+}
+
+.cut-short {
+  width: 50px;
+}
+
+.cut-long {
+  width: 125px;
+}
+
+.input:not(:-moz-placeholder-shown) ~ .cut {
+  transform: translateY(8px);
+}
+
+.input:not(:-ms-input-placeholder) ~ .cut {
+  transform: translateY(8px);
+}
+
+.input:focus ~ .cut,
+.input:not(:placeholder-shown) ~ .cut {
+  transform: translateY(8px);
+}
+
+.placeholder {
+  color: #f7f7f7;
+  font-family: sans-serif;
+  left: 20px;
+  line-height: 14px;
+  pointer-events: none;
+  position: absolute;
+  transform-origin: 0 50%;
+  transition: transform 200ms, color 200ms;
+  top: 20px;
+}
+
+.input:not(:-moz-placeholder-shown) ~ .placeholder {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:not(:-ms-input-placeholder) ~ .placeholder {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:focus ~ .placeholder,
+.input:not(:placeholder-shown) ~ .placeholder {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:not(:-moz-placeholder-shown) ~ .placeholder {
+  color: #808097;
+}
+
+.input:not(:-ms-input-placeholder) ~ .placeholder {
+  color: #808097;
+}
+
+.input:not(:placeholder-shown) ~ .placeholder {
+  color: #808097;
+}
+
+.input:focus ~ .placeholder {
+  color: #dc2f55;
+}
+
+.submit {
+  background-color: #08d;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 38px;
+  text-align: center;
+  width: 100%;
+}
+
+.submit:active {
+  background-color: #06b;
+}
+
+.ms_buttonform {
+  border: 0;
+  width: 100px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  height: 35px;
+  margin-top: 5px;
+}
+
+.ms_buttonform:hover {
+  opacity: 0.5;
+}
+
+.braintree-sheet__header {
+  background-color: rgb(24, 67, 112);
+}
+
+.braintree-sheet__header .braintree-sheet__text {
+  color: white;
+}
+
+.button {
+  background-color: rgba(0, 48, 98, 0.9);
+  color: white;
+  padding: 5px 5px;
+  border-radius: 3px;
+  border: 0;
+}
+
+.braintree-sheet__content {
+  background-color: rgba(0, 48, 98, 0.2);
+  color: white;
+}
+
+.braintree-form__label {
+  color: white;
+  font-size: 500px;
+}
+
+.braintree-form__field {
+  background-color: rgb(24, 67, 112);
+  border-radius: 3px;
+}
+
+.number {
+  background-color: white;
+}
+
+.hero {
+  display: inline-block;
+  position: relative;
+  width: 400px;
+  min-width: 400px;
+  height: 400px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+  margin: 30px;
+}
+
+.hero-profile-img {
+  height: 70%;
+}
+
+.hero-description-bk {
+  background-image: linear-gradient(0deg, #3f5efb, #fc466b);
+  border-radius: 30px;
+  position: absolute;
+  top: 55%;
+  left: -5px;
+  height: 65%;
+  width: 108%;
+  transform: skew(19deg, -9deg);
+}
+
+.second .hero-description-bk {
+  background-image: linear-gradient(-20deg, #bb7413, #e7d25c);
+}
+
+.hero-logo {
+  height: 80px;
+  width: 80px;
+  border-radius: 20px;
+  background-color: #fff;
+  position: absolute;
+  bottom: 30%;
+  left: 30px;
+  overflow: hidden;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.7);
+}
+
+.hero-logo img {
+  height: 100%;
+}
+
+.hero-description {
+  position: absolute;
+  color: #fff;
+  font-weight: 900;
+  left: 150px;
+  bottom: 26%;
+}
+
+.hero-btn {
+  position: absolute;
+  color: #fff;
+  right: 30px;
+  bottom: 10%;
+  padding: 10px 20px;
+  border: 1px solid #fff;
+}
+
+.hero-btn a {
+  color: #fff;
+}
+
+.hero-date {
+  position: absolute;
+  color: #fff;
+  left: 30px;
+  bottom: 10%;
+}
+
+/* END CARD DESIGN */
+
+body {
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  background-color: #eee;
+  min-height: 100vh;
+}
+
+.btn i:before {
+  width: 14px;
+  height: 14px;
+  position: fixed;
+  color: #fff;
+  background: #0077B5;
+  padding: 10px;
+  border-radius: 50%;
+  top: 5px;
+  right: 5px;
+}
+
+.review-header h3 {
+  color: #003062;
+}
+
+.ms_user {
+  color: #003062;
+}
+
+.ms_star {
+  color: #003062;
+  font-weight: bold;
+}
+
+.ms_datetime {
+  color: #888;
+}
+
+.ms_cardmessage {
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: white;
+  word-break: break-all;
+}
+
+.ms_info {
+  border-bottom: 1px solid rgba(0, 48, 98, 0.9);
+  border-radius: 10px 10px 0px 0px;
+}
+
+.ms_buttonbox {
+  width: 100%;
+}
+
+.ms_buttonbox a {
+  width: 50%;
+}
+
+.ms_buttonbox a button {
+  width: 100%;
 }
 
 main {
-  margin-left: 150px;
+  background-color: rgba(239, 233, 244, 0.5);
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+  /* font-family: $font-family-sans-serif; */
+}
+
+.box {
+  margin-left: 60px;
+  min-height: 930px;
+}
+
+@media (min-width: 992px) {
+  .box {
+    margin-left: 154px;
+  }
+}
+
+.ms_title {
+  border-bottom: 1px solid rgb(148, 148, 148);
+  font-size: 15px;
+  color: white;
+}
+
+.fa-brands {
+  font-size: 25px;
+  padding: 5px 15px;
+  color: white;
 }
 
 .rounded-box {
@@ -10986,28 +11558,17 @@ main {
   padding: 0.5rem;
 }
 
-.message .message-header {
-  background-color: #ccc;
+.ms_buttonblue {
+  /* width: 100px; */
+  background-color: rgba(0, 48, 98, 0.9);
+  padding: 3px 3px;
+  border: 0;
 }
 
-.message .message-body {
-  background-color: #fff;
-  padding: 1rem 0.5rem;
-  font-size: 1.1rem;
-}
-
-.ms_user {
-  color: #32abdf;
-}
-
-.ms_star {
-  color: orange;
-  font-weight: bold;
-}
-
-.ms_datetime {
-  color: #888;
-  font-variant: small-caps;
-  font-family: fantasy;
+.ms_imagebox a img {
+  width: 45px;
+  height: 45px;
+  border-radius: 30px;
+  aspect-ratio: 1/1;
 }
 

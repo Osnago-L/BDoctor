@@ -14,11 +14,20 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
-$ms_blue: #5863F8;
+$ms_blue: #184370;
 $ms_cyan: #3BBDDF;
 $ms_green: #2A7F62;
 $ms_pink: #EE9D96;
 $ms_yellow: #FAE875;
+$ms_yellow_dark: #d4c147;
 $ms_white: #efe9f4;
 $ms_black: #171d1c;
 
+//Global elements
+.button_ms_blue{
+    background-color: #184370;
+    color: white;
+}
+.button_ms_yellow{
+    background-color: rgba($ms_white, 1);
+}

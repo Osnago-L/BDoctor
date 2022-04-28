@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('front');
+    $user = Auth::user();
+    return view('front',['user' => $user]);
 });
 
 Auth::routes();
@@ -24,16 +26,21 @@ Route::middleware('auth')
     ->namespace('Admin') //namespace Admin dice che tutte le rotte vanno prese nel controller nella cartella Admin
     ->name('admin.') //tutte le rotte avranno all inizio admin.
     ->prefix('admin') //relativo a tutto le rotte (prefisso della url)
-    ->group(function(){ 
+    ->group(function () {
         Route::get('/', 'HomeController@index')->name('home');
         Route::resource('/user', 'UserController');/* ->except(['edit', 'update']); */
         Route::resource("/user/{user:id}/messages", 'MessageController')->except(['create', 'edit', 'store', 'update']);
         Route::resource("/user/{user:id}/reviews", 'ReviewController')->except(['create', 'show', 'edit', 'store', 'update']);
-    }); 
+        Route::get('/user/{user:id}/sponsorship', 'PaymentController@index')->name('payment');
+        Route::post('/user/{user:id}/sponsorship/checkout', 'PaymentController@checkout')->name('paymentcheckout');
+    });
 
 Route::get('/{any}', function () {
-    return view('front');
+    $user = Auth::user();
+    return view('front',['user' => $user]);
 })->where('any', '.*');
+
+
 
 // /* rotte raggiungibili solo da /admin */
 // Route::middleware('auth')

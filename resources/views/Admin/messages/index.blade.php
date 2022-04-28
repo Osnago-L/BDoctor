@@ -1,53 +1,104 @@
 @extends('layouts.app')
 
 
-@section('title', "Elenco messaggi")
+@section('title', 'Elenco messaggi')
 
 
 @section('content')
 
-    <div class="container">
+    <div class="container py-5">
 
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h1>I tuoi messaggi </h1>
+                    <h1>
+                        Hai
+                        ({{ count($messages) }})
+                        @if (count($messages) == 1)
+                            messaggio
+                        @else
+                            messaggi
+                        @endif
+                    </h1>
                 </div>
             </div>
-        
-        <div class='col-12'>
 
-            @if (count($messages) > 0 )
-            <table class="table text-center">
-                <thead>
-                <tr>
-                    <th scope="col">Autore</th>
-                    <th scope="col">Anteprima</th>
-                    <th scope="col">Data creazione</th>
-                    <th scope="col">Ultima modifica</th>
-                    <th scope="col">Azioni</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach ($messages as $message)
-                    <tr class='text-center'>
-                        <td>{{$message->author}}</td>
-                        <td><span class='d-inline-block text-truncate' style='max-width: 150px'>{{substr($message->content, 0, 30)}}</span></th>
-                        <td>{{$message->created_at}}</th>
-                        <td>{{$message->updated_at}}</th>
-                        <td>
+            <div class='col-12'>
+                @if (count($messages) > 0)
 
-                            <a href="{{route("admin.messages.show", [Auth::user()->id, $message->id])}}">
-                                <button type="button" class="btn btn-primary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                                    </svg>
-                                </button>
-                            </a>
+                    <table>
+                        @foreach ($messages as $message)
+                            <div class="ms_cardmessage  my-4">
+                                <div class="ms_info  p-3 d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-user px-2"></i>
+                                        <h3 class="m-0">{{ $message->author }}</h3>
+                                    </div>
+                                    <div class="d-flex align-items-center flex-column">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fa-solid fa-calendar-week p-2"></i>
+                                            <p class="">{{ $date }}</p>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fa-solid fa-clock p-2"></i>
+                                            <p>{{ $time }}</p>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="ms_text p-4">
+                                    {{ $message->content }}
+                                </div>
 
-                            <form action="{{route("admin.messages.destroy", [Auth::user()->id, $message->id])}}" method="message">
+                                <div class="ms_buttonbox d-flex ">
+
+                                    <a href="{{ route('admin.messages.show', [Auth::user()->id, $message->id]) }}">
+                                        <button type="button" class="ms_buttonblue text-white rounded-left">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </a>
+
+                                    <button type="button" class="btn-secondary border-0  rounded-right w-50"
+                                        data-toggle="modal" data-target="#exampleModal">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+
+                                </div>
+                            </div>
+                            <!--------------------------------- Modal ------------------------------>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Cancella</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Sicuro di voler cancellare questo messaggio?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary w-100"
+                                                data-dismiss="modal">Indietro</button>
+                                            <form
+                                                action="{{ route('admin.messages.destroy', [Auth::user()->id, $message->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method("DELETE")
+                                                <button type="submit"
+                                                    class="btn ms_buttonblue text-white  btn-danger w-100 "
+                                                    data-toggle="modal" data-target="#exampleModal">
+                                                    Cancella
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <form action="{{route("admin.messages.destroy", [Auth::user()->id, $message->id])}}" method="POST">
                                 @csrf
                                 @method("DELETE")
                                 <button type="submit" class="btn btn-danger text-dark">
@@ -57,19 +108,18 @@
                                 </button>
                             </form>
                         </td>
-                    </tr>
-                    @endforeach
-                
-                </tbody>
-            </table>
-            @else
-                <div>Non ci sono messaggi!</div>
-            @endif
+                    </tr> --}}
+                        @endforeach
+
+                        {{-- </tbody> --}}
+                    </table>
+                @else
+                    <div>Non ci sono messaggi!</div>
+                @endif
+            </div>
         </div>
-    </div>
 
 
 
 
-
-@endsection
+    @endsection

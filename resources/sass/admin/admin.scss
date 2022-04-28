@@ -2,26 +2,60 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import './variables';
+@import './_variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css';
 
 @import './partials/index';
+@import './partials/home';
+@import './partials/_nav';
+@import './partials/_login';
+@import './partials/sponsorship/index';
+@import './partials/reviews/index';
+@import './partials/messages/_index';
 
-.ms_navbar{
-    position: absolute;
-    width: 150px;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    padding: 48px 0 0;
-    box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%);
-}
+
+
+
 
 main{
-    margin-left: 150px;
+    background-color: rgba($ms_white, 0.5);
+}
+
+.overflow {
+    overflow: hidden;
+}
+
+*::-webkit-scrollbar{
+    display: none;
+}
+*{
+    scrollbar-width: none;
+    /* font-family: $font-family-sans-serif; */
+}
+
+.box{
+    margin-left: 60px;
+    min-height: 930px;
+}
+
+@media (min-width: 992px) { 
+    .box{
+        margin-left: 154px;
+    }
+}
+
+.ms_title{
+    border-bottom: 1px solid rgb(148, 148, 148);
+    font-size:15px;
+    color: white;
+}
+.fa-brands{
+    font-size:25px;
+    padding:5px 15px;
+    color: white;
 }
 
 .rounded-box {
@@ -30,29 +64,30 @@ main{
     padding: 0.5rem;
 }
 
-.message {
-    .message-header {
-        background-color: #ccc;
+.ms_buttonblue{
+    /* width: 100px; */
+    background-color: rgba($ms_blue, 0.9);
+    padding: 3px 3px;
+    border: 0;
+
+}
+
+.ms_imagebox{
+    a{
+        img{
+            width: 45px;
+            height: 45px;
+            border-radius: 30px;
+            aspect-ratio: 1/1;
+        }
     }
-    .message-body {
-        background-color: #fff;
-        padding: 1rem 0.5rem;
-        font-size: 1.1rem;
-    }
+
+    
 }
 
-.ms_user {
-    color: #32abdf;
-}
 
-.ms_star {
-    color: orange;
-    font-weight: bold;
-}
 
-.ms_datetime {
-    color: #888;
-    font-variant: small-caps;
-    font-family: fantasy;
-}
+
+
+
 

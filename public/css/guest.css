@@ -1,17 +1,9 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;
+
+0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap);@charset "UTF-8";
 
 /* ------------------------
-RESET
------------------------- */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* ------------------------
-IMPORTS
+IMPORTS BOOTSTRAP
 ------------------------ */
 
 /*!
@@ -20,7 +12,6 @@ IMPORTS
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -14414,22 +14405,21 @@ input[type=color].form-control:disabled {
 IMPORTS
 ------------------------ */
 
+.button_ms_blue {
+  background-color: #184370;
+  color: white;
+}
+
+.button_ms_yellow {
+  background-color: #efe9f4;
+}
+
 .ms_front_nav {
-  width: 100vw;
-  height: 70px;
-  padding: 0 20px;
-  background-color: rgba(128, 128, 128, 0.2);
-  background-color: #5863F8;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  background-color: RGB(24, 67, 112);
   font-family: "Nunito", sans-serif;
 }
 
 .ms_front_nav a {
-  margin: 0 15px;
-  color: inherit;
   text-decoration: none;
 }
 
@@ -14437,7 +14427,45 @@ IMPORTS
   text-decoration: underline;
 }
 
+.button_ms_blue {
+  background-color: #184370;
+  color: white;
+}
+
+.button_ms_yellow {
+  background-color: #efe9f4;
+}
+
 /* ------------------------
 TYPO
 ------------------------ */
+
+/* ------------------------
+RESET
+------------------------ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+.ms_imagebox a img {
+  width: 45px;
+  height: 45px;
+  border-radius: 30px;
+}
 

@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Title;
 use App\Performance;
+use App\Sponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Carbon\Carbon;
+use DB;
+use DateTime;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -15,7 +18,6 @@ use App\User;
 
 class UserController extends Controller
 {   
-    
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +25,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        return view('admin.users.index',compact('user'));
+        $user = User::where('id', Auth::user()->id)->with(['sponsorships'=> function ($q){
+            $q->orderBy('expiration', 'ASC');
+        }])
+        ->first();
+
+        $now = Carbon::now()->format('d-m-Y H:i:s');
+
+        foreach ($user->sponsorships as $sponsor){
+            $sponsor->pivot->expiration = DateTime::createFromFormat('Y-m-d H:i:s', $sponsor->pivot->expiration)->format('d-m-Y H:i:s'); 
+        };
+
+        return view('admin.users.index',compact('user' ,'now' ));
     }
 
     /**
@@ -107,7 +119,9 @@ class UserController extends Controller
 
         $user->update($form_data);
 
-        return redirect()->route('admin.user.index');
+        /* Flash::success('Profile updated successfully.'); */
+
+        return redirect()->route('admin.user.index')->with('message', 'Profilo modificato!');
     }
 
     /**
@@ -116,8 +130,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy($id)
     {
         //
     }
+
 }

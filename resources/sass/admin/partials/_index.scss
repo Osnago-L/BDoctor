@@ -1,3 +1,17 @@
-.ms_box{
-    border: 1px solid red;
+/* .ms_success{
+    animation: fadeinout 2s linear;
 }
+
+
+@keyframes fadeinout {
+    
+    0%,100% { opacity: 0; }
+    50% { opacity: 1; }
+} */
+
+.ms_box{
+    border: 1px solid $ms_blue;
+    border-radius: 10px;
+    background-color:rgba($ms_blue,0.2)
+}
+
