@@ -41,6 +41,12 @@
                                     Dermatologia
                                 </option>
                                 <option value="cardiologia">Cardiologia</option>
+                                <option value="Andrologia">Andrologia</option>
+                                <option value="Gastroenterologia">Gastroenterologia</option>
+                                <option value="Ginecologia">Ginecologia</option>
+                                <option value="Oculistica">Oculistica</option>
+                                <option value="Ortopedia">Ortopedia</option>
+                                <option value="Proctologia">Proctologia</option>
                             </select>
                             <div class="input-group-append">
                                 <router-link
@@ -197,7 +203,7 @@
                         >
                             <div class="row">
                                 <div
-                                    class="col-3 col-lg-2 d-flex align-items-center rounded-div"
+                                    class="col-3 col-lg-2 d-flex align-items-center justify-content-center rounded-div"
                                 >
                                     <img
                                         v-if="element.image"
@@ -244,7 +250,7 @@
                                         >
                                     </div>
                                     <div
-                                    v-if="element.reviews.length > 1"
+                                    v-if="element.reviews.length > 0"
                                      class="">
                                         <span
                                             v-for="(
@@ -298,20 +304,45 @@
                         >Precedente</router-link
                     >
                 </li>
-                <li
-                    v-for="(pages, index) in data.maxPages"
-                    :key="'pages' + index"
+                                <li
                     class="page-item"
                     :class="{ active: page == index + 1 }"
                 >
                     <router-link
+                        :id="index + 1"
                         class="page-link"
-                        @click.native="
-                            page = index + 1;
+                                                @click.native="
+                            page= 1;
                             search();
                         "
                         :to="{}"
-                        >{{ index + 1 }}
+                        ><i class="fa-solid fa-angles-left"></i>
+                    </router-link>
+                </li>
+                <li
+                    class="page-item active"
+                >
+                    <router-link
+                        :id="index + 1"
+                        class="page-link"
+
+                        :to="{}"
+                        >{{ page}}
+                    </router-link>
+                </li>
+                                <li
+                    class="page-item"
+                    :class="{ active: page == index + 1 }"
+                >
+                    <router-link
+                        :id="index + 1"
+                        class="page-link"
+                        @click.native="
+                            page=data.maxPages;
+                            search();
+                        "
+                        :to="{}"
+                        ><i class="fa-solid fa-angles-right"></i>
                     </router-link>
                 </li>
                 <li
@@ -597,9 +628,10 @@ svg {
     }
 
     img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            height: 100px;
+            width: auto;
     }
 
     .view_doctor {
@@ -632,6 +664,6 @@ svg {
     font-size: 14px;
 }
 .opacity_img{
-  opacity: 0.7;
+  opacity: 0.9;
 }
 </style>

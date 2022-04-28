@@ -289,7 +289,7 @@ export default {
     display: none;
 }
 .img-show {
-    background-image: url("../../../../public/img/default_user.webp");
+    background-image: url("https://cdn-icons-png.flaticon.com/512/149/149071.png");
     background-position: center;
     background-size: cover;
     border-radius: 100%;
@@ -302,7 +302,7 @@ export default {
     font-size: 12px;
 }
 .txt {
-    font-size: 12px;
+    font-size: 14px;
     word-wrap: break-word;
 }
 .my_hr {
@@ -370,4 +370,7 @@ img {
 ul {
     list-style-type: none;
 }
+// .small-fonts {
+//     font-size: 14px;
+// }
 </style>

@@ -172,9 +172,9 @@
                     </div> -->
                     <div class="text-center position_messageButton">
                         <router-link
-                            :to="{ name: 'message', params: { id: doctor.id } }"
+                            :to="{ name: 'single-doctor', params: { id: doctor.id } }"
                             ><button type="button" class="rew_button">
-                                Scrivi un Messaggio
+                                Ritorna al profilo
                             </button></router-link
                         >
                     </div>
@@ -359,7 +359,7 @@ export default {
 @import "../../../sass/guest/_variables.scss";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
 .back_app {
-    background-color: rgba($ms_white, 0.5);
+    background-color: white;
     position: relative;
 
     .back_rew {

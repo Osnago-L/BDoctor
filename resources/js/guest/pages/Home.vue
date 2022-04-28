@@ -24,7 +24,12 @@
                                 <option value="dermatologia">
                                     Dermatologia
                                 </option>
-                                <option value="cardiologia">Cardiologia</option>
+                                <option value="Andrologia">Andrologia</option>
+                                <option value="Gastroenterologia">Gastroenterologia</option>
+                                <option value="Ginecologia">Ginecologia</option>
+                                <option value="Oculistica">Oculistica</option>
+                                <option value="Ortopedia">Ortopedia</option>
+                                <option value="Proctologia">Proctologia</option>
                             </select>
                             <div class="input-group-append">
                                 <router-link
@@ -56,38 +61,40 @@
             <div class="container">
                 <h2 class="text-center my-4">Medici in evidenza</h2>
                 <div class="row">
-                    <div
-                        class="col-sm-6 col-lg justify-content-center"
-                        v-for="element in doctors"
-                        :key="element.id"
-                    >
-                        <div class="text-center ms_img-container">
-                            <img
-                                v-if="element.image"
-                                :src="'../storage/' + element.image"
-                                alt=""
-                            />
-                            <img
-                                v-else
-                                src="../../../../public/img/default_user.webp"
-                                alt=""
-                            />
+                        <div
+                            class="col-sm-6 col-lg justify-content-center"
+                            v-for="element in doctors"
+                            :key="element.id"
+                        >
+                        <router-link :to="{name:'single-doctor', params:{id:element.id}}">
+                            <div class="text-center ms_img-container">
+                                <img
+                                    v-if="element.image"
+                                    :src="'../storage/' + element.image"
+                                    alt=""
+                                />
+                                <img
+                                    v-else
+                                    src="../../../../public/img/default_user.webp"
+                                    alt=""
+                                />
+                            </div>
+    
+                            <h4 class="text-center mt-3">
+                                {{
+                                    element.name.charAt(0).toUpperCase() +
+                                    element.name.slice(1)
+                                }}
+                                {{
+                                    element.surname.charAt(0).toUpperCase() +
+                                    element.surname.slice(1)
+                                }}
+                            </h4>
+                            <h6 class="text-center">
+                                {{ element.titles[0].name }}
+                            </h6>
+                        </router-link>
                         </div>
-
-                        <h4 class="text-center mt-3">
-                            {{
-                                element.name.charAt(0).toUpperCase() +
-                                element.name.slice(1)
-                            }}
-                            {{
-                                element.surname.charAt(0).toUpperCase() +
-                                element.surname.slice(1)
-                            }}
-                        </h4>
-                        <h6 class="text-center">
-                            {{ element.titles[0].name }}
-                        </h6>
-                    </div>
                 </div>
             </div>
         </div>
@@ -314,6 +321,10 @@ export default {
             height: 200px;
             width: auto;
         }
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
     }
 }
 </style>
