@@ -1,10 +1,8 @@
 <template>
-    <div class="ground all_page d-flex align-items-center">
+    <div class="ground all_page py-5">
         <div class="container">
-            <div
-                class="row justify-content-between align-items-center text-center"
-            >
-                <div class="col-3 text-center d-lg-none">
+            <div class="row justify-content-between">
+                <!-- <div class="col-3 text-center d-lg-none">
                     <div class="sm_description breack_sb">
                         specializzazioni:
                         <span
@@ -41,28 +39,81 @@
                             doctor.phone_n
                         }}</span>
                     </div>
+                </div> -->
+                <div class="col-12">
+                    <div class="ms_card d-flex my-3">
+                        <div class="d-flex px-4">
+                            <div class="ms_image" v-if="doctor.image">
+                                <img
+                                    class="rounded-circle circle"
+                                    :src="'/storage/' + doctor.image"
+                                />
+                            </div>
+
+                            <div class="d-lg-none img-show" v-else>
+                                <img
+                                    class="w-100"
+                                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                                />
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <div>
+                                <h3>{{ doctor.name }} {{ doctor.surname }}</h3>
+                            </div>
+                            <div>
+                                <p>
+                                    <i class="fa-solid fa-envelope px-2"></i
+                                    >{{ doctor.email }}
+                                    <i class="fa-solid fa-phone px-2"></i
+                                    >{{ doctor.phone_n }}
+                                </p>
+                                <!-- <p>{{ doctor.phone_n }}</p> -->
+                            </div>
+                            <div class="">
+                                <i class="fa-solid fa-stethoscope"></i
+                                >specializzazioni:
+                                <div
+                                    v-for="(title, index) in doctor.titles"
+                                    :key="index"
+                                    class="sm_description badge ms_badge m-1 text-white"
+                                >
+                                    <i class=""></i>
+                                    {{ title.name }}
+                                </div>
+
+                                <div class="">
+                                    <i class="bi bi-mortarboard"></i
+                                    >Prestazioni:
+                                    <div
+                                        v-for="(
+                                            performance, index
+                                        ) in doctor.performances"
+                                        :key="index"
+                                        class="sm_description badge ms_badge m-1 text-white"
+                                    >
+                                        {{ performance.name }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12 text-left col-lg-6 shadow_my">
+                <div class="col-12 text-left shadow_my">
                     <form @submit.prevent="checkForm()">
-                        <h4 class="text-center m-4">
-                            Scrivi a
-                            {{
-                                doctor.name.charAt(0).toUpperCase() +
-                                doctor.name.slice(1)
-                            }}
-                            {{
-                                doctor.surname.charAt(0).toUpperCase() +
-                                doctor.surname.slice(1)
-                            }}
-                        </h4>
-                        <label class="" for="score">Nome:</label>
+                    <div class="title">
+                        Scrivi un messaggio a {{ doctor.name }} {{ doctor.surname }}
+                    </div>
+                    <div class="input-container ic1">
                         <input
                             type="text"
-                            class="form-control"
+                            class="input"
                             id="name"
-                            placeholder="Inserisci il tuo nome"
+                            placeholder=" "
                             v-model="inputUtente.author"
                         />
+                        <div class="cut"></div>
+                        <label for="firstname" class="placeholder">Nome</label>
                         <div v-show="errors.name">
                             <ul>
                                 <li class="errorss">
@@ -70,14 +121,17 @@
                                 </li>
                             </ul>
                         </div>
-                        <label class="" for="score">Mail:</label>
+                    </div>
+                    <div class="input-container ic2">
                         <input
-                            type="email"
-                            class="form-control"
-                            id="name"
-                            placeholder="Inserisci la tua mail"
+                            id="email"
+                            class="input"
+                            type="text"
+                            placeholder=" "
                             v-model="inputUtente.email"
                         />
+                        <div class="cut"></div>
+                        <label for="lastname" class="placeholder">Email</label>
                         <div v-show="errors.mail">
                             <ul>
                                 <li class="errorss">
@@ -85,14 +139,17 @@
                                 </li>
                             </ul>
                         </div>
-                        <label class="" for="score">Messaggio:</label>
-                        <textarea
-                            class="form-control"
+                    </div>
+                    <div class="input-container ic2">
+                        <input
                             id="testo"
-                            cols="30"
-                            rows="5"
+                            class="input"
+                            type="text"
+                            placeholder=" "
                             v-model="inputUtente.content"
-                        ></textarea>
+                        />
+                        <div class="cut cut-short"></div>
+                        <label for="text" class="placeholder">Testo</label>
                         <div v-show="errors.message">
                             <ul>
                                 <li class="errorss">
@@ -100,13 +157,15 @@
                                 </li>
                             </ul>
                         </div>
-                        <button type="submit" class="send_butt">
-                            {{ confirmed }}
-                        </button>
-                    </form>
-                    <!-- <div v-show="messageConfirm">Inviato!</div> -->
+                    </div>
+                    <button type="submit" class="ms_buttonform text-white my-3 px-3">
+                        {{ confirmed }}
+                    </button>
+                </form>
                 </div>
-                <div class="col-2 text-center d-none d-lg-block">
+                <!-- <div v-show="messageConfirm">Inviato!</div> -->
+            </div>
+            <!-- <div class="col-2 text-center d-none d-lg-block">
                     <div class="sm_description">
                         specializzazioni:
                         <span
@@ -144,8 +203,7 @@
                             doctor.phone_n
                         }}</span>
                     </div>
-                </div>
-            </div>
+                </div> -->
         </div>
     </div>
 </template>
@@ -266,11 +324,6 @@ export default {
 .ground {
     background-color: $ms_white;
 }
-input {
-    background-color: rgba(5, 62, 122, 0.9176470588);
-    border: none;
-    color: white;
-}
 textarea {
     border: none;
     background-color: rgba(5, 62, 122, 0.9176470588);
@@ -278,5 +331,161 @@ textarea {
 .errorss {
     color: red;
     list-style-type: none;
+}
+
+.ms_card {
+    padding: 15px 15px;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: white;
+    word-break: break-all;
+}
+
+.ms_image {
+    img {
+        width: 150px;
+        height: 150px;
+        background-color: #444;
+    }
+
+    .circle {
+        border: 3px solid rgba(24, 67, 112, 0.7);
+    }
+}
+
+.ms_badge {
+    background-color: $ms_blue;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.form {
+    background-color: #15172b;
+    border-radius: 20px;
+    box-sizing: border-box;
+    height: 500px;
+    padding: 20px;
+    width: 320px;
+}
+
+.title {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+
+.subtitle {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.input-container {
+    height: 50px;
+    position: relative;
+    width: 100%;
+}
+
+.ic1 {
+    margin-top: 40px;
+}
+
+.ic2 {
+    margin-top: 30px;
+}
+
+.input {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: rgb(255, 247, 247);
+    font-size: 18px;
+    height: 100%;
+    outline: 0;
+    padding: 4px 20px 0;
+    width: 100%;
+}
+
+.cut {
+    background-color: #184370;
+    border-radius: 10px;
+    height: 20px;
+    left: 20px;
+    position: absolute;
+    top: -20px;
+    transform: translateY(0);
+    transition: transform 200ms;
+    width: 76px;
+}
+
+.cut-short {
+    width: 50px;
+}
+
+.input:focus ~ .cut,
+.input:not(:placeholder-shown) ~ .cut {
+    transform: translateY(8px);
+}
+
+.placeholder {
+    color: #ffffff;
+    font-family: sans-serif;
+    left: 20px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms;
+    top: 20px;
+}
+
+.input:focus ~ .placeholder,
+.input:not(:placeholder-shown) ~ .placeholder {
+    transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:not(:placeholder-shown) ~ .placeholder {
+    color: #808097;
+}
+
+.input:focus ~ .placeholder {
+    color: #dc2f55;
+}
+
+.submit {
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 38px;
+    // outline: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.submit:active {
+    background-color: #06b;
+}
+
+.ms_buttonform {
+    border: 0;
+    width: 100px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    height: 35px;
+    margin-top: 5px;
+
+    &:hover {
+        opacity: 0.5;
+    }
 }
 </style>

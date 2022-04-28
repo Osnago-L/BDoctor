@@ -11471,6 +11471,19 @@ body {
   right: 5px;
 }
 
+.ms_cardsponsor {
+  padding: 15px 15px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: white;
+  word-break: break-all;
+  min-height: 80px;
+  background-image: url(/images/wave_search.svg?fbddeb6815c81a14d5af2b8ab50c70af);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-y: center;
+}
+
 .review-header h3 {
   color: #003062;
 }
@@ -11486,6 +11499,15 @@ body {
 
 .ms_datetime {
   color: #888;
+}
+
+.ms_cardreview {
+  padding: 15px 15px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: white;
+  word-break: break-all;
+  max-height: 250px;
 }
 
 .ms_cardmessage {

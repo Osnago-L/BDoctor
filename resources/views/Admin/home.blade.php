@@ -24,9 +24,9 @@
                                     <img class="rounded-circle circle"
                                         src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
                                 @endif
-                                <input name="image"
+                                {{-- <input name="image"
                                     class="image-upload position-absolute @error('image') is-invalid @enderror form-control-file"
-                                    id="image" type="file" onchange="this.form.submit()" />
+                                    id="image" type="file" onchange="this.form.submit()" /> --}}
                             </form>
 
                         </div>
@@ -95,7 +95,7 @@
                         </div>
                         <div class="py-2 border-bottom">
                             <p class="font-weight-bold">Prestazioni</p>
-                            <div class="d-flex">
+                            <div class="d-flex flex-wrap">
                                 @forelse ($user->performances as $performance)
                                     <div class="badge ms_badge text-white mr-2 mt-2">
                                         {{ $performance->name ? $performance->name : '-' }}</div>

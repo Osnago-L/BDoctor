@@ -128,3 +128,18 @@
     top:5px;
     right:5px;
   }
+
+  .ms_cardsponsor {
+    padding: 15px 15px;
+    box-shadow: 0px 5px 10px 0px rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    background-color: white;
+    word-break: break-all;
+    min-height: 80px;
+    background-image: url("../../../../public/img/wave_search.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: center;
+}
+
+
