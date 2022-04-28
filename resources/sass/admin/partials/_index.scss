@@ -9,9 +9,14 @@
     50% { opacity: 1; }
 } */
 
-.ms_box{
+.ms_box-active{
     border: 1px solid $ms_blue;
     border-radius: 10px;
     background-color:rgba($ms_blue,0.2)
 }
 
+.ms_box-expired{
+    border: 1px solid $ms_blue;
+    border-radius: 10px;
+    background-color:rgba(red,0.1)
+}
