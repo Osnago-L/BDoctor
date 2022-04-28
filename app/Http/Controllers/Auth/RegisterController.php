@@ -27,7 +27,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        $titles=Title::all();
+        $titles=Title::orderBy("name", 'ASC')->get();
         return view('auth.register', compact('titles'));
     }
 
