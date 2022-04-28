@@ -11,7 +11,7 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h1>
+                    <h2>
                         Hai
                         ({{ count($messages) }})
                         @if (count($messages) == 1)
@@ -19,7 +19,7 @@
                         @else
                             messaggi
                         @endif
-                    </h1>
+                    </h2>
                 </div>
             </div>
 
