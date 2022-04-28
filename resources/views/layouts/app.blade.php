@@ -39,7 +39,7 @@
                     <div class="d-flex align-items-center mt-sm-2 mt-lg-0">
                         @if (Route::has('login'))
                             @auth
-                                <li class="nav-item mb-sm-2 mb-md-0 mb-3">
+                                <li class="nav-item mb-sm-2 mb-md-0">
                                     <div class="ms_imagebox">
 
                                         @if ($user->image)
