@@ -125,8 +125,9 @@
                         Media Recensioni:
                         <span v-for="n in floor(media(doctor.reviews))" :key="n">
                             <i class="star bi bi-star-fill"></i>
-                        </span><i v-if="hasHalfStar(media(doctor.reviews))" class="star bi bi-star-half"></i>
-                        <i v-if="isRoundedToStar(getAverageScore(element.reviews))" 
+                        </span><i
+                             v-if="hasHalfStar(media(doctor.reviews))" class="star bi bi-star-half"></i><i
+                             v-if="isRoundedToStar(media(doctor.reviews))" 
                             class="star bi bi-star-fill">
                         </i>
                         <span>{{parseFloat(media(doctor.reviews)).toFixed(2)}}</span>
