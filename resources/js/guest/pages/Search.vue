@@ -35,20 +35,15 @@
                                 v-model="title"
                             >
                                 <option value="" selected>{{ alert }}</option>
-                                <option value="Podologia">Podologia</option>
-                                <option value="Urologia">Urologia</option>
-                                <option value="Dermatologia">
-                                    Dermatologia
-                                </option>
-                                <option value="Cardiologia">Cardiologia</option>
                                 <option value="Andrologia">Andrologia</option>
-                                <option value="Gastroenterologia">
-                                    Gastroenterologia
-                                </option>
+                                <option value="Dermatologia">Dermatologia</option>
+                                <option value="Gastroenterologia">Gastroenterologia</option>
                                 <option value="Ginecologia">Ginecologia</option>
                                 <option value="Oculistica">Oculistica</option>
                                 <option value="Ortopedia">Ortopedia</option>
+                                <option value="Podologia">Podologia</option>
                                 <option value="Proctologia">Proctologia</option>
+                                <option value="Urologia">Urologia</option>
                             </select>
                             <div class="input-group-append">
                                 <router-link
@@ -258,14 +253,18 @@
                                         <span
                                             v-for="(
                                                 stars, index
-                                            ) in getAvarageScore(
+                                            ) in floor(getAverageScore(
                                                 element.reviews
-                                            )"
+                                            ))"
                                             :key="'s' + index"
                                             class="text-warning"
-                                            >&#9733;</span
-                                        >
-                                        ({{ element.reviews.length }})
+                                            ><i class="bi bi-star-fill text-warning">
+                                        </i>
+                                        </span><i 
+                                            v-if="hasHalfStar(getAverageScore(element.reviews))" 
+                                            class="bi bi-star-half text-warning">
+                                        </i>
+                                            ({{ element.reviews.length }})
                                     </div>
                                     <div v-else class="small-fonts">
                                         Nessuna recensione
@@ -293,6 +292,18 @@
         </div>
         <nav v-if="data.foundResults > 0" class="mt-2 pagination_position">
             <ul class="pagination justify-content-center">
+
+                <li class="page-item">
+                    <router-link
+                        class="page-link"
+                        @click.native="
+                            page = 1;
+                            search();
+                        "
+                        :to="{}"
+                        ><i class="fa-solid fa-angles-left"></i>
+                    </router-link>
+                </li>
                 <li
                     class="page-item"
                     :class="{ disabled: page == 1 || data.maxPages == 1 }"
@@ -307,30 +318,8 @@
                         >Precedente</router-link
                     >
                 </li>
-                <li class="page-item">
-                    <router-link
-                        class="page-link"
-                        @click.native="
-                            page = 1;
-                            search();
-                        "
-                        :to="{}"
-                        ><i class="fa-solid fa-angles-left"></i>
-                    </router-link>
-                </li>
                 <li class="page-item active">
                     <a class="page-link">{{ page }} </a>
-                </li>
-                <li class="page-item">
-                    <router-link
-                        class="page-link"
-                        @click.native="
-                            page = data.maxPages;
-                            search();
-                        "
-                        :to="{}"
-                        ><i class="fa-solid fa-angles-right"></i>
-                    </router-link>
                 </li>
                 <li
                     class="page-item"
@@ -344,6 +333,17 @@
                         "
                         :to="{}"
                         >Successiva
+                    </router-link>
+                </li>
+                <li class="page-item">
+                    <router-link
+                        class="page-link"
+                        @click.native="
+                            page = data.maxPages;
+                            search();
+                        "
+                        :to="{}"
+                        ><i class="fa-solid fa-angles-right"></i>
                     </router-link>
                 </li>
             </ul>
@@ -464,14 +464,14 @@ export default {
             }
         },
 
-        getAvarageScore(data) {
+        getAverageScore(data) {
             let getLength = data.length;
             if (getLength == 0) {
                 return 0;
             } else {
                 let sum = 0;
                 data.map((x) => (sum = sum + x.score));
-                return Math.floor(sum / getLength);
+                return sum / getLength;
             }
         },
         checkSponsor(data) {
@@ -485,7 +485,14 @@ export default {
                 return false;
             }
         },
+        hasHalfStar(avgScore){
+            return (avgScore - Math.floor(avgScore)) > 0.25;
+        },
+        floor(avgScore) {
+            return Math.floor(avgScore);
+        }
     },
+
 };
 </script>
 

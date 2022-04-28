@@ -13,7 +13,7 @@ class ReviewSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Faker $faker, $size=1500)
+    public function run(Faker $faker, $size=2500)
     {
         
         $reviewsScoresTitles = [

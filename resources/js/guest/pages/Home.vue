@@ -19,17 +19,15 @@
                                 v-model="input"
                             >
                                 <option value="" selected>{{ alert }}</option>
-                                <option value="Podologia">Podologia</option>
-                                <option value="Urologia">Urologia</option>
-                                <option value="Dermatologia">
-                                    Dermatologia
-                                </option>
                                 <option value="Andrologia">Andrologia</option>
+                                <option value="Dermatologia">Dermatologia</option>
                                 <option value="Gastroenterologia">Gastroenterologia</option>
                                 <option value="Ginecologia">Ginecologia</option>
                                 <option value="Oculistica">Oculistica</option>
                                 <option value="Ortopedia">Ortopedia</option>
+                                <option value="Podologia">Podologia</option>
                                 <option value="Proctologia">Proctologia</option>
+                                <option value="Urologia">Urologia</option>
                             </select>
                             <div class="input-group-append">
                                 <router-link

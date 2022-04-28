@@ -123,10 +123,10 @@
                     </div>
                     <div class="personal_i" v-if="doctor.reviews.length > 0">
                         Media Recensioni:
-                        <span v-for="n in media(doctor.reviews)" :key="n">
+                        <span v-for="n in floor(media(doctor.reviews))" :key="n">
                             <i class="star bi bi-star-fill"></i>
-                            <!-- <i v-if="halfStar(media(doctor.reviews))" class="bi bi-star-half"></i> -->
-                        </span>
+                        </span><i v-if="hasHalfStar(media(doctor.reviews))" class="star bi bi-star-half"></i>
+                        <span>{{parseFloat(media(doctor.reviews)).toFixed(2)}}</span>
                     </div>
                     <router-link
                         :to="{ name: 'review', params: { id: doctor.id } }"
@@ -219,7 +219,7 @@ export default {
             } else {
                 let sum = 0;
                 data.map((x) => (sum = sum + x.score));
-                return Math.floor(sum / getLength);
+                return sum / getLength;
             }
         },
         filterRew(array) {
@@ -228,9 +228,12 @@ export default {
                 return a.review > b.review ? 1 : -1;
             });
         },
-        // halfStar(avg){
-        //     return avg - Math.floor(avg) >= 0.26;
-        // }
+        hasHalfStar(avgScore){
+            return avgScore - Math.floor(avgScore) > 0.25;
+        },
+        floor(avgScore){
+            return Math.floor(avgScore);
+        }
     },
 
     created() {
