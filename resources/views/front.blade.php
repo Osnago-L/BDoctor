@@ -26,10 +26,10 @@
             </a>
             <div class="">
                 <ul class="navbar-nav w-100 d-flex align-items-center">
-                    <div class="d-flex align-items-center mt-sm-2 mt-lg-0">
+                    <div class="d-flex align-items-center mt-lg-0">
                         @if (Route::has('login'))
                             @auth
-                                <li class="nav-item mb-sm-2 mb-md-0 mx-5">
+                                <li class="nav-item mb-sm-2 mb-md-0 mb-3">
                                     <div class="ms_imagebox">
                                         <a class="text-dark" href="{{ url('/admin/') }}" ><img  src="{{ asset('storage/' . $user->image) }}" alt=""></a>
                                     </div>

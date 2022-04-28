@@ -1,29 +1,60 @@
 <template>
     <div class="ground all_page d-flex align-items-center">
-        <div class="container"> 
-                <div class="row justify-content-between align-items-center text-center">
-                    <div class="col-3 text-center d-lg-none">
-                        <div class="sm_description breack_sb">
+        <div class="container">
+            <div
+                class="row justify-content-between align-items-center text-center"
+            >
+                <div class="col-3 text-center d-lg-none">
+                    <div class="sm_description breack_sb">
                         specializzazioni:
-                        <span class="" v-for="(title,index) in doctor.titles" :key="index">
-                            <div class="sm_description"><i class="bi bi-mortarboard"></i> {{title.name}}</div>
+                        <span
+                            class=""
+                            v-for="(title, index) in doctor.titles"
+                            :key="index"
+                        >
+                            <div class="sm_description">
+                                <i class="bi bi-mortarboard"></i>
+                                {{ title.name }}
+                            </div>
                         </span>
                     </div>
                 </div>
                 <div class="d-lg-none" v-if="doctor.image">
-                    <img class="img-show" :src="'/storage/'+ doctor.image"> 
+                    <img class="img-show" :src="'/storage/' + doctor.image" />
                 </div>
                 <div class="d-lg-none img-show" v-else>
-                    <img class="w-100 " src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
+                    <img
+                        class="w-100"
+                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    />
                 </div>
                 <div class="col-3 text-center d-lg-none breack_sb">
-                    <div><span class="sm_description">Indirizzo:</span><span class="sm_description">{{doctor.address}}</span></div>
-                    <div v-if="doctor.phone_n"><span class="sm_description">Numero di telefono:</span><span class="sm_description">{{doctor.phone_n}}</span></div>
+                    <div>
+                        <span class="sm_description">Indirizzo:</span
+                        ><span class="sm_description">{{
+                            doctor.address
+                        }}</span>
+                    </div>
+                    <div v-if="doctor.phone_n">
+                        <span class="sm_description">Numero di telefono:</span
+                        ><span class="sm_description">{{
+                            doctor.phone_n
+                        }}</span>
+                    </div>
                 </div>
                 <div class="col-12 text-left col-lg-6 shadow_my">
-                    <form
-                        @submit.prevent="checkForm();">
-                        <h4 class="text-center m-4">Scrivi a {{doctor.name}} {{doctor.surname}}</h4>
+                    <form @submit.prevent="checkForm()">
+                        <h4 class="text-center m-4">
+                            Scrivi a
+                            {{
+                                doctor.name.charAt(0).toUpperCase() +
+                                doctor.name.slice(1)
+                            }}
+                            {{
+                                doctor.surname.charAt(0).toUpperCase() +
+                                doctor.surname.slice(1)
+                            }}
+                        </h4>
                         <label class="" for="score">Nome:</label>
                         <input
                             type="text"
@@ -31,13 +62,11 @@
                             id="name"
                             placeholder="Inserisci il tuo nome"
                             v-model="inputUtente.author"
-                            
                         />
-                        <div v-show="errors.length > 0">
+                        <div v-show="errors.name">
                             <ul>
-                                <li class="errorss"
-                                >
-                                    {{errors[0]}}
+                                <li class="errorss">
+                                    {{ errors.name }}
                                 </li>
                             </ul>
                         </div>
@@ -49,11 +78,10 @@
                             placeholder="Inserisci la tua mail"
                             v-model="inputUtente.email"
                         />
-                        <div v-show="errors.length > 0">
+                        <div v-show="errors.mail">
                             <ul>
-                                <li class="errorss"
-                                >
-                                    {{errors[1]}}
+                                <li class="errorss">
+                                    {{ errors.mail }}
                                 </li>
                             </ul>
                         </div>
@@ -65,38 +93,59 @@
                             rows="5"
                             v-model="inputUtente.content"
                         ></textarea>
-                        <div v-show="errors.length > 0">
+                        <div v-show="errors.message">
                             <ul>
-                                <li class="errorss"
-                                >
-                                    {{errors[2]}}
+                                <li class="errorss">
+                                    {{ errors.message }}
                                 </li>
                             </ul>
                         </div>
-                        <button type="submit" class="send_butt">Invia</button>
+                        <button type="submit" class="send_butt">
+                            {{ confirmed }}
+                        </button>
                     </form>
-                <div v-show="messageConfirm">Inviato!</div>
-            </div>
-            <div class="col-2 text-center d-none d-lg-block">
-                <div class="sm_description">
-                    specializzazioni:
-                    <span class="breack_sb" v-for="(title,index) in doctor.titles" :key="index">
-                        <div class="sm_description"><i class="bi bi-mortarboard"></i> {{title.name}}</div>
-                    </span>
+                    <!-- <div v-show="messageConfirm">Inviato!</div> -->
+                </div>
+                <div class="col-2 text-center d-none d-lg-block">
+                    <div class="sm_description">
+                        specializzazioni:
+                        <span
+                            class="breack_sb"
+                            v-for="(title, index) in doctor.titles"
+                            :key="index"
+                        >
+                            <div class="sm_description">
+                                <i class="bi bi-mortarboard"></i>
+                                {{ title.name }}
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="d-none d-lg-block" v-if="doctor.image">
+                    <img class="img-show" :src="'/storage/' + doctor.image" />
+                </div>
+                <div class="img-show d-none d-lg-block" v-else>
+                    <img
+                        class="w-100"
+                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    />
+                </div>
+                <div class="col-2 text-center breack_sb d-none d-lg-block">
+                    <div>
+                        <span class="sm_description">Indirizzo:</span
+                        ><span class="sm_description">{{
+                            doctor.address
+                        }}</span>
+                    </div>
+                    <div v-if="doctor.phone_n">
+                        <span class="sm_description breack_sb"
+                            >Numero di telefono:</span
+                        ><span class="breack_sb sm_description">{{
+                            doctor.phone_n
+                        }}</span>
+                    </div>
                 </div>
             </div>
-            <div class="d-none d-lg-block" v-if="doctor.image">
-                <img class="img-show" :src="'/storage/'+ doctor.image"> 
-            </div>
-            <div class="img-show d-none d-lg-block" v-else>
-                <img class="w-100" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">   
-            </div>
-            <div class="col-2 text-center breack_sb d-none d-lg-block">
-                <div><span class="sm_description">Indirizzo:</span><span class="sm_description">{{doctor.address}}</span></div>
-                <div v-if="doctor.phone_n"><span class="sm_description breack_sb">Numero di telefono:</span><span class="breack_sb sm_description">{{doctor.phone_n}}</span></div>
-            </div>
-    
-         </div>               
         </div>
     </div>
 </template>
@@ -113,7 +162,12 @@ export default {
                 user_id: null,
             },
             messageConfirm: false,
-            errors: [],
+            errors: {
+                name: "",
+                mail: "",
+                message: "",
+            },
+            confirmed: "Invia",
         };
     },
     created() {
@@ -134,8 +188,14 @@ export default {
                 this.inputUtente.author = "";
                 this.inputUtente.content = "";
                 this.messageConfirm = true;
-                this.errors = [];
-                console.log(response);
+                this.errors.name = "";
+                this.errors.mail = "";
+                this.errors.message = "";
+                this.confirmed = "Inviato!";
+                this.$router.push({
+                    name: "single-doctor",
+                    params: { id: this.$route.params.id },
+                });
             });
         },
         checkForm: function () {
@@ -146,15 +206,17 @@ export default {
             ) {
                 return this.inviaMessaggio();
             } else {
-                this.errors = [];
+                this.errors.name = "";
+                this.errors.mail = "";
+                this.errors.message = "";
                 if (!this.inputUtente.author) {
-                    this.errors.push("Nome richiesto");
+                    this.errors.name = "Nome richiesto";
                 }
-                if (!this.inputUtente.email){
-                    this.errors.push("Inserisci una mail valida!");
+                if (!this.inputUtente.email) {
+                    this.errors.mail = "Inserisci una mail valida!";
                 }
                 if (!this.inputUtente.content) {
-                    this.errors.push("Inserisci un messaggio");
+                    this.errors.message = "Inserisci un messaggio";
                 }
             }
         },
@@ -163,36 +225,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../sass/guest/_variables.scss';
+@import "../../../sass/guest/_variables.scss";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
-.sm_description{
+.sm_description {
     font-size: 12px;
 }
-.all_page{
-    height: 100vh; 
+.all_page {
+    height: 100vh;
 }
-.img-show{
+.img-show {
     border-radius: 100%;
     transition: ease 0.5s;
     height: 160px;
     width: 160px;
 }
 
-.img-show:hover{
+.img-show:hover {
     filter: brightness(50%);
     transition: all ease-in-out 0.5s;
 }
-.breack_sb{
+.breack_sb {
     word-break: break-word;
 }
-.shadow_my{
+.shadow_my {
     padding: 30px 80px;
     background-color: $ms_blue;
     color: white;
     border-radius: 15px;
-    box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.100);
+    box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.1);
 }
-.send_butt{
+.send_butt {
     padding: 5px 10px;
     background-color: rgba(5, 62, 122, 0.9176470588);
     border-radius: 10px;
@@ -201,19 +263,19 @@ export default {
     font-size: 12px;
     margin-top: 15px;
 }
-.ground{
+.ground {
     background-color: $ms_white;
 }
-input{
-    background-color: rgba(5, 62, 122, 0.9176470588); 
+input {
+    background-color: rgba(5, 62, 122, 0.9176470588);
     border: none;
     color: white;
 }
-textarea{
+textarea {
     border: none;
-    background-color: rgba(5, 62, 122, 0.9176470588); 
+    background-color: rgba(5, 62, 122, 0.9176470588);
 }
-.errorss{
+.errorss {
     color: red;
     list-style-type: none;
 }

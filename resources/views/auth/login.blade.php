@@ -73,7 +73,7 @@
     </div> --}}
     {{-- ////////////////////////////////////////////////////////////////// --}}
     {{-------------------------- NUOVO LOGIN ---------------------------------}}
-    <div class="row justify-content-center ">
+    <div class="row justify-content-center py-5 ">
         <form class="form col-6 mr-5" method="POST" action="{{ route('login') }}">
             @csrf
             
@@ -127,7 +127,7 @@
                 </div>
             </div>
             <div class="py-3 text-white">
-                Non hai un account?<a class="text-white px-2" href="{{ route('register') }}">Registrati!</a>
+                Non hai un account?<a class="text-white px-2" href="{{ route('register') }}">  Registrati!</a>
             </div>
         </form>
     </div>

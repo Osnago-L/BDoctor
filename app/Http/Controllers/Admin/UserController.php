@@ -25,25 +25,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        /* $sponsorship = Sponsorship::All(); */
-        $user->load('sponsorships');
+        $user = User::where('id', Auth::user()->id)->with(['sponsorships'=> function ($q){
+            $q->orderBy('expiration', 'ASC');
+        }])
+        ->first();
 
         $now = Carbon::now()->format('d-m-Y H:i:s');
 
-
         foreach ($user->sponsorships as $sponsor){
-            
             $sponsor->pivot->expiration = DateTime::createFromFormat('Y-m-d H:i:s', $sponsor->pivot->expiration)->format('d-m-Y H:i:s'); 
-            /* $sorted = collect($sponsor->pivot->expiration)->sortByDesc('expiration'); */
-        }; 
-        
-        /* dd($user); */
-        /* $sort = DB::table('sponsorship_user')
-        ->where('user_id' , $user)
-        ->orderBy('expiration','asc')->get();
-        dump($sort); */
-        
+        };
 
         return view('admin.users.index',compact('user' ,'now' ));
     }

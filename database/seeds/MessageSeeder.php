@@ -67,35 +67,39 @@ class MessageSeeder extends Seeder
             [
                 "author" => "Losa Fabio",
                 "email" => "cacsa00123@cuedigy.com",
-                "content" => "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi eaque cum quod? Aliquid, optio. Ducimus, illo consequuntur. Suscipit accusamus dolorum quisquam, adipisci assumenda exercitationem commodi dolores placeat et facilis voluptatibus?",
+                "content" => "Buonasera Dottore, volevo informarla che l'operazione al piede è andata molto bene, il chirurgo ha solo detto che devo solo riposare molto. Volevo ringraziarla per tutto buona serata.Senza di lei non avrei saputo cosa fare, è stato per me come un faro nella notte, non smetterò mai di esserle riconoscente.",
             ],
             [
                 "author" => "Luca Valle",
                 "email" => "barkovairin@nproxi.com",
-                "content" => "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi eaque cum quod? Aliquid, optio. Ducimus, illo consequuntur. Suscipit accusamus dolorum quisquam, adipisci assumenda exercitationem commodi dolores placeat et facilis voluptatibus?",
+                "content" => "Gentile Dottor Verdi,volevo informazioni sul medicinale da Lei prescritto, Inofert , nello specifico avrei necessità di sapere se può essere assunto anche lontano dai pasti.",
             ],
 
             [
                 "author" => "Maurizio Mosiello",
                 "email" => "pachm1@shanemalakas.com",
-                "content" => "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi eaque cum quod? Aliquid, optio. Ducimus, illo consequuntur. Suscipit accusamus dolorum quisquam, adipisci assumenda exercitationem commodi dolores placeat et facilis voluptatibus?",
+                "content" => "Gent.le Dottore, La presente per comunicarle gli esiti della terapia.Sto prendendo il farmaco 'Quadramet' Sono trascorsi ormai 5 giorni da quando ho iniziato questo trattamento medico. Ho potuto riscontrare un peggioramento della mia salute in generale e, nello specifico: molta stanchezza. Sarò lieto di vederla al prossimo appuntamento presso il Suo studio, per discutere il proseguio della terapia.La ringrazio e la saluto cordialmente",
             ],
 
             [
                 "author" => "Gianluca Benedetti",
                 "email" => "vitalson0112@cuedigy.com",
-                "content" => "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi eaque cum quod? Aliquid, optio. Ducimus, illo consequuntur. Suscipit accusamus dolorum quisquam, adipisci assumenda exercitationem commodi dolores placeat et facilis voluptatibus?",
+                "content" => "Grazie dottore, Buonasera mi ritengo davvero fortunata ad aver incontrato un medico come lei, grazie al suo aiuto io mi sono ripresa più in fretta.",
+            ],
+
+            [
+                "author" => "Milan Stojkovic",
+                "email" => "Stojk@cuedigy.com",
+                "content" => "Buonasera dottore, volevo informarla che dopo la vostra cura mi sento una persona nuova.Io e mia moglie le saremo eternamente grati. Un grazie senza fine dottore.Buona serata.",
             ],
 
             [
                 "author" => "Mario Sannicola",
                 "email" => "curemson@cuedigy.com",
-                "content" => "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi eaque cum quod? Aliquid, optio. Ducimus, illo consequuntur. Suscipit accusamus dolorum quisquam, adipisci assumenda exercitationem commodi dolores placeat et facilis voluptatibus?",
+                "content" => "Buongiorno dottore, le ho mandato una mail la settimana scorsa ma ancora non ho ricevuto risposta, la prego ho un urgente bisogno del vostro aiuto, spero di ricevere presto suo notizie. A Presto.",
             ],
-
-            
         ];
-
+        
         foreach($messages as $message){
 
             $newMessage = new Message();

@@ -36,8 +36,11 @@ Route::middleware('auth')
     });
 
 Route::get('/{any}', function () {
-    return view('front');
+    $user = Auth::user();
+    return view('front',['user' => $user]);
 })->where('any', '.*');
+
+
 
 // /* rotte raggiungibili solo da /admin */
 // Route::middleware('auth')

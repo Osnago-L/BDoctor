@@ -69,7 +69,7 @@ class MessageController extends Controller
      */
     public function show(User $user,Message $message)
     {
-        
+        $user = Auth::user();
         $dateTime = new DateTime($message->created_at);
         
         $date = $dateTime->format('d/m/Y');
@@ -80,7 +80,7 @@ class MessageController extends Controller
             abort(404);
         }
 
-        return view('admin.messages.show', compact('message','date','time'));
+        return view('admin.messages.show', compact('user','message','date','time'));
     }
 
     /**

@@ -11004,6 +11004,7 @@ a.text-dark:focus {
 .ms_image img {
   width: 150px;
   height: 150px;
+  background-color: #444;
 }
 
 .ms_image .circle {
@@ -11170,7 +11171,7 @@ p {
 }
 
 .form {
-  background-color: #003062;
+  background-color: #184370;
   border-radius: 20px;
   box-sizing: border-box;
   /* height: 500px; */
@@ -11218,7 +11219,7 @@ margin-top: 40px;
 }
 
 .input {
-  background-color: rgba(5, 62, 122, 0.9176470588);
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   border: 0;
   box-sizing: border-box;
@@ -11230,8 +11231,12 @@ margin-top: 40px;
   width: 100%;
 }
 
+.input:hover {
+  color: #184370;
+}
+
 .cut {
-  background-color: #003062;
+  background-color: #184370;
   border-radius: 10px;
   height: 20px;
   left: 20px;
@@ -11325,7 +11330,7 @@ margin-top: 40px;
 .ms_buttonform {
   border: 0;
   width: 100px;
-  background-color: rgba(5, 62, 122, 0.9176470588);
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   height: 35px;
   margin-top: 5px;
@@ -11368,10 +11373,6 @@ margin-top: 40px;
 
 .number {
   background-color: white;
-}
-
-label {
-  color: white;
 }
 
 .hero {
