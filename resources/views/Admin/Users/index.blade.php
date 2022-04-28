@@ -84,7 +84,7 @@
                         </div>
                         <div class="py-2 border-bottom">
                             <p class="font-weight-bold">Titoli</p>
-                            <div class="d-flex">
+                            <div class="d-flex flex-wrap">
                                 @foreach ($user->titles as $title)
                                     <div class="badge ms_badge text-white mr-2 mt-2">
                                         {{ $title->name ? $title->name : '-' }}
@@ -94,7 +94,7 @@
                         </div>
                         <div class="py-2 border-bottom">
                             <p class="font-weight-bold">Prestazioni</p>
-                            <div class="d-flex">
+                            <div class="d-flex flex-wrap">
                                 @forelse ($user->performances as $performance)
                                     <div class="badge ms_badge text-white mr-2 mt-2">
                                         {{ $performance->name ? $performance->name : '-' }}</div>

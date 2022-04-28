@@ -18,13 +18,13 @@
                     >
                         <div class="col-4 text-center">
                             <div v-if="doctor.birth_date">
-                                <span>Anno di nascita:</span>
+                                <span><i class="fa-solid fa-calendar"></i></span>
                                 {{
                                     formattazione_anno(doctor.birth_date, true)
                                 }}
                             </div>
                             <div>
-                                <span>Indirizzo:</span> {{ doctor.address }}
+                                <span><i class="fa-solid fa-location-pin"></i></span> {{ doctor.address }}
                             </div>
                             <div class="my_hr"></div>
                         </div>
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-4 text-center">
                             <div v-if="doctor.phone_n">
-                                <span>Numero di telefono:</span>
+                                <span><i class="fa-solid fa-phone"></i></span>
                                 {{ doctor.phone_n }}
                             </div>
                             <div class="my_hr"></div>
@@ -94,6 +94,14 @@
                             </ul>
                         </div>
                     </div>
+                    
+                    <div>
+                        <h5 class="ml-4 mt-5">Curriculum Vitae:</h5>
+                        <div class="ml-4 txt random " v-if="doctor.cv">
+                            {{ doctor.cv }}
+                        </div>
+                        <div class="ml-4 txt" v-else>Il dottore non ha ancora caricato il cv</div>
+                    </div>
                     <div class="text-center position_messageButton">
                         <router-link
                             :to="{ name: 'message', params: { id: doctor.id } }"
@@ -101,13 +109,6 @@
                                 Scrivi un Messaggio
                             </button></router-link
                         >
-                    </div>
-                    <div>
-                        <h5 class="ml-4 mt-5">Curriculum Vitae:</h5>
-                        <div class="ml-4 txt" v-if="doctor.cv">
-                            {{ doctor.cv }}
-                        </div>
-                        <div class="ml-4 txt" v-else>-</div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-12 mt-4 h_rew text-center">
@@ -146,6 +147,9 @@
                                     ><i class="user bi bi-person-fill"></i
                                     >{{ review.author }}</strong
                                 >
+                                <div class="date_rew">
+                                {{ formattazione_anno(review.created_at) }}
+                            </div>
                             </div>
                             <div class="">
                                 <h5>{{ review.title }}</h5>
@@ -161,9 +165,7 @@
                                     ><i class="star bi bi-star-fill"></i
                                 ></span>
                             </div>
-                            <div class="date_rew">
-                                {{ formattazione_anno(review.created_at) }}
-                            </div>
+                            
                         </div>
                     </div>
                     <div
@@ -369,5 +371,12 @@ img {
 }
 ul {
     list-style-type: none;
+}
+
+.random{
+    max-height:300px;
+    overflow: scroll;
+    text-overflow: ellipsis;
+
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
     <div class="back_app">
-        <div class="container">
+        <div class="container py-3">
+            <h1>Scrivi una recensione</h1>
             <div class="row justify-content-center">
+                
                 <div class="mt-4 d-none d-lg-block col-lg-4 blu_ln">
                     <div
                         class="row d-flex align-items-center justify-content-center mt-4 personal_i"
@@ -48,7 +50,7 @@
                                 :src="'/storage/' + doctor.image"
                             />
                         </div>
-                        <div class=" img-show no_photo" v-else>
+                        <div class="img-show no_photo" v-else>
                             <!-- <img
                                 class="w-100"
                                 src="../../../../public/img/default_user.webp"
@@ -184,16 +186,39 @@
                 >
                     <div v-if="!reviewConfirm">
                         <form @submit.prevent="checkForm()">
-                            <h4 class="m-4">Scrivi la tua Recensione</h4>
-                            <label class="" for="score">Nome:</label>
+                            <h4 class="m-4">
+                                Scrivi la tua Recensione a {{ doctor.name }}
+                                {{ doctor.surname }}
+                            </h4>
+                            <div class="input-container ic1">
+                                <input
+                                    type="text"
+                                    class="input"
+                                    id="name"
+                                    placeholder=" "
+                                    v-model="inputUtente.author"
+                                />
+                                <div class="cut"></div>
+                                <label for="firstname" class="placeholder"
+                                    >Nome</label
+                                >
+                                <div v-show="errors.name">
+                                    <ul>
+                                        <li class="errorss">
+                                            {{ errors.name }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--                             <label class="" for="score">Nome:</label>
                             <input
                                 class="form-control"
                                 type="text"
                                 id="name"
                                 placeholder="Inserire un nome..."
                                 v-model="inputUtente.author"
-                            />
-                            <label class="mt-4" for="score"
+                            /> -->
+                            <!-- <label class="mt-4" for="score"
                                 >Titolo Recensione:</label
                             >
                             <input
@@ -202,8 +227,34 @@
                                 id="name"
                                 placeholder="Inserire il titolo della recensione"
                                 v-model="inputUtente.title"
-                            />
-                            <label class="mt-4" for="score"
+                            /> -->
+                            <div class="input-container ic1">
+                                <input
+                                    type="text"
+                                    class="input"
+                                    id="name"
+                                    placeholder=" "
+                                    v-model="inputUtente.title"
+                                />
+                                <div class="cut"></div>
+                                <label for="firstname" class="placeholder"
+                                    >Titolo</label
+                                >
+                            </div>
+                            <div class="input-container ic2">
+                                <input
+                                    id="testo"
+                                    class="input"
+                                    type="text"
+                                    placeholder=" "
+                                    v-model="inputUtente.content"
+                                />
+                                <div class="cut cut-short"></div>
+                                <label for="text" class="placeholder"
+                                    >Testo</label
+                                >
+                            </div>
+                            <!-- <label class="mt-4" for="score"
                                 >Testo Recensione:</label
                             >
                             <textarea
@@ -211,9 +262,10 @@
                                 id="testo"
                                 cols="30"
                                 rows="5"
-                                placeholder="Inserire il contenuto della recensione"
+                                placeholder=" "
                                 v-model="inputUtente.content"
-                            ></textarea>
+                            ></textarea> -->
+
                             <div class="input-row">
                                 <label for="score">Valutazione</label>
                                 <span class="ms_required">*</span>
@@ -407,18 +459,18 @@ export default {
         display: none;
     }
     .img-show {
-            background-image: url("../../../../public/img/default_user.webp");
-    background-position: center;
-    background-size: cover;
+        background-image: url("../../../../public/img/default_user.webp");
+        background-position: center;
+        background-size: cover;
         height: 65px;
         width: 65px;
         border-radius: 100%;
     }
-    .img_size{
-    border-radius: 100%;
-    height: 120px;
-    width: 120px;
-}
+    .img_size {
+        border-radius: 100%;
+        height: 120px;
+        width: 120px;
+    }
     .personal_i {
         color: rgb(136, 136, 136);
         font-size: 12px;
@@ -430,7 +482,7 @@ export default {
     }
     div {
         .bb {
-            border-left: 5px solid  $ms_blue;
+            border-left: 5px solid $ms_blue;
             border-radius: 10px;
         }
     }
@@ -471,11 +523,11 @@ export default {
     //     filter: brightness(50%);
     //     transition: ease-in-out 0.5s;
     // }
-    input {
+    /*     input {
         background-color: white;
         border: none;
         color: rgba(5, 62, 122, 0.9176470588);
-    }
+    } */
     textarea {
         border: none;
         background-color: white;
@@ -505,5 +557,135 @@ export default {
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.form {
+    background-color: #15172b;
+    border-radius: 20px;
+    box-sizing: border-box;
+    height: 500px;
+    padding: 20px;
+    width: 320px;
+}
+
+.title {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+
+.subtitle {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.input-container {
+    height: 50px;
+    position: relative;
+    width: 100%;
+}
+
+.ic1 {
+    margin-top: 40px;
+}
+
+.ic2 {
+    margin-top: 30px;
+}
+
+.input {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: rgb(255, 247, 247);
+    font-size: 18px;
+    height: 100%;
+    outline: 0;
+    padding: 4px 20px 0;
+    width: 100%;
+}
+
+.cut {
+    background-color: #184370;
+    border-radius: 10px;
+    height: 20px;
+    left: 20px;
+    position: absolute;
+    top: -20px;
+    transform: translateY(0);
+    transition: transform 200ms;
+    width: 76px;
+}
+
+.cut-short {
+    width: 50px;
+}
+
+.input:focus ~ .cut,
+.input:not(:placeholder-shown) ~ .cut {
+    transform: translateY(8px);
+}
+
+.placeholder {
+    color: #ffffff;
+    font-family: sans-serif;
+    left: 20px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms;
+    top: 20px;
+}
+
+.input:focus ~ .placeholder,
+.input:not(:placeholder-shown) ~ .placeholder {
+    transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:not(:placeholder-shown) ~ .placeholder {
+    color: #808097;
+}
+
+.input:focus ~ .placeholder {
+    color: #dc2f55;
+}
+
+.submit {
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 38px;
+    // outline: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.submit:active {
+    background-color: #06b;
+}
+
+.ms_buttonform {
+    border: 0;
+    width: 100px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    height: 35px;
+    margin-top: 5px;
+
+    &:hover {
+        opacity: 0.5;
+    }
 }
 </style>

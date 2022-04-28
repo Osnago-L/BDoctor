@@ -44,7 +44,7 @@
 
     @foreach($reviews as $review)
         
-        <div class="ms_card my-2 p-1">
+        <div class="ms_cardreview my-2 p-1">
     
             <div class="review-header p-2">
 
