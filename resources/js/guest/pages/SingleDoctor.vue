@@ -126,6 +126,9 @@
                         <span v-for="n in floor(media(doctor.reviews))" :key="n">
                             <i class="star bi bi-star-fill"></i>
                         </span><i v-if="hasHalfStar(media(doctor.reviews))" class="star bi bi-star-half"></i>
+                        <i v-if="isRoundedToStar(getAverageScore(element.reviews))" 
+                            class="star bi bi-star-fill">
+                        </i>
                         <span>{{parseFloat(media(doctor.reviews)).toFixed(2)}}</span>
                     </div>
                     <router-link
@@ -229,7 +232,12 @@ export default {
             });
         },
         hasHalfStar(avgScore){
-            return avgScore - Math.floor(avgScore) > 0.25;
+            let decimals = avgScore - Math.floor(avgScore)
+            return decimals > 0.25 && decimals < 0.75;
+        },
+        isRoundedToStar(avgScore){
+            let decimals = avgScore - Math.floor(avgScore)
+            return decimals >= 0.75;
         },
         floor(avgScore){
             return Math.floor(avgScore);

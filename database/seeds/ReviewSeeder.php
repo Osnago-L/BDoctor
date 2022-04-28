@@ -13,7 +13,7 @@ class ReviewSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Faker $faker, $size=2500)
+    public function run(Faker $faker, $size=3500)
     {
         
         $reviewsScoresTitles = [
@@ -114,15 +114,8 @@ class ReviewSeeder extends Seeder
                         "Sono profondamente grato a questo professionista e all'impegno che ci mette per rimanere sempre aggiornato",
                         "Se fossero tutti disponibili e competenti come lui i pazienti non sarebbero più diffidenti. Ve lo consiglio.",
                         "Uno specialista con i fiocchi e per giunta anche delle mie parti! Non potevo trovare di meglio."
-
                     ]
                 ]
-
-
-                
-
-                
-
         ];
 
         

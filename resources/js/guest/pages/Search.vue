@@ -263,6 +263,9 @@
                                         </span><i 
                                             v-if="hasHalfStar(getAverageScore(element.reviews))" 
                                             class="bi bi-star-half text-warning">
+                                        </i><i 
+                                            v-if="isRoundedToStar(getAverageScore(element.reviews))" 
+                                            class="bi bi-star-fill text-warning">
                                         </i>
                                             ({{ element.reviews.length }})
                                     </div>
@@ -486,7 +489,13 @@ export default {
             }
         },
         hasHalfStar(avgScore){
-            return (avgScore - Math.floor(avgScore)) > 0.25;
+
+            let decimals = avgScore - Math.floor(avgScore)
+            return decimals > 0.25 && decimals < 0.75;
+        },
+        isRoundedToStar(avgScore){
+            let decimals = avgScore - Math.floor(avgScore)
+            return decimals >= 0.75;
         },
         floor(avgScore) {
             return Math.floor(avgScore);

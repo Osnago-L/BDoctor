@@ -97,31 +97,8 @@ class DoctorController extends Controller
     }
     
     public static function getPages($rowsNum, $itemsPerPage) {
-        // $url=$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-        // $html = "Pagine:";
-        return ceil($rowsNum / $itemsPerPage);
-    
-        // if ($numbers > 1) {
-    
-        //     $pos = strpos($url, "page=");
-        //     $pos == 0 ? $pos = 1 : $pos;
-        //     $urlWithoutPage = substr($url, 0, strlen($url) - $pos+1);
-        //     $sep = "&";
-    
-        //     for ($i = 1; $i <= $numbers; $i++) {
-    
-        //         $url = substr($url, strlen($url));
-        //         $html .= "&nbsp&nbsp" . "<a href='$urlWithoutPage" . $sep . "page=$i'>$i</a>";
-        //     }
-        // }
 
-        return response()->json(
-        [
-            'success' => true,
-            'data' => [
-                'pageLinks' => $html,
-            ]
-        ]);
+        return ceil($rowsNum / $itemsPerPage);
     }
 
     public static function setMaxPageItems(int $items){
