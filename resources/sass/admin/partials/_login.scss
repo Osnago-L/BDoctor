@@ -1,6 +1,6 @@
 //\\\\\\\\\\\\\\\\\\\LOGIN-REGISTER CSS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 .form {
-    background-color: #003062;
+    background-color: #184370;
     border-radius: 20px;
     box-sizing: border-box;
     /* height: 500px; */
@@ -48,7 +48,7 @@ margin-top: 30px;
 }
 
 .input {
-background-color: #053e7aea;
+background-color: rgba(255,255,255,0.2);
 border-radius: 12px;
 border: 0;
 box-sizing: border-box;
@@ -58,10 +58,15 @@ height: 100%;
 outline: 0;
 padding: 4px 20px 0;
 width: 100%;
+
+    &:hover{
+        color: #184370;
+    }
 }
 
+
 .cut {
-background-color: #003062;
+background-color: #184370;
 border-radius: 10px;
 height: 20px;
 left: 20px;
@@ -132,7 +137,7 @@ background-color: #06b;
 .ms_buttonform{
     border: 0;
     width: 100px;
-    background-color: rgba(5, 62, 122, 0.9176470588);
+    background-color: rgba(255,255,255,0.2);
     border-radius:10px;
     height: 35px;
     margin-top:5px;

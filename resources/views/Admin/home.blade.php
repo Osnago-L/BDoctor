@@ -18,8 +18,12 @@
                             <form action="" {{-- method="POST" --}}>
                                 {{-- @method('PATCH')
                         @csrf --}}
-                                <img class="rounded-circle circle" src="{{ asset('storage/' . $user->image) }}" alt="">
-
+                                @if ($user->image)
+                                    <img class="rounded-circle circle" src="{{ asset('storage/' . $user->image) }}" alt="">
+                                @else
+                                    <img class="rounded-circle circle"
+                                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+                                @endif
                                 <input name="image"
                                     class="image-upload position-absolute @error('image') is-invalid @enderror form-control-file"
                                     id="image" type="file" onchange="this.form.submit()" />
@@ -64,7 +68,11 @@
                                 <p class="font-weight-bold">Cellulare:</p>
                             </div>
                             <div>
-                                <span class="ml-3">{{ $user->phone_n }}</span>
+                                @if ($user->phone_n)
+                                    <span class="ml-3">{{ $user->phone_n }}</span>
+                                @else
+                                    <div class="px-2"></div>
+                                @endif
                             </div>
                         </div>
 
@@ -88,16 +96,18 @@
                         <div class="py-2 border-bottom">
                             <p class="font-weight-bold">Prestazioni</p>
                             <div class="d-flex">
-                                @foreach ($user->performances as $performance)
-                                    <div class="badge ms_badge text-white  mr-2 mt-2">
+                                @forelse ($user->performances as $performance)
+                                    <div class="badge ms_badge text-white mr-2 mt-2">
                                         {{ $performance->name ? $performance->name : '-' }}</div>
-                                @endforeach
+                                @empty
+                                    <p>aggiungi le tue prestazioni</p>
+                                @endforelse
                             </div>
                         </div>
                     </div>
                     <div class="d-flex">
                         <a class="d-block d-lg-none mt-3" href="{{ route('admin.user.edit', Auth::id()) }}"><button
-                                class="btn ms_buttonblue btn-primary p-1 mx-2">Modifica Profilo</button></a>
+                                class="btn ms_buttonblue btn-primary p-2 mx-2">Modifica Profilo</button></a>
                         <a class="mt-3" href="{{ route('admin.payment', Auth::id()) }}"><button
                                 class="btn ms_buttonblue  text-white p-2">Sponsorizza il tuo profilo</button></a>
                     </div>
@@ -142,7 +152,8 @@
 
                         <div class="form-group ">
                             <label for="date" class="form-label">Aggiungi Data di nascita</label>
-                            <input type="date" id="start" name="birth_date" value="{{ old('date') ?? $user->birth_date }}">
+                            <input type="date" id="start" name="birth_date"
+                                value="{{ old('date') ?? $user->birth_date }}">
                             @error('date')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -151,7 +162,9 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="address" class="form-label">Aggiungi Via</label>
-                                <input type="text" name="address" value="{{ old('address') ?? $user->address }}"
+                                <input style="border-style: solid;
+                                        background-color: {{ $user->address == '' ? 'black' : 'white' }} " type="text"
+                                    name="address" value="{{ old('address') ?? $user->address }}"
                                     class="form-control @error('address') is-invalid @enderror"
                                     placeholder="Inserisci la tua via" />
                                 @error('address')
@@ -161,7 +174,10 @@
 
                             <div class="form-group col-md-6">
                                 <label for="phone_n" class="form-label">Aggiungi Numero di telefono</label>
-                                <input type="text" name="phone_n" value="{{ old('phone_n') ?? $user->phone_n }}"
+                                <input
+                                    style="border-style: solid;
+                                        background-color: {{ $user->phone_n == '' ? 'rgba(255, 0, 0, 0.3)' : 'white' }} "
+                                    type="text" name="phone_n" value="{{ old('phone_n') ?? $user->phone_n }}"
                                     class="form-control @error('phone_n') is-invalid @enderror"
                                     placeholder="Inserisci il tuo numero" />
                                 @error('phone_n')
@@ -186,6 +202,9 @@
                                 <input type="file" name="image"
                                     class="@error('image') is-invalid @enderror form-control-file" id="image">
                             </div>
+                            @error('image')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
@@ -216,11 +235,12 @@
 
 
                         <h4>Prestazioni</h4>
-                        <div class="ms_boxinput d-flex">
+                        <div class="ms_boxinput d-flex flex-wrap w-75">
                             @foreach ($performances as $performance)
                                 <div class="form-check mx-1">
                                     <input class="ms_checkbox form-check-input" type="checkbox"
-                                        value="{{ $performance->id }}" name="performances[]" id="{{ $performance->id }}"
+                                        value="{{ $performance->id }}" name="performances[]"
+                                        id="{{ $performance->id }}"
                                         {{ $user->performances->contains($performance) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="{{ $performance->id }}">
                                         {{ $performance->name }}
@@ -234,12 +254,33 @@
 
 
                         <div class="form-group">
-                            <input type="submit" name="Submit" value="Modifica"
-                                class="ms_buttonblue text-white  form-control" />
+                            <input value="Modifica" class="ms_buttonblue text-white text-center  form-control"
+                                data-toggle="modal" data-target="#exampleModalCenter" />
+                        </div>
+                        {{-- ------------------------------------ MODAL -------------------------------------------- --}}
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Sicuro di voler modificare il
+                                            profilo?</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary w-100"
+                                            data-dismiss="modal">Indietro</button>
+                                        <input type="submit" name="Submit" value="Modifica"
+                                            class="ms_buttonblue text-white  form-control" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>

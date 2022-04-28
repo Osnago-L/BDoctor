@@ -40,6 +40,8 @@ Route::get('/{any}', function () {
     return view('front',['user' => $user]);
 })->where('any', '.*');
 
+
+
 // /* rotte raggiungibili solo da /admin */
 // Route::middleware('auth')
 // ->namespace('Admin') /* con questo diciamo dove devono puntare i vari Controllers */

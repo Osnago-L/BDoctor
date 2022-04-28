@@ -27,7 +27,14 @@
                 <div class="ms_card d-flex flex-column  justify-content-center">
 
                     <div class="ms_image d-flex justify-content-center py-3">
-                        <img class="rounded-circle " src="{{ asset('storage/' . $user->image) }}" alt="">
+                        <div class="ms_image d-flex justify-content-center py-3">
+                            @if ($user->image)
+                                <img class="rounded-circle circle" src="{{ asset('storage/' . $user->image) }}" alt="">
+                            @else
+                                <img class="rounded-circle circle" src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                                    alt="">
+                            @endif
+                        </div>
                     </div>
 
                     <div class="box-info p-2">
@@ -80,17 +87,20 @@
                             <div class="d-flex">
                                 @foreach ($user->titles as $title)
                                     <div class="badge ms_badge text-white mr-2 mt-2">
-                                        {{ $title->name ? $title->name : '-' }}</div>
+                                        {{ $title->name ? $title->name : '-' }}
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
                         <div class="py-2 border-bottom">
                             <p class="font-weight-bold">Prestazioni</p>
                             <div class="d-flex">
-                                @foreach ($user->performances as $performance)
+                                @forelse ($user->performances as $performance)
                                     <div class="badge ms_badge text-white mr-2 mt-2">
                                         {{ $performance->name ? $performance->name : '-' }}</div>
-                                @endforeach
+                                @empty
+                                    <p>Aggiungi le tue prestazioni</p>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -109,7 +119,7 @@
                         <p>Scadenza</p>
                     </div>
 
-                    @foreach ($user->sponsorships as $element)
+                    @forelse ($user->sponsorships as $element)
                         <div class="ms_box my-2 p-2 d-flex align-items-center justify-content-between">
 
                             <div>
@@ -121,7 +131,12 @@
                             </div>
 
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="text-center py-5">
+                            <h3>Mi dispiace non hai sponsorizzazioni!</h3>
+                        </div>
+                    @endforelse
+
                 </div>
 
             </div>

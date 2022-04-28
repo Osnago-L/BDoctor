@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-5">
-    <div class="row justify-content-center">
+    <div class="container py-5">
+        <div class="row justify-content-center py-2">
 
-    {{-- ~~~~~~~~~~~~~~~~~~~~~~~~~ VECCHIO LOGIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --}}
-    {{-- <div class="card-body">
+            {{-- ~~~~~~~~~~~~~~~~~~~~~~~~~ VECCHIO LOGIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --}}
+            {{-- <div class="card-body">
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
@@ -116,112 +116,119 @@
         </form>
     </div> --}}
 
-    {{-- ~~~~~~~~~~~~~~~~~~~~~~ NUOVO LOGIN ~~~~~~~~~~~~~~~~~~~~~~~ --}}
-    <form method="POST" class="form register  mr-5" action="{{ route('register') }}">
-        
-        <div class="title">Benvenuto!</div>
-        <div class="subtitle">Crea un account</div>
+            {{-- ~~~~~~~~~~~~~~~~~~~~~~ NUOVO LOGIN ~~~~~~~~~~~~~~~~~~~~~~~ --}}
+            <form method="POST" class="form register  mr-5" action="{{ route('register') }}">
 
-        @csrf
-        {{----------------------------------- NOME -----------------------------------}}
-        <div class="input-container ic1">
-            <input id="name" type="text" class="input @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder=" " required autocomplete="name" autofocus>
-            <div class="cut cut-short"></div>
-            <label for="name" class="placeholder">Nome</label>
-            @error('name')
-                <span class="invalid-feedback text-right" role="alert">
-                    <strong>{{ __($message) }}</strong>
-                </span>
-            @enderror
-        </div>
-        {{----------------------------------- COGNOME -----------------------------------}}
-        <div class="input-container ic1">
-            <input id="surname" type="text" class="input @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" placeholder=" " required autocomplete="surname" autofocus>
-            <div class="cut"></div>
-            <label for="surname" class="placeholder">Cognome</label>
-            @error('surname')
-                <span class="invalid-feedback text-right" role="alert">
-                    <strong>{{ __($message) }}</strong>
-                </span>
-            @enderror
-        </div>
-        {{----------------------------------- EMAIL -----------------------------------}}
-        <div class="input-container ic1">
-            <input id="email" type="text" class="input @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder=" " required autocomplete="email" autofocus>
-            <div class="cut cut-short"></div>
-            <label for="email" class="placeholder">Email</label>
-            @error('email')
-                <span class="invalid-feedback text-right" role="alert">
-                    <strong>{{ __($message) }}</strong>
-                </span>
-            @enderror
-        </div>
-        {{----------------------------------- INDIRIZZO -----------------------------------}}
-        <div class="input-container ic1">
-            <input id="address" type="text" class="input @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" placeholder=" " required autocomplete="address" autofocus>
-            <div class="cut"></div>
-            <label for="address" class="placeholder">Indirizzo</label>
-            @error('address')
-                <span class="invalid-feedback text-right" role="alert">
-                    <strong>{{ __($message) }}</strong>
-                </span>
-            @enderror
-        </div>
-        {{----------------------------------- SPECIALIZZAZIONE PRIMARIA -----------------------------------}}
-        <div class="form-group py-1">
-            <label class="text-white" for="">Specializzazione</label>
-            <select name="title_id" id="title_id"   class="input  @error('title_id') is-invalid @enderror">
-                <option selected>
-                    Scegli..
-                </option>
-                    @foreach ($titles as $title)
-                        <option value="{{ $title->id }}">
-                                {{ $title->name }}
+                <div class="title">Benvenuto!</div>
+                <div class="subtitle">Crea un account</div>
+
+                @csrf
+                {{-- --------------------------------- NOME --------------------------------- --}}
+                <div class="input-container ic1">
+                    <input id="name" type="text" class="input @error('name') is-invalid @enderror" name="name"
+                        value="{{ old('name') }}" placeholder=" " required autocomplete="name" autofocus>
+                    <div class="cut cut-short"></div>
+                    <label for="name" class="placeholder">Nome</label>
+                    @error('name')
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                {{-- --------------------------------- COGNOME --------------------------------- --}}
+                <div class="input-container ic1">
+                    <input id="surname" type="text" class="input @error('surname') is-invalid @enderror" name="surname"
+                        value="{{ old('surname') }}" placeholder=" " required autocomplete="surname" autofocus>
+                    <div class="cut"></div>
+                    <label for="surname" class="placeholder">Cognome</label>
+                    @error('surname')
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                {{-- --------------------------------- EMAIL --------------------------------- --}}
+                <div class="input-container ic1">
+                    <input id="email" type="text" class="input @error('email') is-invalid @enderror" name="email"
+                        value="{{ old('email') }}" placeholder=" " required autocomplete="email" autofocus>
+                    <div class="cut cut-short"></div>
+                    <label for="email" class="placeholder">Email</label>
+                    @error('email')
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                {{-- --------------------------------- INDIRIZZO --------------------------------- --}}
+                <div class="input-container ic1">
+                    <input id="address" type="text" class="input @error('address') is-invalid @enderror" name="address"
+                        value="{{ old('address') }}" placeholder=" " required autocomplete="address" autofocus>
+                    <div class="cut"></div>
+                    <label for="address" class="placeholder">Indirizzo</label>
+                    @error('address')
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                {{-- --------------------------------- SPECIALIZZAZIONE PRIMARIA --------------------------------- --}}
+                <div class="form-group py-1">
+                    <label class="text-white" for="">Specializzazione</label>
+                    <select name="title_id" id="title_id" class="input color  @error('title_id') is-invalid @enderror">
+                        <option selected>
+                            Scegli..
                         </option>
-                    @endforeach
-            </select>   
-            @error('title_id')
-                <span class="invalid-feedback text-right" role="alert">
-                    <strong>{{ __($message) }}</strong>
-                </span>
-            @enderror
-        </div>
-        {{----------------------------------- PASSWORD -----------------------------------}}
-        <div class="input-container ic1">
-            <input id="password" type="password" class="input @error('password') is-invalid @enderror" name="password"  placeholder=" " required autocomplete="new-password">
-            <div class="cut"></div>
-            <label for="password" class="placeholder">Password</label>
-            @error('password')
-                <span class="invalid-feedback text-right" role="alert">
-                    <strong>{{ __($message) }}</strong>
-                </span>
-            @enderror
-        </div>
-        {{----------------------------------- CONFERMA PASSWORD -----------------------------------}}
-        <div class="input-container ic1">
-            <input id="password-confirmation" type="password" class="input @error('password_confirmation') is_invalid @enderror" name="password_confirmation"  placeholder=" " required autocomplete="new-password">
-            <div class="cut cut-long"></div>
-            <label for="password-confirm" class="placeholder">Conferma Password</label>
-            @error('password_confirmation')
-            <span class="invalid-feedback text-right" role="alert">
-                <strong>{{ __($message) }}</strong>
-            </span>
-            @enderror
-        </div>
-        {{----------------------------------- BOTTONI -----------------------------------}}
-        <div class="form-group row mb-0">
-            <div class="col-12  py-2">
-                <button type="submit" class="ms_buttonform text-white px-3">
-                    Registrati
-                </button>
-            </div>
-            <div class="col-12 px-3 text-white">
-                Hai già un account?<a class="text-white px-2" href="{{ route('login') }}">Accedi Subito!</a>
-            </div>
-        </div>
-    
-    </form>
+                        @foreach ($titles as $title)
+                            <option value="{{ $title->id }}">
+                                {{ $title->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('title_id')
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                {{-- --------------------------------- PASSWORD --------------------------------- --}}
+                <div class="input-container ic1">
+                    <input id="password" type="password" class="input @error('password') is-invalid @enderror"
+                        name="password" placeholder=" " required autocomplete="new-password">
+                    <div class="cut"></div>
+                    <label for="password" class="placeholder">Password</label>
+                    @error('password')
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                {{-- --------------------------------- CONFERMA PASSWORD --------------------------------- --}}
+                <div class="input-container ic1">
+                    <input id="password-confirmation" type="password"
+                        class="input @error('password_confirmation') is_invalid @enderror" name="password_confirmation"
+                        placeholder=" " required autocomplete="new-password">
+                    <div class="cut cut-long"></div>
+                    <label for="password-confirm" class="placeholder">Conferma Password</label>
+                    @error('password_confirmation')
+                        <span class="invalid-feedback text-right" role="alert">
+                            <strong>{{ __($message) }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                {{-- --------------------------------- BOTTONI --------------------------------- --}}
+                <div class="form-group row mb-0">
+                    <div class="col-12  py-2">
+                        <button type="submit" class="ms_buttonform text-white px-3">
+                            Registrati
+                        </button>
+                    </div>
+                    <div class="col-12 px-3 text-white">
+                        Hai già un account?<a class="text-white px-2" href="{{ route('login') }}">Accedi Subito!</a>
+                    </div>
+                </div>
 
+            </form>
+
+        </div>
     </div>
-</div>
 @endsection
