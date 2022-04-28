@@ -1,8 +1,8 @@
 <template>
     <div class="all_bac">
-        <div class="container">
+        <div class="container pb-4">
             <div class="row">
-                <div class="col-lg-7 mr-5 mt-4 col-12 profile_scr">
+                <div class="col-lg-7 mr-5 mt-4 pb-5 col-12 profile_scr">
                     <!-- <div
                         v-if="doctor.sponsorships.length == 0"
                         class="col-2 mt-4"
@@ -18,13 +18,18 @@
                     >
                         <div class="col-4 text-center">
                             <div v-if="doctor.birth_date">
-                                <span><i class="fa-solid fa-calendar"></i></span>
+                                <span
+                                    ><i class="fa-solid fa-calendar"></i
+                                ></span>
                                 {{
                                     formattazione_anno(doctor.birth_date, true)
                                 }}
                             </div>
                             <div>
-                                <span><i class="fa-solid fa-location-pin"></i></span> {{ doctor.address }}
+                                <span
+                                    ><i class="fa-solid fa-location-pin"></i
+                                ></span>
+                                {{ doctor.address }}
                             </div>
                             <div class="my_hr"></div>
                         </div>
@@ -50,15 +55,11 @@
                     </div>
                     <div class="text-center mt-4">
                         <h2>
-                            {{
-                                doctor.name
-                            }}
-                            {{
-                                doctor.surname
-                            }}
+                            {{ doctor.name }}
+                            {{ doctor.surname }}
                         </h2>
                     </div>
-                    <div class="row justify-content-around">
+                    <div class="row justify-content-around mb-4">
                         <div class="bb col-5 mt-4">
                             <ul>
                                 <h5 class="ml-2">
@@ -74,7 +75,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="bb col-5 mt-4">
+                        <div class="bb col-5 mt-4 ">
                             <ul>
                                 <h5 class="ml-2">
                                     <i class="fa-solid fa-stethoscope"></i>
@@ -92,15 +93,7 @@
                             </ul>
                         </div>
                     </div>
-                    
-                    <div>
-                        <h5 class="ml-4 mt-5">Curriculum Vitae:</h5>
-                        <div class="ml-4 txt random " v-if="doctor.cv">
-                            {{ doctor.cv }}
-                        </div>
-                        <div class="ml-4 txt" v-else>Il dottore non ha ancora caricato il cv</div>
-                    </div>
-                    <div class="text-center position_messageButton">
+                    <div class="text-center">
                         <router-link
                             :to="{ name: 'message', params: { id: doctor.id } }"
                             ><button type="button" class="rew_button">
@@ -108,6 +101,16 @@
                             </button></router-link
                         >
                     </div>
+                    <div>
+                        <h5 class="ml-4 mt-5">Curriculum Vitae:</h5>
+                        <div class="ml-4 txt" v-if="doctor.cv">
+                            {{ doctor.cv }}
+                        </div>
+                        <div class="ml-4 txt" v-else>
+                            Il dottore non ha ancora caricato il cv
+                        </div>
+                    </div>
+
                 </div>
                 <div class="col-lg-4 col-12 mt-4 h_rew text-center">
                     <div
@@ -120,10 +123,10 @@
                     </div>
                     <div class="personal_i" v-if="doctor.reviews.length > 0">
                         Media Recensioni:
-                        <span v-for="n in Math.floor(media(doctor.reviews))" :key="n">
+                        <span v-for="n in media(doctor.reviews)" :key="n">
                             <i class="star bi bi-star-fill"></i>
                             <!-- <i v-if="halfStar(media(doctor.reviews))" class="bi bi-star-half"></i> -->
-                        </span>                        
+                        </span>
                     </div>
                     <router-link
                         :to="{ name: 'review', params: { id: doctor.id } }"
@@ -146,9 +149,6 @@
                                     ><i class="user bi bi-person-fill"></i
                                     >{{ review.author }}</strong
                                 >
-                                <div class="date_rew">
-                                {{ formattazione_anno(review.created_at) }}
-                            </div>
                             </div>
                             <div class="">
                                 <h5>{{ review.title }}</h5>
@@ -164,7 +164,9 @@
                                     ><i class="star bi bi-star-fill"></i
                                 ></span>
                             </div>
-                            
+                            <div class="date_rew">
+                                {{ formattazione_anno(review.created_at) }}
+                            </div>
                         </div>
                     </div>
                     <div
@@ -186,8 +188,8 @@ export default {
     name: "SingleDoctor",
     data() {
         return {
-            doctor: {}, //deve ritornare un oggetto
-            media
+            doctor: "", //deve ritornare un oggetto
+            // media: ""
         };
     },
     methods: {
@@ -206,7 +208,11 @@ export default {
             }
         },
         media(data) {
-            console.log(data);
+            console.log(
+                "🚀 ~ file: SingleDoctor.vue ~ line 209 ~ media ~ data",
+                data
+            );
+
             let getLength = data.length;
             if (getLength == 0) {
                 return 0;
@@ -380,10 +386,4 @@ ul {
     list-style-type: none;
 }
 
-.random{
-    max-height:300px;
-    overflow: scroll;
-    text-overflow: ellipsis;
-
-}
 </style>

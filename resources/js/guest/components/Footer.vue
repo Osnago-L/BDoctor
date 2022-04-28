@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="top-right d-flex align-items-center justify-content-lg-start my-sm-3 col-md-6 col-sm-12">
+            <div class="top-right d-flex align-items-center justify-content-lg-end my-sm-3 col-md-6 col-sm-12">
 
                 <section class="social-links col-3 d-flex justify-content-between">
 

@@ -162,7 +162,7 @@
                         <p>Iscriviti e raggiungi nuovi pazienti</p>
                         <p>
                             Più di 2 milioni di pazienti cercano ogni mese il
-                            loro Medico su iDoctors, il primo sito in Italia per
+                            loro Medico su BDoctors, il primo sito in Italia per
                             visitatori e numero di prenotazioni.
                         </p>
                         <p>Con BDoctors:</p>

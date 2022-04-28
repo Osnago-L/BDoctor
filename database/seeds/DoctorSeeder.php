@@ -8,6 +8,7 @@ use Faker\Factory as FakerITA;
 use App\User;
 use App\Title;
 use App\Sponsorship;
+use App\Performance;
 
 
 
@@ -41,6 +42,9 @@ class DoctorSeeder extends Seeder
 
             $titleId = Title::inRandomOrder()->first()->id; // prende uno degli id esistenti a casaccio
             $doctor->titles()->sync([$titleId]);
+
+            $performanceId = Performance::inRandomOrder()->first()->id; // prende uno degli id esistenti a casaccio
+            $doctor->performances()->sync([$performanceId]);
 
 
             if (rand(0,1)){

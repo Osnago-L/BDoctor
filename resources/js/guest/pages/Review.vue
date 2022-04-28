@@ -453,13 +453,13 @@ export default {
         background-color: white;
         border-radius: 8px;
         box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.2);
-        height: calc(100vh - 90px);
+        height: calc(100vh - 170px);
     }
     .profile_scr::-webkit-scrollbar {
         display: none;
     }
     .img-show {
-        background-image: url("../../../../public/img/default_user.webp");
+        background-image: url("https://cdn-icons-png.flaticon.com/512/149/149071.png");
         background-position: center;
         background-size: cover;
         height: 65px;
@@ -476,6 +476,7 @@ export default {
         font-size: 12px;
     }
     .my_hr {
+        height: calc(100vh - 170px);
         margin-top: 20px;
         background-color: rgba($ms_blue, 0.3);
         height: 2px;
@@ -509,7 +510,7 @@ export default {
         color: $ms_green;
     }
     .blu_ln {
-        height: calc(100vh - 90px);
+        height: calc(100vh - 170px);
         overflow: scroll;
         border-bottom: 4px solid $ms_blue;
         border-top: 4px solid $ms_blue;

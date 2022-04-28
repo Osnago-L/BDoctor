@@ -1,5 +1,5 @@
 <template>
-    <div class="ground all_page py-5">
+    <div class="ground all_page pb-5">
         <div class="container">
             <div class="row justify-content-between">
                 <!-- <div class="col-3 text-center d-lg-none">
@@ -50,7 +50,7 @@
                                 />
                             </div>
 
-                            <div class="d-lg-none img-show" v-else>
+                            <div class=" img-show" v-else>
                                 <img
                                     class="w-100"
                                     src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
@@ -104,7 +104,7 @@
                     <div class="title">
                         Scrivi un messaggio a {{ doctor.name }} {{ doctor.surname }}
                     </div>
-                    <div class="input-container ic1">
+                    <div class="input-container ic1 mb-2">
                         <input
                             type="text"
                             class="input"
@@ -116,7 +116,7 @@
                         <label for="firstname" class="placeholder">Nome</label>
                         <div v-show="errors.name">
                             <ul>
-                                <li class="errorss">
+                                <li class="errorss text-right">
                                     {{ errors.name }}
                                 </li>
                             </ul>
@@ -134,7 +134,7 @@
                         <label for="lastname" class="placeholder">Email</label>
                         <div v-show="errors.mail">
                             <ul>
-                                <li class="errorss">
+                                <li class="errorss text-right">
                                     {{ errors.mail }}
                                 </li>
                             </ul>
@@ -152,7 +152,7 @@
                         <label for="text" class="placeholder">Testo</label>
                         <div v-show="errors.message">
                             <ul>
-                                <li class="errorss">
+                                <li class="errorss text-right">
                                     {{ errors.message }}
                                 </li>
                             </ul>
